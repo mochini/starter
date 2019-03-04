@@ -1,0 +1,26 @@
+import onFinished from 'on-finished'
+import knex from '../lib/knex'
+
+const withTransaction = (req, res, next) => {
+
+  knex.transaction(trx => {
+
+    req.trx = trx
+
+    onFinished(res, function (err, res) {
+      if (err || (res.statusCode && res.statusCode >= 400)) {
+        trx.rollback()
+      } else {
+        trx.commit()
+      }
+    })
+
+    next()
+
+  }).catch(err => {})
+
+  next()
+
+}
+
+export default withTransaction

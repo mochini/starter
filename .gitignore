@@ -1,0 +1,10 @@
+!.env.example
+.env*
+node_modules
+npm-debug.log
+.DS_Store
+dist
+!knexfile.example.js
+knexfile.js
+deploy.js
+REVISION
