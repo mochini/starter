@@ -1,5 +1,6 @@
-!.env.example
-.env*
+.env
+.env.test
+.env.production
 node_modules
 npm-debug.log
 .DS_Store
