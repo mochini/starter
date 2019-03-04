@@ -9,3 +9,6 @@ dist
 knexfile.js
 deploy.js
 REVISION
+/tmp/*
+!/tmp/.gitkeep
+.DS_Store
