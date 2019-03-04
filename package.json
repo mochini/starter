@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "babel-node ./src/scripts/dev.js",
+    "deploy": "shipit production deploy --shipitfile ./src/deploy/shipitfile.js",
     "reset": "knex migrate:rollback && knex migrate:latest && knex seed:run",
     "server": "babel-node ./src/server/index.js",
     "test": "babel-node ./src/scripts/test.js"
@@ -37,7 +38,7 @@
     "mini-css-extract-plugin": "^0.5.0",
     "mocha": "^5.2.0",
     "postcss-loader": "^3.0.0",
-    "shipit-cli": "^4.1.2",
+    "shipit-cli": "^4.2.0",
     "shipit-deploy": "^4.1.4",
     "sinon": "^7.2.7",
     "style-loader": "^0.23.1",

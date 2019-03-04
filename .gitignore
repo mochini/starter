@@ -11,4 +11,6 @@ deploy.js
 REVISION
 /tmp/*
 !/tmp/.gitkeep
+/repo/*
+!/repo/.gitkeep
 .DS_Store
