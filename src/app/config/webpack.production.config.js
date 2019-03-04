@@ -1,6 +1,5 @@
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
-import ScriptPlugin from './webpack/script_plugin'
-import StylePlugin from './webpack/style_plugin'
+import DynamicPlugin from './dynamic_plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import autoprefixer from 'autoprefixer'
 import webpack from 'webpack'
@@ -60,8 +59,7 @@ const config = () => ({
     publicPath: '/'
   },
   plugins: [
-    new ScriptPlugin(),
-    new StylePlugin(),
+    new DynamicPlugin(),
     new MiniCssExtractPlugin({
       path: path.resolve('public'),
       filename: path.join('css', 'bundle-[hash].min.css'),

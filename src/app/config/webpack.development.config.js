@@ -1,5 +1,4 @@
-import ScriptPlugin from './webpack/script_plugin'
-import StylePlugin from './webpack/style_plugin'
+import DynamicPlugin from './dynamic_plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import autoprefixer from 'autoprefixer'
 import webpack from 'webpack'
@@ -62,8 +61,7 @@ const config = () => ({
     publicPath: '/'
   },
   plugins: [
-    new ScriptPlugin(),
-    new StylePlugin(),
+    new DynamicPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       template: path.resolve('src', 'app','index.html')

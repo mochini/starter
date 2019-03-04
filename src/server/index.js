@@ -22,5 +22,5 @@ server.use(withTransaction)
 server.use('/api', api)
 
 server.listen(3001, () => {
-  console.log('Express listening at 3001')
+  console.log('Listening at 3001')
 })
