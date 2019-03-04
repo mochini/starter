@@ -5,7 +5,7 @@ import App from './app'
 
 const index = (reducers) => {
 
-  ReactDOM.render(<App reducers={ reducers } />, document.getElementById('app'))
+  ReactDOM.render(<App reducers={ reducers } />, document.getElementById('main'))
 
 }
 

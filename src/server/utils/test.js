@@ -30,9 +30,19 @@ export const testHandler = async (handler, options = {}) => {
     trx: global.knex
   }
 
+  const next = () => {}
+
   try {
 
-    await handler(req, res)
+    if(options.error) {
+
+      await handler(options.error, req, res, next)
+
+    } else {
+
+      await handler(req, res, next)
+
+    }
 
   } catch(err) {
 

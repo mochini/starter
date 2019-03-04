@@ -4,45 +4,12 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="user-scalable=no, initial-scale=1, width=device-width, height=device-height, maximum-scale=1, minimum-scale=1, viewport-fit=cover">
-    <meta name="apple-mobile-web-app-title" content="College Tourist">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="College Tourist">
-    <link rel="apple-touch-icon" sizes="57x57" href="/images/icons/ios/icon.png" />
-    <link rel="apple-touch-icon" sizes="114x114" href="/images/icons/ios/icon@2x.png" />
-    <link rel="apple-touch-icon" sizes="40x40" href="/images/icons/ios/icon-40.png" />
-    <link rel="apple-touch-icon" sizes="80x80" href="/images/icons/ios/icon-40@2x.png" />
-    <link rel="apple-touch-icon" sizes="50x50" href="/images/icons/ios/icon-50.png" />
-    <link rel="apple-touch-icon" sizes="100x100" href="/images/icons/ios/icon-50@2x.png" />
-    <link rel="apple-touch-icon" sizes="60x60" href="/images/icons/ios/icon-60.png" />
-    <link rel="apple-touch-icon" sizes="120x120" href="/images/icons/ios/icon-60@2x.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/images/icons/ios/icon-60@3x.png" />
-    <link rel="apple-touch-icon" sizes="72x72" href="/images/icons/ios/icon-72.png" />
-    <link rel="apple-touch-icon" sizes="144x144" href="/images/icons/ios/icon-72@2x.png" />
-    <link rel="apple-touch-icon" sizes="76x76" href="/images/icons/ios/icon-76.png" />
-    <link rel="apple-touch-icon" sizes="152x152" href="/images/icons/ios/icon-76@2x.png" />
-    <link rel="apple-touch-icon" sizes="29x29" href="/images/icons/ios/icon-small.png" />
-    <link rel="apple-touch-icon" sizes="58x58" href="/images/icons/ios/icon-small@2x.png" />
-    <link rel="apple-touch-icon" sizes="87x87" href="/images/icons/ios/icon-small@3x.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/images/icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/images/icons/favicon-16x16.png">
-    <link rel="shortcut icon" href="/favicon.png">
     <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/css/semantic.min.css">
     <link rel="stylesheet" type="text/css" href="/css/animate.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/weather-icons.min.css">
-    <title>College Tourist</title>
-    <script type="text/javascript">
-    <% if(process.env.NODE_ENV === 'production') { %>
-      (function(c,a){if(!a.__SV){var b=window;try{var d,m,j,k=b.location,f=k.hash;d=function(a,b){return(m=a.match(RegExp(b+"=([^&]*)")))?m[1]:null};f&&d(f,"state")&&(j=JSON.parse(decodeURIComponent(d(f,"state"))),"mpeditor"===j.action&&(b.sessionStorage.setItem("_mpcehash",f),history.replaceState(j.desiredHash||"",c.title,k.pathname+k.search)))}catch(n){}var l,h;window.mixpanel=a;a._i=[];a.init=function(b,d,g){function c(b,i){var a=i.split(".");2==a.length&&(b=b[a[0]],i=a[1]);b[i]=function(){b.push([i].concat(Array.prototype.slice.call(arguments,
-      0)))}}var e=a;"undefined"!==typeof g?e=a[g]=[]:g="mixpanel";e.people=e.people||[];e.toString=function(b){var a="mixpanel";"mixpanel"!==g&&(a+="."+g);b||(a+=" (stub)");return a};e.people.toString=function(){return e.toString(1)+".people (stub)"};l="disable time_event track track_pageview track_links track_forms track_with_groups add_group set_group remove_group register register_once alias unregister identify name_tag set_config reset opt_in_tracking opt_out_tracking has_opted_in_tracking has_opted_out_tracking clear_opt_in_out_tracking people.set people.set_once people.unset people.increment people.append people.union people.track_charge people.clear_charges people.delete_user people.remove".split(" ");
-      for(h=0;h<l.length;h++)c(e,l[h]);var f="set set_once union unset remove delete".split(" ");e.get_group=function(){function a(c){b[c]=function(){call2_args=arguments;call2=[c].concat(Array.prototype.slice.call(call2_args,0));e.push([d,call2])}}for(var b={},d=["get_group"].concat(Array.prototype.slice.call(arguments,0)),c=0;c<f.length;c++)a(f[c]);return b};a._i.push([b,d,g])};a.__SV=1.2;b=c.createElement("script");b.type="text/javascript";b.async=!0;b.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?
-      MIXPANEL_CUSTOM_LIB_URL:"file:"===c.location.protocol&&"//cdn4.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//)?"https://cdn4.mxpnl.com/libs/mixpanel-2-latest.min.js":"//cdn4.mxpnl.com/libs/mixpanel-2-latest.min.js";d=c.getElementsByTagName("script")[0];d.parentNode.insertBefore(b,d)}})(document,window.mixpanel||[]);
-      mixpanel.init("f617bfa5887e50aecef8cf8bfa8d8d4a");
-    <% } %>
-    </script>
+    <title>Static</title>
   </head>
   <body>
-    <main id="app"></main>
-    <script src="https://maps.googleapis.com/maps/api/js?key=<%= process.env.GOOGLE_API_KEY %>&libraries=places" async defer></script>
+    <main id="main"></main>
   </body>
 </html>

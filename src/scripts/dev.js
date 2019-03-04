@@ -25,5 +25,5 @@ const devserver = new devServer(Webpack(config()), {
 })
 
 devserver.listen(3000, {}, () => {
-  console.info('devserver listening on 3000')
+  console.info('Webpack DevServer listening on 3000')
 })

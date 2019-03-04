@@ -14,7 +14,7 @@ class Home extends React.Component {
   render() {
     return (
       <div>
-        Hello World!<br />
+        Hello World! foo bar<br />
       </div>
     )
   }

@@ -4,23 +4,26 @@ import glob from 'glob'
 import Knex from 'knex'
 import fs from 'fs'
 
-if(fs.existsSync('.env.test')) dotenv.load({
-  path: '.env.test'
-})
+if(!fs.existsSync('.env.test')) {
+  console.log('Could not find .env.test')
+  process.exit()
+}
+
+dotenv.load({ path: '.env.test' })
 
 const knex = Knex({
   client: 'pg',
   connection: process.env.DATABASE_URL,
   migrations: {
     tableName: 'knex_migrations',
-    directory: './src/db/migrations'
+    directory: './src/server/db/migrations'
   },
   pool: {
     min: 1,
     max: 1
   },
   seeds: {
-    directory: './src/db/fixtures'
+    directory: './src/server/db/fixtures'
   },
   useNullAsDefault: true
 })
