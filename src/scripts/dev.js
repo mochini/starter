@@ -54,8 +54,6 @@ const clientWatch = () => {
     watchContentBase: true,
     open: true,
     proxy: {
-      '/imagecache/*': 'http://localhost:3001',
-      '/signin/*': 'http://localhost:3001',
       '/api/*': 'http://localhost:3001'
     },
     historyApiFallback: {

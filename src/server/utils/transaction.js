@@ -19,8 +19,6 @@ const withTransaction = (req, res, next) => {
 
   }).catch(err => {})
 
-  next()
-
 }
 
 export default withTransaction
