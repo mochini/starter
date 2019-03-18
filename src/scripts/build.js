@@ -1,4 +1,5 @@
 import { transform } from 'babel-core'
+import webpack from 'webpack'
 import rimraf from 'rimraf'
 import mkdirp from 'mkdirp'
 import dotenv from 'dotenv'
@@ -7,6 +8,8 @@ import ncp from 'ncp'
 import fs from 'fs'
 
 dotenv.load({ path: path.join('.env') })
+
+const config = require(`../app/config/webpack.${process.env.NODE_ENV}.config`).default
 
 const copy = (src, dest) => Promise.promisify(ncp)(src, dest)
 
@@ -47,9 +50,21 @@ const compilePath = async (base) => {
 
 }
 
-const compile = async () => {
+const webpackClient = () => new Promise((resolve, reject) => {
 
-  console.log('Building code')
+  webpack(config()).run((err, stats) => {
+
+    if(err) reject(err)
+
+    resolve(stats)
+
+  })
+
+})
+
+const compileServer = async () => {
+
+  console.log('Compiling server')
 
   rimraf.sync(path.join('dist'))
 
@@ -57,4 +72,20 @@ const compile = async () => {
 
 }
 
-compile().then(process.exit)
+const compileClient = async () => {
+
+  console.log('Compiling client')
+
+  await webpackClient()
+
+}
+
+const build = async () => {
+
+  await compileServer()
+
+  await compileClient()
+
+}
+
+build().then(() => process.exit())

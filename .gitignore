@@ -7,7 +7,6 @@ npm-debug.log
 dist
 !knexfile.example.js
 knexfile.js
-deploy.js
 REVISION
 /tmp/*
 !/tmp/.gitkeep
