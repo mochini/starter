@@ -16,7 +16,7 @@ const log = (...options) => {
 const serverWatch = async () => {
 
   const proc = spawn('nodemon', [
-    path.resolve('src','server','index.js'),
+    path.resolve('src','scripts','server.js'),
     '--color',
     '--quiet',
     '--exec',
