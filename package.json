@@ -6,10 +6,8 @@
   "scripts": {
     "build": "NODE_ENV=production babel-node ./src/scripts/build.js",
     "dev": "babel-node ./src/scripts/dev.js",
-    "deploy": "shipit production deploy --shipitfile ./src/deploy/shipitfile.js",
+    "deploy": "babel-node ./src/scripts/deploy.js",
     "reset": "knex migrate:rollback && knex migrate:latest && knex seed:run",
-    "server": "babel-node ./src/server/index.js",
-    "start": "NODE_ENV=production node ./dist/server/index.js",
     "test": "babel-node ./src/scripts/test.js"
   },
   "keywords": [],
