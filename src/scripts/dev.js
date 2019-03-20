@@ -47,14 +47,15 @@ const serverWatch = async () => {
 const clientWatch = () => {
 
   const devserver = new devServer(Webpack(config()), {
-    contentBase: path.join('src', 'public'),
+    contentBase: path.join('src', 'app', 'public'),
     compress: true,
     hot: true,
     stats: 'errors-only',
     watchContentBase: true,
     open: true,
     proxy: {
-      '/api/*': 'http://localhost:3001'
+      '/api/*': 'http://localhost:3001',
+      '/locales/*': 'http://localhost:3001'
     },
     historyApiFallback: {
       disableDotRule: true,

@@ -3,7 +3,8 @@ import path from 'path'
 
 i18n.configure({
   locales:['en'],
-  directory: path.resolve(__dirname, '..', 'locales')
+  directory: path.resolve(__dirname, '..', '..', 'locales'),
+  extension: '/server.json'
 })
 
 export default i18n

@@ -9,7 +9,8 @@ import { Provider } from 'react-redux'
 import { hot } from 'react-hot-loader'
 import localforage from 'localforage'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { Suspense } from 'react'
+import './lib/i18n'
 
 import RouterStack from './components/stack/router'
 import NotFound from './pages/not_found'
@@ -28,11 +29,13 @@ class App extends React.Component {
 
   render() {
     return (
-      <Provider store={ this.store }>
-        <Router>
-          <RouterStack { ...this._getStack() } />
-        </Router>
-      </Provider>
+      <Suspense fallback={null}>
+        <Provider store={ this.store }>
+          <Router>
+            <RouterStack { ...this._getStack() } />
+          </Router>
+        </Provider>
+      </Suspense>
     )
   }
 

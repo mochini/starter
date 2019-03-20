@@ -7,6 +7,7 @@ import logger from './utils/logger'
 import ping from './utils/ping'
 import express from 'express'
 import i18n from './lib/i18n'
+import path from 'path'
 import api from './api'
 import qs from 'qs'
 
@@ -21,6 +22,10 @@ server.use(bodyParser.json({ limit: '5mb' }))
 server.use(multiparty({ uploadDir: './tmp' }))
 
 server.use(i18n.init)
+
+server.use(express.static(path.join(__dirname, '..', 'app', 'public')))
+
+server.use('/locales', express.static(path.join(__dirname, '..', 'locales')))
 
 server.use(withTransaction)
 

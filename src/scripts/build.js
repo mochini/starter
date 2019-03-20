@@ -11,7 +11,10 @@ dotenv.load({ path: path.join('.env') })
 
 const config = require(`../app/config/webpack.${process.env.NODE_ENV}.config`).default
 
-const copy = (src, dest) => Promise.promisify(ncp)(src, dest)
+const copy = (src, dest) => new Promise((resolve, reject) => ncp(src, dest, (err) => {
+  if(err) reject(err)
+  resolve()
+}))
 
 const transpile = (source) => {
 
@@ -32,7 +35,7 @@ const transpile = (source) => {
 
 const compilePath = async (base) => {
 
-  const dest = base.replace('src/server', 'dist')
+  const dest = base.replace('src/server', 'dist/server')
 
   mkdirp.sync(dest)
 
@@ -69,6 +72,8 @@ const compileServer = async () => {
   rimraf.sync(path.join('dist'))
 
   await compilePath(path.join('src','server'))
+
+  await copy(path.join('src','locales'), path.join('dist','locales'))
 
 }
 

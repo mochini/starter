@@ -1,6 +1,7 @@
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
-import DynamicPlugin from './dynamic_plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
+import DynamicPlugin from './dynamic_plugin'
+import CopyPlugin from 'copy-webpack-plugin'
 import autoprefixer from 'autoprefixer'
 import webpack from 'webpack'
 import cssnano from 'cssnano'
@@ -54,14 +55,18 @@ const config = () => ({
     runtimeChunk: true
   },
   output: {
-    path: path.resolve('public'),
+    path: path.resolve('dist','app','public'),
     filename: path.join('js', 'bundle-[hash].min.js'),
     publicPath: '/'
   },
   plugins: [
     new DynamicPlugin(),
+    new CopyPlugin([{
+      from: path.resolve('src','app','public'),
+      to: path.resolve('dist','app','public')
+    }]),
     new MiniCssExtractPlugin({
-      path: path.resolve('public'),
+      path: path.resolve('dist','app','public'),
       filename: path.join('css', 'bundle-[hash].min.css'),
       publicPath: '/'
     }),
