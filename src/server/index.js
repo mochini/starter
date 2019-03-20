@@ -6,6 +6,7 @@ import bodyParser from 'body-parser'
 import logger from './utils/logger'
 import ping from './utils/ping'
 import express from 'express'
+import i18n from './lib/i18n'
 import api from './api'
 import qs from 'qs'
 
@@ -18,6 +19,8 @@ server.use(bodyParser.urlencoded({ extended: true, limit: '5mb' }))
 server.use(bodyParser.json({ limit: '5mb' }))
 
 server.use(multiparty({ uploadDir: './tmp' }))
+
+server.use(i18n.init)
 
 server.use(withTransaction)
 

@@ -1,9 +1,14 @@
+import i18n from '../lib/i18n'
+
 export const testHandler = async (handler, options = {}) => {
 
   const res = {
     _json: null,
     _message: null,
     _status: null,
+    __: function(text) {
+      return i18n.__(text)
+    },
     status: function(status) {
       if(!status) return this._status
       this._status = status

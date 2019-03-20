@@ -36,11 +36,11 @@ const logger = (req, res, next) => {
 
     log.push(`${chalk.white('REQUEST:')} ${req.method} ${url}`)
 
-    if(Object.keys(req.params).length > 0) log.push(`${chalk.red('PARAMS:')} ${chalk.grey(JSON.stringify(req.params))}`)
+    if(req.params && Object.keys(req.params).length > 0) log.push(`${chalk.red('PARAMS:')} ${chalk.grey(JSON.stringify(req.params))}`)
 
-    if(Object.keys(req.body).length > 0) log.push(`${chalk.red('BODY:')} ${chalk.grey(JSON.stringify(req.body))}`)
+    if(req.body && Object.keys(req.body).length > 0) log.push(`${chalk.red('BODY:')} ${chalk.grey(JSON.stringify(req.body))}`)
 
-    if(Object.keys(req.query).length > 0) log.push(`${chalk.red('QUERY:')} ${chalk.grey(JSON.stringify(req.query))}`)
+    if(req.query && Object.keys(req.query).length > 0) log.push(`${chalk.red('QUERY:')} ${chalk.grey(JSON.stringify(req.query))}`)
 
     if(req.user) log.push(`${chalk.red('USER:')}  ${chalk.grey(`${req.user.get('full_name')} (#${req.user.get('id')})`)}`)
 
