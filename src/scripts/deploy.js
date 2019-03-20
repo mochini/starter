@@ -1,10 +1,32 @@
 import '../server/lib/environment'
-import shipitfile from '../deploy/shipitfile'
+import deploy from 'shipit-deploy'
+import utils from 'shipit-utils'
 import Shipit from 'shipit-cli'
 import mkdirp from 'mkdirp'
 import path from 'path'
 
-const deploy = async () => {
+const shipitfile = (shipit) => {
+
+  deploy(shipit)
+
+  shipit.initConfig({
+    default: {
+      deployTo: '',
+      repositoryUrl: '',
+      key: '',
+      workspace: path.resolve('repo'),
+      ignores: ['.git', 'node_modules'],
+      keepReleases: 2,
+      strict: 'no'
+    },
+    production: {
+      servers: ''
+    }
+  })
+
+}
+
+const processor = async () => {
 
   mkdirp.sync(path.join('repo'))
 
@@ -24,4 +46,4 @@ const deploy = async () => {
 
 }
 
-deploy()
+processor()
