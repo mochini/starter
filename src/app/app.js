@@ -1,7 +1,11 @@
 import { BrowserRouter as Router } from 'react-router-dom'
 import RouterStack from './components/stack/router'
+import Signin from './components/signin'
 import React, { Suspense } from 'react'
 import { hot } from 'react-hot-loader'
+import Presence from './components/presence'
+import Tracker from './components/tracker'
+import Portal from './components/portal'
 import Root from './components/root'
 import PropTypes from 'prop-types'
 import routes from './routes'
@@ -17,9 +21,15 @@ class App extends React.Component {
     return (
       <Suspense fallback={ null }>
         <Root { ...this._getRoot() }>
-          <Router>
-            <RouterStack { ...this._getStack() } />
-          </Router>
+          <Tracker>
+            <Router>
+              <Presence>
+                <Portal>
+                  <RouterStack { ...this._getStack() } />
+                </Portal>
+              </Presence>
+            </Router>
+          </Tracker>
         </Root>
       </Suspense>
     )

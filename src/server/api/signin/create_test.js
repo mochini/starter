@@ -29,7 +29,7 @@ describe('api/signin/create', () => {
     const res = await testHandler(create, req)
 
     expect(res.status()).to.be.equal(404)
-    expect(res.json().message).to.be.equal('Could not find user')
+    expect(res.json().errors.email[0]).to.be.equal('Could not find user')
 
   })
 
@@ -60,7 +60,7 @@ describe('api/signin/create', () => {
     const res = await testHandler(create, req)
 
     expect(res.status()).to.be.equal(422)
-    expect(res.json().message).to.be.equal('Password is not valid')
+    expect(res.json().errors.password[0]).to.be.equal('Password is not valid')
 
   })
 

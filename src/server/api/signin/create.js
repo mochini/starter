@@ -18,18 +18,20 @@ const route = async (req, res) => {
   })
 
   if(!user) return res.status(404).json({
-    message: res.t('Could not find user')
+    errors: {
+      email: [res.t('Could not find user')]
+    }
   })
 
   if(!user.authenticate(req.body.password)) return res.status(422).json({
-    message: res.t('Password is not valid')
+    errors: {
+      password: [res.t('Password is not valid')]
+    }
   })
-
-  const token = encode(user.get('id'))
 
   res.status(200).json({
     data: {
-      token
+      token: encode(user.get('id'))
     }
   })
 

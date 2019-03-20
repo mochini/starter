@@ -7,5 +7,6 @@
 	"No token": "No token",
 	"Unable to locate resource": "Unable to locate resource",
 	"Unable to save record": "Unable to save record",
-	"Forbidden": "Forbidden"
+	"Forbidden": "Forbidden",
+	"You are not signedin": "You are not signedin"
 }
