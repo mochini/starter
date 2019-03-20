@@ -7,7 +7,7 @@
     "build": "NODE_ENV=production babel-node ./src/scripts/build.js",
     "dev": "babel-node ./src/scripts/dev.js",
     "deploy": "babel-node ./src/scripts/deploy.js",
-    "reset": "knex migrate:rollback && knex migrate:latest && knex seed:run",
+    "knex": "babel-node ./src/scripts/knex.js",
     "test": "babel-node ./src/scripts/test.js"
   },
   "keywords": [],

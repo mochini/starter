@@ -1,11 +1,11 @@
 const error = (err, req, res, next) => {
 
   if(err.status) return res.status(err.status).json({
-    message: err.message
+    message: res.t(err.message)
   })
 
   if(err.errors) return res.status(422).json({
-    message: res.__('Unable to save record'),
+    message: res.t('Unable to save record'),
     errors: err.toJSON()
   })
 

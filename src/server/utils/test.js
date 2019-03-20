@@ -6,7 +6,7 @@ export const testHandler = async (handler, options = {}) => {
     _json: null,
     _message: null,
     _status: null,
-    __: function(text) {
+    t: function(text) {
       return i18n.__(text)
     },
     status: function(status) {

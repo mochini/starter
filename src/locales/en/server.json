@@ -1,4 +1,11 @@
 {
+	"Could not find user": "Could not find user",
+	"Password is not valid": "Password is not valid",
+	"Expired token": "Expired token",
+	"Invalid token": "Invalid token",
+	"Invalid user": "Invalid user",
+	"No token": "No token",
 	"Unable to locate resource": "Unable to locate resource",
-	"Unable to save record": "Unable to save record"
+	"Unable to save record": "Unable to save record",
+	"Forbidden": "Forbidden"
 }
