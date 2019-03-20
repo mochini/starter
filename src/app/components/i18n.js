@@ -5,7 +5,7 @@ import i18n from 'i18next'
 
 i18n.use(LanguageDetector).use(Backend).use(initReactI18next).init({
   fallbackLng: 'en',
-  debug: true,
+  debug: process.env.NODE_ENV !== 'production',
   backend: {
     loadPath: '/locales/{{lng}}/client.json'
   },
