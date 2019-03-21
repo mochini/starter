@@ -6,6 +6,7 @@ import React from 'react'
 class Portal extends React.Component {
 
   static contextTypes = {
+    uploader: PropTypes.object,
     presence: PropTypes.object
   }
 

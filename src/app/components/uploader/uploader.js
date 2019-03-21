@@ -11,7 +11,8 @@ class Uploader extends React.Component {
   }
 
   static contextTypes = {
-    host: PropTypes.object
+    host: PropTypes.object,
+    presence: PropTypes.object
   }
 
   static propTypes = {
@@ -25,7 +26,6 @@ class Uploader extends React.Component {
     onAddUpload: PropTypes.func,
     onComplete: PropTypes.func,
     onReset: PropTypes.func,
-    onSaveUpload: PropTypes.func,
     onUpdateUpload: PropTypes.func
   }
 
@@ -33,14 +33,15 @@ class Uploader extends React.Component {
     uploads: 0
   }
 
+  browse = null
+  drop = null
   resumable = null
-  upload = null
-  tour_id = null
-  visit_id = null
+  handler = null
 
   _handleAddUpload = this._handleAddUpload.bind(this)
   _handleBrowse = this._handleBrowse.bind(this)
   _handleComplete = this._handleComplete.bind(this)
+  _handleConfig = this._handleConfig.bind(this)
   _handleReset = this._handleReset.bind(this)
   _handleUpdateProgress = this._handleUpdateProgress.bind(this)
   _handleUploadSuccess = this._handleUploadSuccess.bind(this)
@@ -48,9 +49,9 @@ class Uploader extends React.Component {
   render() {
     const { active, children, percent, status, uploads } = this.props
     return (
-      <div className="uploader">
+      <div className="uploader" ref={ node => this.drop = node }>
         { children }
-        <div ref={ node => this.upload = node } />
+        <div ref={ node => this.browse = node } />
         { status !== 'pending' &&
           <div className="uploader-status">
             <div className="ui inverted segment">
@@ -66,7 +67,7 @@ class Uploader extends React.Component {
                       <div className="ui tiny green inverted progress">
                         <div className="bar" style={{ width: `${percent}%` }}></div>
                         <div className="label">
-                          Uploading { active + 1 } / { uploads.length } photos ({ percent }%)
+                          Uploading { active + 1 } / { uploads.length } files ({ percent }%)
                         </div>
                       </div>
                     </div>
@@ -86,17 +87,11 @@ class Uploader extends React.Component {
   }
 
   componentDidMount() {
-    this.resumable = new Resumable({
-      target: `/api/assets/upload`,
-      chunkSize: 1024 * 256,
-      permanentErrors: [204, 400, 404, 409, 415, 500, 501],
-      fileType: ['jpg','png','gif','jpeg']
+    this._handleConfig({
+      browse: this.browse,
+      drop: this.drop,
+      multiple: true
     })
-    this.resumable.on('fileAdded', this._handleAddUpload)
-    this.resumable.on('fileProgress', this._handleUpdateProgress)
-    this.resumable.on('fileSuccess', this._handleUploadSuccess)
-    this.resumable.on('complete', this._handleComplete)
-    this.resumable.assignBrowse(this.upload)
   }
 
   componentDidUpdate(prevProps) {
@@ -116,14 +111,14 @@ class Uploader extends React.Component {
   getChildContext() {
     return {
       uploader: {
+        config: this._handleConfig,
         browse: this._handleBrowse
       }
     }
   }
 
-  _handleBrowse(tour_id, visit_id) {
-    this.tour_id = tour_id
-    this.visit_id = visit_id
+  _handleBrowse(options) {
+    if(options.handler) this.handler = options.handler
     setTimeout(() => this.upload.click(), 250)
   }
 
@@ -142,6 +137,27 @@ class Uploader extends React.Component {
     this.props.onComplete()
   }
 
+  _handleConfig(options) {
+    const { token } = this.context.presence
+    this.resumable = new Resumable({
+      target: '/api/assets/upload',
+      chunkSize: 1024 * 256,
+      permanentErrors: [204, 400, 404, 409, 415, 500, 501],
+      fileType: options.fileType,
+      maxFiles: options.multiple ? undefined : 1,
+      headers: {
+        authorization: `Bearer ${token}`
+      }
+    })
+    this.resumable.on('fileAdded', this._handleAddUpload)
+    this.resumable.on('fileProgress', this._handleUpdateProgress)
+    this.resumable.on('fileSuccess', this._handleUploadSuccess)
+    this.resumable.on('complete', this._handleComplete)
+    if(options.browse) this.resumable.assignBrowse(options.browse)
+    if(options.browse && options.camera) options.browse.setAttribute('accept', 'image/*')
+    if(options.drop) this.resumable.assignDrop(options.drop)
+  }
+
   _handleReset() {
     this.props.onReset()
   }
@@ -154,11 +170,10 @@ class Uploader extends React.Component {
   }
 
   _handleUploadSuccess(upload, data) {
-    const { uploads } = this.props
     const result = JSON.parse(data)
     this.resumable.removeFile(upload)
-    const { tour_id, visit_id } = _.find(uploads, { uniqueIdentifier: upload.uniqueIdentifier })
-    this.props.onSaveUpload(upload.uniqueIdentifier, tour_id, visit_id, result.data.id)
+    if(this.handler) this.handler(upload, result.data)
+    this.handler = null
   }
 
 }

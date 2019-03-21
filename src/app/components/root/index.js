@@ -6,6 +6,7 @@ import { createLogger } from 'redux-logger'
 import thunkMiddleware from 'redux-thunk'
 import { Provider } from 'react-redux'
 import localforage from 'localforage'
+import tokenMiddleware from './token'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -41,6 +42,7 @@ class Root extends React.Component {
     }))
     const middleware = [
       thunkMiddleware,
+      tokenMiddleware,
       apiRequestMiddleware,
       localStorageMiddleware,
       ...(process.env.NODE_ENV !== 'production' || window.location.search.match(/log=true/) !== null) ? [loggerMiddleware] : []

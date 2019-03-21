@@ -29,7 +29,8 @@ class Queue {
           await this.process(job)
           trx.commit()
         } catch(e) {
-          trx.rollback()
+          console.log(e)
+          trx.rollback(e)
         }
       })
     })

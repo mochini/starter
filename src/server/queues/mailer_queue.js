@@ -3,7 +3,7 @@ import Queue from '../core/queue'
 
 const process = async (job) => {
 
-  await sendMail(job.data)
+  return await sendMail(job.data)
 
 }
 
