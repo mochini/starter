@@ -3,7 +3,9 @@ import React from 'react'
 
 class Reset extends React.Component {
 
-  static contextTypes = {}
+  static contextTypes = {
+    flash: PropTypes.object
+  }
 
   static propTypes = {
     errors: PropTypes.object,
@@ -24,7 +26,7 @@ class Reset extends React.Component {
   _handleSignin = this._handleSignin.bind(this)
 
   render() {
-    const { errors, status } = this.props
+    const { status } = this.props
     return (
       <div className="signin">
         <div className="signin-header">
@@ -34,9 +36,6 @@ class Reset extends React.Component {
           <form className={ this._getClass() } onSubmit={ this._handleSubmit }>
             <div className="field">
               <input type="text" placeholder="Email" ref={ node => this.email = node } />
-              { errors && errors.email &&
-                <span className="error">{ errors.email[0] }</span>
-              }
             </div>
             <div className="field">
               <button className="ui fluid red button">
@@ -69,13 +68,23 @@ class Reset extends React.Component {
     return classes.join(' ')
   }
 
-  _handleReset() {}
+  _handleReset() {
+    this.props.onChangeMode('signin')
+    this.context.flash.set('success', 'An email has been sent')
+  }
 
   _handleSignin() {
     this.props.onChangeMode('signin')
   }
+  
+  _handleFlash() {
+    const { flash } = this.context
+    const { errors } = this.props
+    flash.set('error', errors.email[0])
+  }
 
   _handleShake() {
+    this._handleFlash()
     this.setState({ error: true })
     setTimeout(() => {
       this.setState({ error: false })

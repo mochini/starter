@@ -1,3 +1,4 @@
+import RouterStack from '../stack/router'
 import { withTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -10,26 +11,25 @@ class Portal extends React.Component {
 
   static propTypes = {
     children: PropTypes.any,
+    routes: PropTypes.array,
     t: PropTypes.func
   }
 
   static defaultProps = {}
 
-  state = {
-    account: false
-  }
-
   _handleSignout = this._handleSignout.bind(this)
 
   render() {
-    const { t } = this.props
+    const { presence } = this.context
+    const { routes, t } = this.props
     return (
       <div className="portal">
+        { presence.user.full_name }
         <a onClick={ this._handleSignout }>
           { t('Sign Out') }
         </a>
         <div className="portal-body">
-          { this.props.children }
+          <RouterStack routes={ routes } />
         </div>
       </div>
     )

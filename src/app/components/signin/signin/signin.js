@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import Image from '../../image'
 
 class Signin extends React.Component {
 
   static contextTypes = {
+    flash: PropTypes.object,
     presence: PropTypes.object
   }
 
@@ -29,7 +29,7 @@ class Signin extends React.Component {
   _handleSignin = this._handleSignin.bind(this)
 
   render() {
-    const { errors, status } = this.props
+    const { status } = this.props
     return (
       <div className="signin">
         <div className="signin-header">
@@ -39,15 +39,9 @@ class Signin extends React.Component {
           <form className={ this._getClass() } onSubmit={ this._handleSubmit }>
             <div className="field">
               <input type="text" placeholder="Email" ref={ node => this.email = node } />
-              { errors && errors.email &&
-                <span className="error">{ errors.email[0] }</span>
-              }
             </div>
             <div className="field">
               <input type="password" autoComplete="new-password" placeholder="Password" ref={ node => this.password = node } />
-              { errors && errors.password &&
-                <span className="error">{ errors.password[0] }</span>
-              }
             </div>
             <div className="field">
               <button className="ui fluid red button">
@@ -84,8 +78,15 @@ class Signin extends React.Component {
     this.props.onChangeMode('reset')
   }
 
+  _handleFlash() {
+    const { flash } = this.context
+    const { errors } = this.props
+    if(errors.email) return flash.set('error', errors.email[0])
+    if(errors.password) return flash.set('error', errors.password[0])
+  }
 
   _handleShake() {
+    this._handleFlash()
     this.setState({ error: true })
     setTimeout(() => {
       this.setState({ error: false })

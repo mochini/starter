@@ -4,9 +4,13 @@ const route = async (req, res) => {
 
   const exists = await checkUploadedFile(req, req.trx)
 
-  if(!exists) return res.status(204).send('not found')
+  if(!exists) return res.status(204).json({
+    message: 'not found'
+  })
 
-  res.status(200).send('found')
+  res.status(200).json({
+    message: 'found'
+  })
 
 }
 

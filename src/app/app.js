@@ -1,11 +1,12 @@
 import { BrowserRouter as Router } from 'react-router-dom'
-import RouterStack from './components/stack/router'
-import Signin from './components/signin'
 import React, { Suspense } from 'react'
 import { hot } from 'react-hot-loader'
+import Uploader from './components/uploader'
 import Presence from './components/presence'
 import Tracker from './components/tracker'
 import Portal from './components/portal'
+import Flash from './components/flash'
+import Modal from './components/modal'
 import Root from './components/root'
 import PropTypes from 'prop-types'
 import routes from './routes'
@@ -14,6 +15,7 @@ import './components/i18n'
 class App extends React.Component {
 
   static propTypes = {
+    routes: PropTypes.array,
     reducers: PropTypes.array
   }
 
@@ -23,11 +25,15 @@ class App extends React.Component {
         <Root { ...this._getRoot() }>
           <Tracker>
             <Router>
-              <Presence>
-                <Portal>
-                  <RouterStack { ...this._getStack() } />
-                </Portal>
-              </Presence>
+              <Flash>
+                <Presence>
+                  <Uploader>
+                    <Modal>
+                      <Portal { ...this._getPortal() } />
+                    </Modal>
+                  </Uploader>
+                </Presence>
+              </Flash>
             </Router>
           </Tracker>
         </Root>
@@ -40,7 +46,7 @@ class App extends React.Component {
     return { reducers }
   }
 
-  _getStack() {
+  _getPortal() {
     return { routes }
   }
 

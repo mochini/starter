@@ -68,3 +68,49 @@ main#main {
 	color: @blue;
 	text-decoration: underline;
 }
+
+.opacity-transition(@start, @end, @duration) {
+	&.opacity-enter,
+	&.opacity-exit {
+	  transition: opacity @duration ease-in-out 0s;
+		will-change: opacity;
+	}
+	&.opacity-enter,
+	&.opacity-exit.opacity-exit-active {
+		opacity: @start;
+	}
+	&.opacity-exit,
+	&.opacity-enter.opacity-enter-active {
+		opacity: @end;
+	}
+}
+.translatex-transition(@start, @end, @duration) {
+	&.translatex-enter,
+	&.translatex-exit {
+	  transition: transform @duration ease-in-out 0s;
+		will-change: transform;
+	}
+	&.translatex-enter,
+	&.translatex-exit.translatex-exit-active {
+		transform: translateX(@start);
+	}
+	&.translatex-exit,
+	&.translatex-enter.translatex-enter-active {
+		transform: translateX(@end);
+	}
+}
+.translatey-transition(@start, @end, @duration) {
+	&.translatey-enter,
+	&.translatey-exit {
+	  transition: transform @duration ease-in-out 0s;
+		will-change: transform;
+	}
+	&.translatey-enter,
+	&.translatey-exit.translatey-exit-active {
+		transform: translateY(@start);
+	}
+	&.translatey-exit,
+	&.translatey-enter.translatey-enter-active {
+		transform: translateY(@end);
+	}
+}

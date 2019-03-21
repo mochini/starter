@@ -1,3 +1,4 @@
+import AssembleAssetQueue from '../../queues/assemble_asset_queue'
 import AssetSerializer from '../../serializers/asset_serializer'
 import Asset from '../../models/asset'
 import request from 'request-promise'
@@ -37,7 +38,7 @@ export const uploadChunk = async (req, trx) => {
     status: 'chunked'
   }).save(null, { transacting: trx })
   if(!asset) throw new Error('Unable to create asset')
-  await _assembleAsset(asset, trx)
+  await AssembleAssetQueue.add({ id: asset.id })
   return AssetSerializer(asset)
 }
 
@@ -57,6 +58,19 @@ export const createAssetFromUrl = async (url, trx) => {
   return asset
 }
 
+export const assembleAsset = async (id, trx) => {
+  const asset = await Asset.where({ id }).fetch({ transacting: trx })
+  const fileData = await _getAssembledData(asset)
+  const dimensions = await _getDimensions(fileData)
+  const normalizedData = await _getNormalizedData(asset, fileData)
+  await _saveFile(normalizedData, `assets/${asset.get('id')}/${asset.get('file_name')}`, asset.get('content_type'))
+  await _deleteChunks(asset)
+  await asset.save({
+    ...dimensions,
+    status: 'assembled'
+  }, { transacting: trx })
+}
+
 export const createAsset = async (meta, trx) => {
   const dimensions = await _getDimensions(meta.file_data)
   const asset = await Asset.forge({
@@ -71,18 +85,6 @@ export const createAsset = async (meta, trx) => {
   const normalizedData = await _getNormalizedData(asset, meta.file_data)
   await _saveFile(normalizedData, `assets/${asset.get('id')}/${asset.get('file_name')}`, asset.get('content_type'))
   return asset
-}
-
-const _assembleAsset = async (asset, trx) => {
-  const fileData = await _getAssembledData(asset)
-  const dimensions = await _getDimensions(fileData)
-  const normalizedData = await _getNormalizedData(asset, fileData)
-  await _saveFile(normalizedData, `assets/${asset.get('id')}/${asset.get('file_name')}`, asset.get('content_type'))
-  await _deleteChunks(asset)
-  await asset.save({
-    ...dimensions,
-    status: 'assembled'
-  }, { transacting: trx })
 }
 
 const _getDimensions = async (data) => {

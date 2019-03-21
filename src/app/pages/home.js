@@ -1,4 +1,3 @@
-import { withTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -13,14 +12,13 @@ class Home extends React.Component {
   static defaultProps = {}
 
   render() {
-    const { t } = this.props
     return (
       <div>
-        { t('Hello {{first_name}}!', { first_name: 'Greg' }) }
+        Home
       </div>
     )
   }
 
 }
 
-export default withTranslation()(Home)
+export default Home
