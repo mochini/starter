@@ -4,6 +4,7 @@ import { hot } from 'react-hot-loader'
 import Uploader from './components/uploader'
 import Presence from './components/presence'
 import Tracker from './components/tracker'
+import Drawer from './components/drawer'
 import Portal from './components/portal'
 import Flash from './components/flash'
 import Modal from './components/modal'
@@ -31,7 +32,9 @@ class App extends React.Component {
                   <Presence>
                     <Uploader>
                       <Modal>
-                        <Portal routes={ routes } />
+                        <Drawer>
+                          <Portal routes={ routes } />
+                        </Drawer>
                       </Modal>
                     </Uploader>
                   </Presence>

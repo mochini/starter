@@ -1,0 +1,35 @@
+.drawer {
+  flex: 1;
+  display: flex;
+}
+.drawer-panel {
+  background-color: #FFFFFF;
+  &.drawer-panel-left {
+    .translatex-transition(-100%, 0, .25s);
+    left: 0;
+  }
+  &.drawer-panel-right {
+    .translatex-transition(100%, 0, .25s);
+    right: 0;
+  }
+  position: absolute;
+  display: flex;
+  top: 0;
+  bottom: 0;
+  flex-direction: column;
+  @media only screen and (max-width: 380px) {
+    width: ~"calc(100% - 50px)";
+  }
+  @media only screen and (min-width: 381px) {
+    width: 320px;
+  }
+}
+.drawer-overlay {
+  .opacity-transition(0, 0.5, .25s);
+  background-color: @black;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}

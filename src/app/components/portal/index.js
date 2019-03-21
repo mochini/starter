@@ -6,7 +6,7 @@ import React from 'react'
 class Portal extends React.Component {
 
   static contextTypes = {
-    uploader: PropTypes.object,
+    drawer: PropTypes.object,
     presence: PropTypes.object
   }
 
@@ -18,6 +18,8 @@ class Portal extends React.Component {
 
   static defaultProps = {}
 
+  _handleAccount = this._handleAccount.bind(this)
+  _handleMenu = this._handleMenu.bind(this)
   _handleSignout = this._handleSignout.bind(this)
 
   render() {
@@ -25,7 +27,12 @@ class Portal extends React.Component {
     const { routes, t } = this.props
     return (
       <div className="portal">
-        { presence.user.full_name }
+        <div onClick={ this._handleMenu }>
+          <i className="fa fa-fw fa-bars" />
+        </div>
+        <div onClick={ this._handleAccount }>
+          { presence.user.full_name }
+        </div>
         <a onClick={ this._handleSignout }>
           { t('Sign Out') }
         </a>
@@ -34,6 +41,14 @@ class Portal extends React.Component {
         </div>
       </div>
     )
+  }
+
+  _handleAccount() {
+    this.context.drawer.open(<div>Account</div>, 'right')
+  }
+
+  _handleMenu() {
+    this.context.drawer.open(<div>Menu</div>, 'left')
   }
 
   _handleSignout() {
