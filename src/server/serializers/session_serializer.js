@@ -1,4 +1,4 @@
-import { encode } from '../lib/jwt'
+import { encode } from '../utils/jwt'
 
 const session_serializer = (user) => ({
   token: encode(user.get('id')),

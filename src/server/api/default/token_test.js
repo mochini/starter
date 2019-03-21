@@ -1,5 +1,5 @@
 import { testHandler } from '../../utils/test'
-import { encode } from '../../lib/jwt'
+import { encode } from '../../utils/jwt'
 import { expect } from 'chai'
 import token from './token'
 import moment from 'moment'
@@ -32,13 +32,11 @@ describe('server/api/default/token', () => {
 
   it('fails with an expired token', async () => {
 
-    const THREE_WEEKS = 60 * 60 * 24 * 7 * 2
-
-    const three_weeks_ago = Math.floor(Date.now() / 1000) - THREE_WEEKS
+    const YESTERDAY = 0 - (60 * 60 * 24)
 
     const req = {
       headers: {
-        authorization: `Bearer ${encode(1, three_weeks_ago)}`
+        authorization: `Bearer ${encode(1, YESTERDAY)}`
       }
     }
 

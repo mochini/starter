@@ -1,4 +1,4 @@
-import { sendMail } from '../lib/email'
+import { sendMail } from '../utils/email'
 import Queue from '../core/queue'
 
 const process = async (job) => {

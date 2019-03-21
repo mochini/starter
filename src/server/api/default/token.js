@@ -1,4 +1,4 @@
-import { decode } from '../../lib/jwt'
+import { decode } from '../../utils/jwt'
 import User from '../../models/user'
 
 const router = async (req, res, next) => {

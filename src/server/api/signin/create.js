@@ -1,4 +1,4 @@
-import { encode } from '../../lib/jwt'
+import { encode } from '../../utils/jwt'
 import User from '../../models/user'
 import Checkit from  'checkit'
 
