@@ -1,10 +1,11 @@
 import './lib/environment'
 import 'express-async-errors'
 import withTransaction from './utils/transaction'
+import imagecache from './server/imagecache'
 import multiparty from 'connect-multiparty'
 import bodyParser from 'body-parser'
 import logger from './utils/logger'
-import arena from './utils/arena'
+import arena from './server/arena'
 import ping from './utils/ping'
 import express from 'express'
 import i18n from './lib/i18n'
@@ -31,6 +32,8 @@ server.use('/locales', express.static(path.join(__dirname, '..', 'locales')))
 server.use(withTransaction)
 
 if(process.env.NODE_ENV !== 'production') server.use(logger)
+
+server.use('/imagecache', imagecache)
 
 server.use('/ping', ping)
 

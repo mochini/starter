@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import Image from '../../image'
 
 class Signin extends React.Component {
 

@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt-nodejs'
 import Model from '../core/model'
+import Asset from './asset'
 
 const User = new Model({
 
@@ -34,6 +35,10 @@ const User = new Model({
 
   authenticate(password) {
     return this.get('password_hash') === bcrypt.hashSync(password, this.get('password_salt'))
+  },
+
+  photo() {
+    return this.belongsTo(Asset, 'photo_id')
   }
 
 })

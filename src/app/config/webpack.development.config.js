@@ -69,10 +69,10 @@ const config = () => ({
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-        'GOOGLE_API_KEY': JSON.stringify(process.env.GOOGLE_API_KEY),
-        'WEB_HOST': JSON.stringify(process.env.WEB_CDN_HOST || process.env.WEB_HOST),
         'API_HOST': JSON.stringify(process.env.API_HOST),
-        'ASSET_HOST': JSON.stringify(process.env.ASSET_CDN_HOST || process.env.ASSET_HOST)
+        'WEB_HOST': JSON.stringify(process.env.WEB_HOST),
+        'ASSET_HOST': JSON.stringify(process.env.ASSET_HOST),
+        'CDN_ASSET_HOST': JSON.stringify(process.env.CDN_ASSET_HOST)
       }
     })
   ]

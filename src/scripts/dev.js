@@ -16,7 +16,7 @@ const log = (...options) => {
 const serverWatch = async () => {
 
   const proc = spawn('nodemon', [
-    path.resolve('src','scripts','server.js'),
+    path.resolve('src','scripts','entities.js'),
     '--color',
     '--quiet',
     '--exec',
@@ -55,6 +55,7 @@ const clientWatch = () => {
     open: true,
     proxy: {
       '/api/*': 'http://localhost:3001',
+      '/imagecache/*': 'http://localhost:3001',
       '/jobs/*': 'http://localhost:3001',
       '/locales/*': 'http://localhost:3001'
     },

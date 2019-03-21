@@ -2,6 +2,7 @@ import htmlToText from 'html-email-to-text'
 import nodemailer from 'nodemailer'
 import inline from 'inline-css'
 import moment from 'moment'
+import ses from './ses'
 import path from 'path'
 import ejs from 'ejs'
 import fs from 'fs'
@@ -36,7 +37,7 @@ export const sendMail = async (email) => {
 
     await transporter.sendMail({
       to: process.env.EMAIL_REDIRECT || email.to,
-      from: 'Greg Kops <mochini@gmail.com>',
+      from: process.env.EMAIL_FROM,
       subject: email.subject,
       html,
       text: htmlToText(html)
@@ -54,10 +55,20 @@ export const sendMail = async (email) => {
 
 const _getTransporter = () => {
 
-  return nodemailer.createTransport({
-    sendmail: true,
-    newline: 'unix',
-    path: '/usr/sbin/sendmail'
-  })
+  if(process.env.EMAIL_TRANSPORT === 'sendmail') {
+
+    return nodemailer.createTransport({
+      sendmail: true,
+      newline: 'unix',
+      path: '/usr/sbin/sendmail'
+    })
+
+  } else if(process.env.EMAIL_TRANSPORT === 'ses') {
+
+    return nodemailer.createTransport({
+      SES: ses
+    })
+
+  }
 
 }

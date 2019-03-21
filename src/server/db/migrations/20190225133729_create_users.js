@@ -6,6 +6,8 @@ exports.up = function(knex, Promise) {
     table.string('email')
     table.string('password_salt')
     table.string('password_hash')
+    table.integer('photo_id').unsigned()
+    table.foreign('photo_id').references('assets.id')
     table.timestamps()
   })
 }

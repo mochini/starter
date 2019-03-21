@@ -118,7 +118,7 @@ table.row.footer {
   color: #888888; }
 
 table.row.header {
-  background-color: #db2828;
+  background-color: #000000;
   color: #ffffff; }
 table.row.header h1 {
   margin: 25px 0 0 0;
@@ -1434,10 +1434,7 @@ body.outlook p {
                             <table>
                               <tr>
                                 <th>
-                                  <center>
-                                    <img src="<%= web_host %>/images/logo.png" alt="" align="center" class="float-center">
-                                  </center>
-                                  <h1 class="text-center">College Tourist</h1>
+                                  <h1 class="text-center">Static Starter</h1>
                                 </th>
                                 <th class="expander"></th>
                               </tr>
@@ -1487,7 +1484,7 @@ body.outlook p {
                               </tr>
                             </tbody>
                           </table>
-                          <p class="text-center">&copy; 2019 College Tourist</p>
+                          <p class="text-center">&copy; <%= moment().format('YYYY') %> Static Starter</p>
                         </th>
                         <th class="expander"></th>
                       </tr>
