@@ -1,11 +1,49 @@
-import { Singleton } from 'redux-rubberstamp'
-import reducer from './reducer'
-import signin from './signin'
-import * as actions from './actions'
+import PropTypes from 'prop-types'
+import Signin from './signin'
+import Reset from './reset'
+import React from 'react'
 
-export default Singleton({
-  namespace: 'signin',
-  component: signin,
-  reducer,
-  actions
-})
+class Main extends React.Component {
+
+  static contextTypes = {}
+
+  static propTypes = {}
+
+  static defaultProps = {}
+
+  state = {
+    mode: 'signin'
+  }
+
+  _handleChangeMode = this._handleChangeMode.bind(this)
+
+  render() {
+    const { mode } = this.state
+    return (
+      <div className="signin-canvas">
+        { mode === 'reset' && <Reset { ...this._getReset() } /> }
+        { mode === 'signin' && <Signin { ...this._getSignin() } /> }
+      </div>
+    )
+  }
+
+  _getReset() {
+    return {
+      onChangeMode: this._handleChangeMode
+    }
+  }
+
+  _getSignin() {
+    return {
+      onChangeMode: this._handleChangeMode
+    }
+  }
+
+  _handleChangeMode(mode) {
+    this.setState({ mode })
+  }
+
+
+}
+
+export default Main

@@ -8,9 +8,10 @@ class Signin extends React.Component {
   }
 
   static propTypes = {
-    errors: PropTypes.array,
+    errors: PropTypes.object,
     status: PropTypes.string,
     token: PropTypes.string,
+    onChangeMode: PropTypes.func,
     onSignin: PropTypes.func
   }
 
@@ -22,37 +23,41 @@ class Signin extends React.Component {
     error: false
   }
 
+  _handleReset = this._handleReset.bind(this)
   _handleSubmit = this._handleSubmit.bind(this)
   _handleSignin = this._handleSignin.bind(this)
 
   render() {
     const { errors, status } = this.props
     return (
-      <div className="signin-canvas">
-        <div className="signin">
-          <div className="signin-header">
-            <h1>Signin</h1>
-          </div>
-          <div className="signin-body">
-            <form className={ this._getClass() } onSubmit={ this._handleSubmit }>
-              <div className="field">
-                <input type="text" placeholder="Email" ref={ node => this.email = node } />
-                { errors && errors.email &&
-                  <span className="error">{ errors.email[0] }</span>
-                }
-              </div>
-              <div className="field">
-                <input type="password" autoComplete="new-password" placeholder="Password" ref={ node => this.password = node } />
-                { errors && errors.password &&
-                  <span className="error">{ errors.password[0] }</span>
-                }
-              </div>
-              <div className="field">
-                <button className="ui fluid red button">
-                  { status === 'loading' ? <i className="fa fa-circle-o-notch fa-spin fa-fw" /> : 'Signin'}
-                </button>
-              </div>
-            </form>
+      <div className="signin">
+        <div className="signin-header">
+          <h1>Signin</h1>
+        </div>
+        <div className="signin-body">
+          <form className={ this._getClass() } onSubmit={ this._handleSubmit }>
+            <div className="field">
+              <input type="text" placeholder="Email" ref={ node => this.email = node } />
+              { errors && errors.email &&
+                <span className="error">{ errors.email[0] }</span>
+              }
+            </div>
+            <div className="field">
+              <input type="password" autoComplete="new-password" placeholder="Password" ref={ node => this.password = node } />
+              { errors && errors.password &&
+                <span className="error">{ errors.password[0] }</span>
+              }
+            </div>
+            <div className="field">
+              <button className="ui fluid red button">
+                { status === 'loading' ? <i className="fa fa-circle-o-notch fa-spin fa-fw" /> : 'Signin'}
+              </button>
+            </div>
+          </form>
+        </div>
+        <div className="signin-footer">
+          <div className="link" onClick={ this._handleReset }>
+            Forget your password?
           </div>
         </div>
       </div>
@@ -73,6 +78,11 @@ class Signin extends React.Component {
     if(error) classes.push('animated shake')
     return classes.join(' ')
   }
+
+  _handleReset() {
+    this.props.onChangeMode('reset')
+  }
+
 
   _handleShake() {
     this.setState({ error: true })
