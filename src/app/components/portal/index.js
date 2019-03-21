@@ -1,3 +1,4 @@
+import { withTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -8,7 +9,8 @@ class Portal extends React.Component {
   }
 
   static propTypes = {
-    children: PropTypes.any
+    children: PropTypes.any,
+    t: PropTypes.func
   }
 
   static defaultProps = {}
@@ -20,9 +22,12 @@ class Portal extends React.Component {
   _handleSignout = this._handleSignout.bind(this)
 
   render() {
+    const { t } = this.props
     return (
       <div className="portal">
-        <a onClick={ this._handleSignout }>Sign Out</a>
+        <a onClick={ this._handleSignout }>
+          { t('Sign Out') }
+        </a>
         <div className="portal-body">
           { this.props.children }
         </div>
@@ -36,4 +41,4 @@ class Portal extends React.Component {
 
 }
 
-export default Portal
+export default withTranslation()(Portal)

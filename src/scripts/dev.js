@@ -55,6 +55,7 @@ const clientWatch = () => {
     open: true,
     proxy: {
       '/api/*': 'http://localhost:3001',
+      '/jobs/*': 'http://localhost:3001',
       '/locales/*': 'http://localhost:3001'
     },
     historyApiFallback: {

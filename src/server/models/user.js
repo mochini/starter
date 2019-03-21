@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt-nodejs'
-import Model from './model'
+import Model from '../core/model'
 
 const User = new Model({
 

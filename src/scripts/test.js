@@ -1,15 +1,20 @@
 import dotenv from 'dotenv'
 import Mocha from 'mocha'
+import Redis from 'ioredis'
 import glob from 'glob'
 import Knex from 'knex'
 import fs from 'fs'
 
-if(!fs.existsSync('.env.test')) {
-  console.log('Could not find .env.test')
-  process.exit()
-}
+if(!process.env.DATABASE_URL) {
 
-dotenv.load({ path: '.env.test' })
+  if(!fs.existsSync('.env.test')) {
+    console.log('Could not find .env.test')
+    process.exit()
+  }
+
+  dotenv.load({ path: '.env.test' })
+
+}
 
 const knex = Knex({
   client: 'pg',
@@ -28,6 +33,8 @@ const knex = Knex({
   useNullAsDefault: true
 })
 
+const redis = new Redis(process.env.REDIS_URL)
+
 const test = async () => {
 
   const mocha = new Mocha()
@@ -43,6 +50,7 @@ const test = async () => {
   })
 
   mocha.suite.beforeEach('begin transaction', async () => {
+    await redis.flushall()
     global.knex = await new Promise((resolve, reject) => {
       knex.transaction(tx => {
         resolve(tx)
@@ -51,6 +59,7 @@ const test = async () => {
   })
 
   mocha.suite.afterEach('rollback transaction', async () => {
+    await redis.flushall()
     global.knex.rollback().catch(() => {})
   })
 

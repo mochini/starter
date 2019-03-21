@@ -2,4 +2,6 @@ import inspector from 'inspector'
 
 inspector.open()
 
-require('../server')
+require('../server/server')
+
+require('../server/worker')

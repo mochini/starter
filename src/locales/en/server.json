@@ -8,5 +8,7 @@
 	"Unable to locate resource": "Unable to locate resource",
 	"Unable to save record": "Unable to save record",
 	"Forbidden": "Forbidden",
+	"You are not signed in": "You are not signed in",
+	"Email was sent": "Email was sent",
 	"You are not signedin": "You are not signedin"
 }

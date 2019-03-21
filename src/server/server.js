@@ -4,6 +4,7 @@ import withTransaction from './utils/transaction'
 import multiparty from 'connect-multiparty'
 import bodyParser from 'body-parser'
 import logger from './utils/logger'
+import arena from './utils/arena'
 import ping from './utils/ping'
 import express from 'express'
 import i18n from './lib/i18n'
@@ -32,6 +33,8 @@ server.use(withTransaction)
 if(process.env.NODE_ENV !== 'production') server.use(logger)
 
 server.use('/ping', ping)
+
+server.use(arena)
 
 server.use('/api', api)
 

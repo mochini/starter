@@ -9,9 +9,7 @@ const router = new Router({ mergeParams: true })
 
 router.use('/signin', signin)
 
-router.use(token)
-
-router.use('/session', session)
+router.use('/session', token, session)
 
 router.use(notFound)
 

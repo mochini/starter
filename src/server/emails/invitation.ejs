@@ -1,0 +1,25 @@
+<p>Hi <%= invitee.first_name %>,</p>
+
+<p>
+  College Tourist is an app that helps you organize, document, and remember
+  your college tour experiences.
+</p>
+
+<p>
+  <strong><%= inviter.full_name %></strong> has invited you to join the tour <strong><%= tour.name %></strong>. Please click the
+  button below to accept.
+</p>
+
+<center data-parsed="">
+  <table class="button success float-center large expanded radius">
+    <tr>
+      <td>
+        <table>
+          <tr>
+            <td><a href="<%= web_host %>?invitation=<%= code %>">Join Tour</a></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</center>
