@@ -3,6 +3,7 @@ import aws from '../../lib/aws'
 const s3 = new aws.S3()
 
 export const readFile = async (Key) => {
+  console.log(Key)
   const chunk = await s3.getObject({
     Bucket: process.env.AWS_BUCKET,
     Key

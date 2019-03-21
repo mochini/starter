@@ -22,24 +22,27 @@ class Queue {
   }
 
   async start() {
-    this.queue.process(async (job) => {
-      await knex.transaction(async (trx) => {
-        job.trx = trx
-        try {
-          await this.process(job)
-          trx.commit()
-        } catch(e) {
-          console.log(e)
-          trx.rollback(e)
-        }
-      })
-    })
+    this.queue.process((job) => knex.transaction(async (trx) => {
+      job.trx = trx
+      try {
+        await this.process(job)
+        job.progress(100)
+        return trx.commit()
+      } catch(e) {
+        trx.rollback(e)
+      }
+    }))
     if(this.failed) this.queue.on('failed', this.failed)
     if(this.completed) this.queue.on('completed', this.completed)
   }
 
-  add(job) {
-    this.queue.add(job, { delay: 2000, attempts: 3, backoff: 5000 })
+  async add(job) {
+    await new Promise((resolve, reject) => {
+      setTimeout(() => {
+        this.queue.add(job, { delay: 2000, attempts: 3, backoff: 5000 })
+        resolve()
+      }, 500)
+    })
   }
 
 }

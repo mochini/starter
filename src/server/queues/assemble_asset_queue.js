@@ -3,7 +3,7 @@ import Queue from '../core/queue'
 
 const process = async (job) => {
 
-  return await assembleAsset(job.id, job.trx)
+  await assembleAsset(job.data.id, job.trx)
 
 }
 
