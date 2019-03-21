@@ -2,7 +2,7 @@ import { testHandler } from '../../utils/test'
 import { expect } from 'chai'
 import not_found from './not_found'
 
-describe('server/api/default/not_found', () => {
+describe('src/server/api/default/not_found', () => {
 
   it('responds with a 404', async () => {
 

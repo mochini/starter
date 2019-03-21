@@ -3,7 +3,7 @@ import User from '../../models/user'
 import { expect } from 'chai'
 import show from './show'
 
-describe('api/session/show', () => {
+describe('src/server/api/session/show', () => {
 
   it('rejects non signed in user', async () => {
 

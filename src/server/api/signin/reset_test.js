@@ -3,7 +3,7 @@ import { testHandler } from '../../utils/test'
 import { expect } from 'chai'
 import reset from './reset'
 
-describe('api/signin/reset', () => {
+describe('src/server/api/signin/reset', () => {
 
   it('requires an email', async () => {
 

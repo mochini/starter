@@ -1,3 +1,5 @@
+import Adapter from 'enzyme-adapter-react-16'
+import Enzyme from 'enzyme'
 import dotenv from 'dotenv'
 import Mocha from 'mocha'
 import Redis from 'ioredis'
@@ -35,13 +37,26 @@ const knex = Knex({
 
 const redis = new Redis(process.env.REDIS_URL)
 
+Enzyme.configure({ adapter: new Adapter() })
+
 const test = async () => {
+
+  const args = process.argv.slice(2)
 
   const mocha = new Mocha()
 
-  glob.sync('src/@(app|server)/**/*_test.js').map((test) => {
-    mocha.addFile(test)
-  })
+  if(args[0]) {
+
+    mocha.addFile(`${args[0]}_test.js`)
+
+  } else {
+
+    glob.sync('src/@(app|server)/**/*_test.js').map((test) => {
+      mocha.addFile(test)
+    })
+
+  }
+
 
   mocha.suite.beforeAll('migrate and seed', async () => {
     await knex.migrate.rollback()

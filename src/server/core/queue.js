@@ -36,13 +36,8 @@ class Queue {
     if(this.completed) this.queue.on('completed', this.completed)
   }
 
-  async add(job) {
-    await new Promise((resolve, reject) => {
-      setTimeout(() => {
-        this.queue.add(job, { delay: 2000, attempts: 3, backoff: 5000 })
-        resolve()
-      }, 500)
-    })
+  add(job) {
+    this.queue.add(job, { delay: 2000, attempts: 3, backoff: 5000 })
   }
 
 }

@@ -2,7 +2,7 @@ import { testHandler } from '../../utils/test'
 import { expect } from 'chai'
 import error from './error'
 
-describe('server/api/default/error', () => {
+describe('src/server/api/default/error', () => {
 
   it('responds with a custom error', async () => {
 

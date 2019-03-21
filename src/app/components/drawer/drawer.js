@@ -21,17 +21,19 @@ class Drawer extends React.Component {
 
   render() {
     const { children, component, location, open } = this.props
-    return ([
-      children,
-      <CSSTransition key="drawer-overlay" in={ open } classNames="opacity" timeout={ 500 } mountOnEnter={ true } unmountOnExit={ true }>
-        <div className="drawer-overlay" onClick={this._handleClose.bind(this)} />
-      </CSSTransition>,
-      <CSSTransition key="drawer-panel" in={ open } classNames="translatex" timeout={ 500 } mountOnEnter={ true } unmountOnExit={ true }>
-        <div className={`drawer-panel drawer-panel-${location}`}>
-          { _.isFunction(component) ? React.createElement(component) : component }
-        </div>
-      </CSSTransition>
-    ])
+    return (
+      <div className="drawer">
+        { children }
+        <CSSTransition key="drawer-overlay" in={ open } classNames="opacity" timeout={ 500 } mountOnEnter={ true } unmountOnExit={ true }>
+          <div className="drawer-overlay" onClick={this._handleClose.bind(this)} />
+        </CSSTransition>
+        <CSSTransition key="drawer-panel" in={ open } classNames="translatex" timeout={ 500 } mountOnEnter={ true } unmountOnExit={ true }>
+          <div className={`drawer-panel drawer-panel-${location}`}>
+            { _.isFunction(component) ? React.createElement(component) : component }
+          </div>
+        </CSSTransition>
+      </div>
+    )
   }
 
   componentDidUpdate(prevProps) {

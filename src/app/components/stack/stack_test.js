@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 
-describe('app/components/stack/stack', () => {
+describe('src/app/components/stack/stack', () => {
 
   it('renders', async () => {
 

@@ -4,7 +4,7 @@ import { expect } from 'chai'
 import token from './token'
 import moment from 'moment'
 
-describe('server/api/default/token', () => {
+describe('src/server/api/default/token', () => {
 
   it('fails with no token', async () => {
 

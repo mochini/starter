@@ -2,7 +2,7 @@ import { testHandler } from '../../utils/test'
 import { expect } from 'chai'
 import create from './create'
 
-describe('api/signin/create', () => {
+describe('src/server/api/signin/create', () => {
 
   it('requires an email', async () => {
 
