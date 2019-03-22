@@ -3,6 +3,45 @@
   display: flex;
   flex-direction: column;
 }
+.portal-header {
+  display: flex;
+  background: @black;
+  color: @white;
+}
+.portal-header-menu {
+  flex: 0 0 3.5em;
+  display: flex;
+  border-right: 1px solid fadeout(@white, 50);
+  cursor: pointer;
+  .fa {
+    margin: auto;
+    font-size: 1.2em;
+  }
+  &:hover {
+    background-color: fadeout(@white, 70);
+  }
+  flex: 0 0 3.5em;
+}
+.portal-header-title {
+  flex: 1;
+  padding: 0.8em;
+  color: @white;
+  text-align: center;
+}
+.portal-header-account {
+  flex: 0 0 3.5em;
+  display: flex;
+  border-left: 1px solid fadeout(@white, 50);
+  cursor: pointer;
+  &:hover {
+    background-color: fadeout(@white, 70);
+  }
+  .avatar {
+    margin: auto;
+    font-size: 1.4em;
+  }
+}
 .portal-body {
+  flex: 1;
   position: relative;
 }

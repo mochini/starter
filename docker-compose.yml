@@ -1,0 +1,37 @@
+version: '3'
+services:
+  libvips:
+    image: wjordan/libvips
+    container_name: libvips
+    command: 'echo 1'
+  postgres:
+    image: circleci/postgres:10-alpine-ram
+    container_name: postgres
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_DB=development
+      - POSTGRES_PASSWORD=development
+    expose:
+      - 5432
+    ports:
+      - 15432:5432
+  redis:
+    image: circleci/redis
+    container_name: redis
+    expose:
+      - 6379
+    ports:
+      - 16379:6379
+  app:
+    build: ./
+    links:
+      - postgres
+      - redis
+    volumes:
+      - ./:/var/www/app
+    ports:
+      - 3000:3000
+      - 3001:3001
+      - 9229:9229
+    command:
+      sh -c 'npm i && npm run knex reset && npm run dev'

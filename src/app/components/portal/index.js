@@ -1,7 +1,9 @@
 import RouterStack from '../stack/router'
-import { withTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 import React from 'react'
+import Menu from '../menu'
+import Account from '../account'
+import Avatar from '../avatar'
 
 class Portal extends React.Component {
 
@@ -20,22 +22,22 @@ class Portal extends React.Component {
 
   _handleAccount = this._handleAccount.bind(this)
   _handleMenu = this._handleMenu.bind(this)
-  _handleSignout = this._handleSignout.bind(this)
 
   render() {
-    const { presence } = this.context
-    const { routes, t } = this.props
+    const { routes } = this.props
     return (
       <div className="portal">
-        <div onClick={ this._handleMenu }>
-          <i className="fa fa-fw fa-bars" />
+        <div className="portal-header">
+          <div className="portal-header-menu" onClick={ this._handleMenu }>
+            <i className="fa fa-fw fa-bars" />
+          </div>
+          <div className="portal-header-title">
+            Starter
+          </div>
+          <div className="portal-header-account" onClick={ this._handleAccount }>
+            <Avatar { ...this._getAvatar() } />
+          </div>
         </div>
-        <div onClick={ this._handleAccount }>
-          { presence.user.full_name }
-        </div>
-        <a onClick={ this._handleSignout }>
-          { t('Sign Out') }
-        </a>
         <div className="portal-body">
           <RouterStack routes={ routes } />
         </div>
@@ -43,18 +45,21 @@ class Portal extends React.Component {
     )
   }
 
+  _getAvatar() {
+    const { user } = this.context.presence
+    return {
+      user
+    }
+  }
+
   _handleAccount() {
-    this.context.drawer.open(<div>Account</div>, 'right')
+    this.context.drawer.open(<Account />, 'right')
   }
 
   _handleMenu() {
-    this.context.drawer.open(<div>Menu</div>, 'left')
-  }
-
-  _handleSignout() {
-    this.context.presence.signout()
+    this.context.drawer.open(<Menu />, 'left')
   }
 
 }
 
-export default withTranslation()(Portal)
+export default Portal
