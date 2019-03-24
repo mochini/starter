@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import Tabs from '../components/tabs'
+import Long from './long'
 
 class Home extends React.Component {
 
@@ -13,10 +15,17 @@ class Home extends React.Component {
 
   render() {
     return (
-      <div>
-        Home
-      </div>
+      <Tabs { ...this._getTabs() } />
     )
+  }
+
+  _getTabs() {
+    return {
+      items: [
+        { label: 'Foo', component: Long },
+        { label: 'Bar', component: <div>Bar</div> }
+      ]
+    }
   }
 
 }
