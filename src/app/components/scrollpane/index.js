@@ -29,20 +29,12 @@ class Scrollpane extends React.Component {
   }
 
   componentDidMount() {
-    this._attachScrollListener()
+    this.scrollpane.addEventListener('scroll', this._scrollListener, true)
+    this.scrollpane.addEventListener('resize', this._scrollListener, true)
   }
 
   componentDidUpdate() {
     this.notified = false
-  }
-
-  componentWillUnmount() {
-    this._detachScrollListener()
-  }
-
-  _attachScrollListener() {
-    this.scrollpane.addEventListener('scroll', this._scrollListener, true)
-    this.scrollpane.addEventListener('resize', this._scrollListener, true)
   }
 
   _scrollListener() {

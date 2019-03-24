@@ -2,6 +2,8 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import Tabs from '../components/tabs'
 import Long from './long'
+import Grid from './grid'
+import Options from './options'
 
 class Home extends React.Component {
 
@@ -22,8 +24,9 @@ class Home extends React.Component {
   _getTabs() {
     return {
       items: [
-        { label: 'Foo', component: Long },
-        { label: 'Bar', component: <div>Bar</div> }
+        { label: 'Foo', component: Grid },
+        { label: 'Bar', component: Long },
+        { label: 'Baz', component: Options }
       ]
     }
   }
