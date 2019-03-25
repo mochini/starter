@@ -1,3 +1,4 @@
-export const toggleFilter = () => ({
-  type: 'TOGGLE_FILTER'
+export const changeLayout = (layout) => ({
+  type: 'CHANGE_LAYOUT',
+  layout
 })

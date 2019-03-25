@@ -1,0 +1,24 @@
+.checkboxes {
+  flex: 1;
+  .scrollable();
+}
+.checkbox {
+  border-bottom: 1px solid fadeout(@black, 90);
+  display: flex;
+  cursor: pointer;
+  &:hover {
+    background-color: fadeout(@black, 97);
+  }
+}
+.checkbox-icon {
+  padding: 0.8em 0 0.8em 0.8em;
+  .fa-circle-o {
+    color: fadeout(@black, 60);
+  }
+  .fa-check-circle {
+    color: @blue;
+  }
+}
+.checkbox-label {
+  padding: 0.8em;
+}

@@ -1,34 +1,44 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import Tabs from '../components/tabs'
-import Long from './long'
-import Grid from './grid'
+import Collection from '../components/collection'
 
-class Home extends React.Component {
+class Long extends React.Component {
 
   static contextTypes = {}
 
-  static propTypes = {
-    t: PropTypes.func
-  }
+  static propTypes = {}
 
   static defaultProps = {}
 
   render() {
     return (
-      <Tabs { ...this._getTabs() } />
+      <Collection { ...this._getCollection() } />
     )
   }
 
-  _getTabs() {
+  _getCollection() {
     return {
-      items: [
-        { label: 'Foo', component: Grid },
-        { label: 'Bar', component: Long }
+      table: {
+        columns: [
+          { label: 'One', key: 'one' },
+          { label: 'Two', key: 'two' },
+          { label: 'Three', key: 'three' }
+        ],
+        data: Array(200).fill().map((row, index) => (
+          { one: `foo${index}`, two: 'bar', three: 'baz' }
+        )),
+        selectable: true,
+        rowClass: (row) => row.one
+      },
+      filters: [
+        { label: 'Foo', key: 'foo', type: 'select', options: [{value: 0, text: 'a'},{value: 1, text: 'b'},{value: 2, text: 'c'}] },
+        { label: 'Bar', key: 'bar', type: 'select', options: ['d','e','f'] },
+        { label: 'Baz', key: 'baz', type: 'select', options: ['g','h','i'] }
       ]
     }
   }
 
+
 }
 
-export default Home
+export default Long

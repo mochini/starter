@@ -1,25 +1,25 @@
+import _ from 'lodash'
+
 const INITIAL_STATE = {
-  data: {},
-  selected: null
+  selected: []
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
 
   switch (action.type) {
 
-  case 'CHANGE':
+  case 'SET':
     return {
       ...state,
-      data: {
-        ...state.data,
-        [action.key]: action.value
-      }
+      selected: action.selected
     }
 
-  case 'SELECT':
+  case 'TOGGLE':
     return {
       ...state,
-      selected: action.index
+      selected: [
+        ..._.xor(state.selected, [action.index])
+      ]
     }
 
   default:

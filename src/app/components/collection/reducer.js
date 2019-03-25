@@ -1,15 +1,15 @@
 const INITIAL_STATE = {
-  filtering: true
+  layout: 'table'
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
 
   switch (action.type) {
 
-  case 'TOGGLE_FILTER':
+  case 'CHANGE_LAYOUT':
     return {
       ...state,
-      filtering: !state.filtering
+      layout: action.layout
     }
 
   default:

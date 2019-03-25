@@ -2,6 +2,9 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import Table from '../table'
 import Filters from '../filters'
+import Searchbox from '../searchbox'
+import Message from '../message'
+import Layouts from './layouts'
 
 class Collection extends React.Component {
 
@@ -9,63 +12,95 @@ class Collection extends React.Component {
 
   static propTypes = {
     filtering: PropTypes.bool,
-    onToggleFilter: PropTypes.func
+    filters: PropTypes.array,
+    layout: PropTypes.string,
+    table: PropTypes.object,
+    onChangeLayout: PropTypes.func
   }
 
-  _handleToggleFilter = this._handleToggleFilter.bind(this)
+  _handleChangeLayout = this._handleChangeLayout.bind(this)
 
   render() {
-    const { filtering } = this.props
+    const { filters, layout } = this.props
     return (
       <div className="collection">
-        { filtering &&
+        { filters &&
           <div className="collection-filters">
             <Filters { ...this._getFilters() } />
           </div>
         }
         <div className="collection-body">
           <div className="collection-header">
-            <div className="collection-tool" onClick={ this._handleToggleFilter }>
-              <i className="fa fa-fw fa-filter" />
+            <div className="collection-header-searchbox">
+              <Searchbox { ...this._getSearchbox() } />
+            </div>
+            <div className="collection-header-layout">
+              <Layouts { ...this._getLayouts() } />
             </div>
           </div>
-          <div className="collection-table">
-            <Table { ...this._getTable() } />
-          </div>
+          { false && <Message { ...this._getEmpty() } /> }
+          { layout === 'table' &&
+            <div className="collection-table">
+              <Table { ...this._getTable() } />
+            </div>
+          }
+          { layout === 'list' &&
+            <div>List</div>
+          }
+          { layout === 'map' &&
+            <div>Map</div>
+          }
         </div>
       </div>
     )
   }
 
   _getFilters() {
+    const { filters } = this.props
     return {
-      filters: [
-        { label: 'Foo', key: 'foo', type: 'checkboxes', options: [{value: 0, text: 'a'},{value: 1, text: 'b'},{value: 2, text: 'c'}] },
-        { label: 'Bar', key: 'bar', type: 'checkboxes', options: ['d','e','f'] },
-        { label: 'Baz', key: 'baz', type: 'checkboxes', options: ['g','h','i'] }
-      ]
+      label: 'Filter Results',
+      filters
+    }
+  }
+
+  _getSearchbox() {
+    return {
+      prompt: 'Search Items'
+    }
+  }
+
+  _getEmpty() {
+    return {
+      icon: 'user',
+      title: 'Foo Bar Baz',
+      text: 'foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz'
+    }
+  }
+
+  _getLayouts() {
+    const { layout } = this.props
+    return {
+      layouts: [
+        { key: 'table', icon: 'table' },
+        { key: 'list', icon: 'list' },
+        { key: 'tile', icon: 'th' },
+        { key: 'map', icon: 'map-marker' }
+      ],
+      layout,
+      onChange: this._handleChangeLayout
     }
   }
 
   _getTable() {
+    const { table } = this.props
     return {
-      columns: [
-        { label: 'One', key: 'one' },
-        { label: 'Two', key: 'two' },
-        { label: 'Three', key: 'three' }
-      ],
-      data: Array(200).fill().map((row, index) => (
-        { one: `foo${index}`, two: 'bar', three: 'baz' }
-      )),
-      selectable: true,
-      rowClass: (row) => row.one
+      ...table
     }
   }
 
-  _handleToggleFilter() {
-    this.props.onToggleFilter()
+  _handleChangeLayout(index) {
+    this.props.onChangeLayout(index)
   }
-
 
 }
 

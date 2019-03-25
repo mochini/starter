@@ -1,7 +1,66 @@
 .filters {
   flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+.filter-panel {
+  .translatex-transition(100%, 0, .25s);
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: @white;
+  display: flex;
+  flex-direction: column;
+}
+.filter-panel-header {
+  border-bottom: 1px solid fadeout(@black, 90);
+  background-color: fadeout(@black, 95);
+  display: flex;
+  cursor: pointer;
+}
+.filter-panel-header-nav {
+  padding: 0.8em 0 0.8em 0.8em;
+}
+.filter-panel-header-label {
+  flex: 1;
   padding: 0.8em;
 }
-.filter {
-  margin: 0 0 0.8em;
+.filter-panel-body {
+  flex: 1;
+}
+.filter-items {
+  flex: 1;
+}
+.filter-item {
+  border-bottom: 1px solid fadeout(@black, 90);
+  display: flex;
+  cursor: pointer;
+  &:hover {
+    background-color: fadeout(@black, 97);
+  }
+}
+.filter-item-label {
+  padding: 0.8em;
+  flex: 1;
+}
+.filter-item-count {
+  padding: 0.8em;
+  .count {
+    background-color: fadeout(@black, 90);
+    color: fadeout(@black, 70);
+    font-weight: bold;
+    border-radius: 50%;
+    text-align: center;
+    display: inline-block;
+    width: 1.4em;
+    height: 1.4em;
+  }
+}
+.filter-item-icon {
+  padding: 0.8em 0.8em 0.8em 0;
+  .fa {
+    color: fadeout(@black, 60);
+  }
 }

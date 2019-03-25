@@ -3,3 +3,8 @@ export const change = (key, value) => ({
   key,
   value
 })
+
+export const select = (index) => ({
+  type: 'SELECT',
+  index
+})
