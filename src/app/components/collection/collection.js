@@ -13,12 +13,15 @@ class Collection extends React.Component {
   static propTypes = {
     filtering: PropTypes.bool,
     filters: PropTypes.array,
+    filter: PropTypes.array,
     layout: PropTypes.string,
     table: PropTypes.object,
-    onChangeLayout: PropTypes.func
+    onChangeLayout: PropTypes.func,
+    onFilter: PropTypes.func
   }
 
   _handleChangeLayout = this._handleChangeLayout.bind(this)
+  _handleFilter = this._handleFilter.bind(this)
 
   render() {
     const { filters, layout } = this.props
@@ -31,6 +34,9 @@ class Collection extends React.Component {
         }
         <div className="collection-body">
           <div className="collection-header">
+            <div className="collection-header-bulk">
+              <i className="fa fa-fw fa-chevron-down" />
+            </div>
             <div className="collection-header-searchbox">
               <Searchbox { ...this._getSearchbox() } />
             </div>
@@ -59,7 +65,8 @@ class Collection extends React.Component {
     const { filters } = this.props
     return {
       label: 'Filter Results',
-      filters
+      filters,
+      onChange: this._handleFilter
     }
   }
 
@@ -100,6 +107,10 @@ class Collection extends React.Component {
 
   _handleChangeLayout(index) {
     this.props.onChangeLayout(index)
+  }
+
+  _handleFilter(filter) {
+    this.props.onFilter(filter)
   }
 
 }

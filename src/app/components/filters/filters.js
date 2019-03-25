@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import Items from './items'
 import Filter from './filter'
 import React from 'react'
+import _ from 'lodash'
 
 class Filters extends React.Component {
 
@@ -14,17 +15,20 @@ class Filters extends React.Component {
     label: PropTypes.string,
     selected: PropTypes.number,
     onChange: PropTypes.func,
-    onSelect: PropTypes.func
+    onSelect: PropTypes.func,
+    onUpdate: PropTypes.func
   }
 
-  static defaultProps = {}
+  static defaultProps = {
+    onChange: () => {}
+  }
 
   state = {
     selected: null
   }
 
   _handleBack = this._handleBack.bind(this)
-  _handleChange = this._handleChange.bind(this)
+  _handleUpdate = this._handleUpdate.bind(this)
   _handleSelect = this._handleSelect.bind(this)
 
   render() {
@@ -40,7 +44,7 @@ class Filters extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { selected } = this.props
+    const { data, selected, onChange } = this.props
     if(selected !== prevProps.selected) {
       if(selected !== null) {
         this.setState({ selected })
@@ -49,6 +53,8 @@ class Filters extends React.Component {
           this.setState({ selected })
         }, 500)
       }
+    } else if(!_.isEqual(data, prevProps.data)) {
+      onChange(data)
     }
   }
 
@@ -70,7 +76,7 @@ class Filters extends React.Component {
       defaultValue: data[filter.key],
       filter,
       onBack: this._handleBack,
-      onChange: this._handleChange
+      onChange: this._handleUpdate
     }
   }
 
@@ -78,8 +84,8 @@ class Filters extends React.Component {
     this.props.onSelect(null)
   }
 
-  _handleChange(key, value) {
-    this.props.onChange(key, value)
+  _handleUpdate(key, value) {
+    this.props.onUpdate(key, value)
   }
 
   _handleSelect(index) {

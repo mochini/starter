@@ -1,5 +1,5 @@
-export const change = (key, value) => ({
-  type: 'CHANGE',
+export const update = (key, value) => ({
+  type: 'UPDATE',
   key,
   value
 })

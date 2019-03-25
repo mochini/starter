@@ -7,7 +7,7 @@ const reducer = (state = INITIAL_STATE, action) => {
 
   switch (action.type) {
 
-  case 'CHANGE':
+  case 'UPDATE':
     return {
       ...state,
       data: {

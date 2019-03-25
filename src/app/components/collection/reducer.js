@@ -1,4 +1,5 @@
 const INITIAL_STATE = {
+  filter: {},
   layout: 'table'
 }
 
@@ -10,6 +11,12 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       layout: action.layout
+    }
+
+  case 'FILTER':
+    return {
+      ...state,
+      filter: action.filter
     }
 
   default:
