@@ -1,5 +1,8 @@
+import { CSSTransition } from 'react-transition-group'
 import PropTypes from 'prop-types'
+import Button from '../button'
 import React from 'react'
+import _ from 'lodash'
 
 import Select from './select'
 
@@ -11,7 +14,8 @@ class Filter extends React.Component {
     defaultValue: PropTypes.any,
     filter: PropTypes.object,
     onBack: PropTypes.func,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    onReset: PropTypes.func
   }
 
   static defaultProps = {
@@ -20,6 +24,7 @@ class Filter extends React.Component {
 
   _handleBack = this._handleBack.bind(this)
   _handleChange = this._handleChange.bind(this)
+  _handleReset = this._handleReset.bind(this)
 
   render() {
     const { filter } = this.props
@@ -39,8 +44,19 @@ class Filter extends React.Component {
             <Select { ...this._getSelect() }/>
           }
         </div>
+        <div className="filter-panel-footer">
+          <Button { ...this._getButton() } />
+        </div>
       </div>
     )
+  }
+
+  _getButton() {
+    return {
+      label: 'Reset Filter',
+      color: 'red',
+      handler: this._handleReset
+    }
   }
 
   _getSelect() {
@@ -59,6 +75,11 @@ class Filter extends React.Component {
   _handleChange(value) {
     const { filter } = this.props
     this.props.onChange(filter.key, value)
+  }
+
+  _handleReset() {
+    const { filter } = this.props
+    this.props.onReset(filter.key)
   }
 
 }

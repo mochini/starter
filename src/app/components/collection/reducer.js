@@ -1,5 +1,6 @@
 const INITIAL_STATE = {
   filter: {},
+  tool: null,
   layout: 'table'
 }
 
@@ -11,6 +12,12 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       layout: action.layout
+    }
+
+  case 'CHANGE_TOOL':
+    return {
+      ...state,
+      tool: action.tool === state.tool ? null : action.tool
     }
 
   case 'FILTER':

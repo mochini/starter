@@ -15,6 +15,7 @@ class Filters extends React.Component {
     label: PropTypes.string,
     selected: PropTypes.number,
     onChange: PropTypes.func,
+    onReset: PropTypes.func,
     onSelect: PropTypes.func,
     onUpdate: PropTypes.func
   }
@@ -28,8 +29,9 @@ class Filters extends React.Component {
   }
 
   _handleBack = this._handleBack.bind(this)
-  _handleUpdate = this._handleUpdate.bind(this)
+  _handleReset = this._handleReset.bind(this)
   _handleSelect = this._handleSelect.bind(this)
+  _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
     const { selected } = this.state
@@ -64,7 +66,8 @@ class Filters extends React.Component {
       data,
       filters,
       label,
-      onSelect: this._handleSelect
+      onSelect: this._handleSelect,
+      onReset: this._handleReset
     }
   }
 
@@ -76,7 +79,8 @@ class Filters extends React.Component {
       defaultValue: data[filter.key],
       filter,
       onBack: this._handleBack,
-      onChange: this._handleUpdate
+      onChange: this._handleUpdate,
+      onReset: this._handleReset
     }
   }
 
@@ -84,12 +88,16 @@ class Filters extends React.Component {
     this.props.onSelect(null)
   }
 
-  _handleUpdate(key, value) {
-    this.props.onUpdate(key, value)
+  _handleReset(key) {
+    this.props.onReset(key)
   }
 
   _handleSelect(index) {
     this.props.onSelect(index)
+  }
+
+  _handleUpdate(key, value) {
+    this.props.onUpdate(key, value)
   }
 
 }

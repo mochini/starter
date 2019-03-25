@@ -1,3 +1,8 @@
+export const reset = (key) => ({
+  type: 'RESET',
+  key
+})
+
 export const update = (key, value) => ({
   type: 'UPDATE',
   key,

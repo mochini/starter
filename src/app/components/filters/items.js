@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import Button from '../button'
 import React from 'react'
 
 class Items extends React.Component {
@@ -9,10 +10,13 @@ class Items extends React.Component {
     data: PropTypes.object,
     filters: PropTypes.array,
     label: PropTypes.string,
-    onSelect: PropTypes.func
+    onSelect: PropTypes.func,
+    onReset: PropTypes.func
   }
 
   static defaultProps = {}
+
+  _handleReset = this._handleReset.bind(this)
 
   render() {
     const { data, filters, label } = this.props
@@ -44,8 +48,23 @@ class Items extends React.Component {
             ))}
           </div>
         </div>
+        <div className="filter-panel-footer">
+          <Button { ...this._getButton() } />
+        </div>
       </div>
     )
+  }
+
+  _getButton() {
+    return {
+      label: 'Reset Filters',
+      color: 'red',
+      handler: this._handleReset
+    }
+  }
+
+  _handleReset() {
+    this.props.onReset()
   }
 
   _handleSelect(index) {
