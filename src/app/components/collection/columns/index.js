@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class Columns extends React.Component {
+class Export extends React.Component {
 
   static contextTypes = {}
 
@@ -9,11 +9,17 @@ class Columns extends React.Component {
 
   render() {
     return (
-      <div>Columns</div>
+      <div className="columns-panel">
+        <div className="columns-panel-header">
+          Manage Columns
+        </div>
+        <div className="columns-panel-body">
+        </div>
+      </div>
     )
   }
 
 
 }
 
-export default Columns
+export default Export

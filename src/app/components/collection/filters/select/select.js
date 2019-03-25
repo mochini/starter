@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
 
-class Filters extends React.Component {
+class Select extends React.Component {
 
   static contextTypes = {}
 
@@ -22,16 +22,16 @@ class Filters extends React.Component {
   render() {
     const { options, selected } = this.props
     return (
-      <div className="checkboxes">
+      <div className="select">
         { options.map((option, index) => (
-          <div className="checkbox" key={`option_${index}`} onClick={ this._handleClick.bind(this, index) }>
-            <div className="checkbox-icon">
+          <div className="select-option" key={`option_${index}`} onClick={ this._handleClick.bind(this, index) }>
+            <div className="select-option-icon">
               { _.includes(selected, this._getValue(option)) ?
                 <i className="fa fa-fw fa-check-circle" /> :
                 <i className="fa fa-fw fa-circle-o" />
               }
             </div>
-            <div className="checkbox-label">
+            <div className="select-option-label">
               <label>{ this._getText(option) }</label>
             </div>
           </div>
@@ -68,4 +68,4 @@ class Filters extends React.Component {
 
 }
 
-export default Filters
+export default Select

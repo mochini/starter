@@ -1,0 +1,69 @@
+import PropTypes from 'prop-types'
+import React from 'react'
+
+class Panel extends React.Component {
+
+  static contextTypes = {
+    drawer: PropTypes.object,
+    router: PropTypes.object
+  }
+
+  static propTypes = {
+    items: PropTypes.array,
+    path: PropTypes.array,
+    onBack: PropTypes.func,
+    onForward: PropTypes.func
+  }
+
+  static defaultProps = {}
+
+  _handleBack = this._handleBack.bind(this)
+
+  render() {
+    const { items, path } = this.props
+    return (
+      <div className="menu-panel">
+        <div className="menu-panel-header" onClick={ this._handleBack }>
+          { path.length > 0 &&
+            <div className="menu-panel-header-nav">
+              <i className="fa fa-fw fa-chevron-left" />
+            </div>
+          }
+          <div className="menu-panel-header-label">
+            Menu
+          </div>
+        </div>
+        <div className="menu-panel-body">
+          { items.map((item, index) => (
+            <div className="menu-item" key={`item_${index}`} onClick={ this._handleClick.bind(this, item, index) }>
+              <div className="menu-item-label">
+                { item.label }
+              </div>
+              { item.items &&
+                <div className="menu-item-icon">
+                  <i className="fa fa-fw fa-chevron-right" />
+                </div>
+              }
+            </div>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  _handleBack() {
+    this.props.onBack()
+  }
+
+  _handleClick(item, index) {
+    if(item.route) {
+      this.context.drawer.close()
+      this.context.router.history.push(item.route)
+    } else {
+      this.props.onForward(index)
+    }
+  }
+
+}
+
+export default Panel

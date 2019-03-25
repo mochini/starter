@@ -2,12 +2,14 @@ import Searchbox from '../searchbox'
 import PropTypes from 'prop-types'
 import Message from '../message'
 import Buttons from '../buttons'
-import Filters from '../filters'
+import Filters from './filters'
 import Layouts from './layouts'
 import Columns from './columns'
-import Table from '../table'
-import Tools from './tools'
 import Export from './export'
+import Table from './table'
+import Tools from './tools'
+import List from './list'
+import Tile from './tile'
 import React from 'react'
 import qs from 'qs'
 
@@ -18,6 +20,7 @@ class Collection extends React.Component {
   }
 
   static propTypes = {
+    data: PropTypes.array,
     filtering: PropTypes.bool,
     filters: PropTypes.array,
     filter: PropTypes.object,
@@ -58,24 +61,15 @@ class Collection extends React.Component {
           </div>
           <div className="collection-body">
             { false && <Message { ...this._getEmpty() } /> }
-            { layout === 'table' &&
-              <div className="collection-table">
-                <Table { ...this._getTable() } />
-              </div>
-            }
-            { layout === 'list' &&
-              <div>List</div>
-            }
-            { layout === 'map' &&
-              <div>Map</div>
-            }
+            { layout === 'table' && <Table { ...this._getTable() } /> }
+            { layout === 'list' && <List { ...this._getList() } /> }
+            { layout === 'tile' && <Tile { ...this._getTile() } /> }
+            { layout === 'map' && <div>Map</div> }
           </div>
           <div className="collection-footer">
             <div className="collection-footer-icon">
               <i className="fa fa-fw fa-chevron-up" />
-            </div>
-            <div className="collection-footer-text">
-              With 10 selected:
+              <div>10</div>
             </div>
             <div className="collection-footer-buttons">
               <Buttons { ...this._getButtons() } />
@@ -89,6 +83,7 @@ class Collection extends React.Component {
   componentDidMount() {
     const { search } = this.context.router.history.location
     const $filters = search.length > 0 ? qs.parse(search.slice(1)) : {}
+    console.log($filters)
   }
 
   _getButtons() {
@@ -111,7 +106,7 @@ class Collection extends React.Component {
   _getFilters() {
     const { filters } = this.props
     return {
-      label: 'Filter Results',
+      label: 'Filter Records',
       filters,
       onChange: this._handleFilter
     }
@@ -145,10 +140,25 @@ class Collection extends React.Component {
     }
   }
 
-  _getTable() {
-    const { table } = this.props
+  _getList() {
+    const { data } = this.props
     return {
+      data
+    }
+  }
+
+  _getTable() {
+    const { data, table } = this.props
+    return {
+      data,
       ...table
+    }
+  }
+
+  _getTile() {
+    const { data } = this.props
+    return {
+      data
     }
   }
 

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import Button from '../button'
+import Button from '../../button'
 import React from 'react'
 
 class Items extends React.Component {

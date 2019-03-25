@@ -1,9 +1,8 @@
-import { CSSTransition } from 'react-transition-group'
 import PropTypes from 'prop-types'
-import Button from '../button'
+import Button from '../../button'
 import React from 'react'
-import _ from 'lodash'
 
+import Daterange from './daterange'
 import Select from './select'
 
 class Filter extends React.Component {
@@ -40,9 +39,8 @@ class Filter extends React.Component {
           <div className="filter-panel-header-nav" />
         </div>
         <div className="filter-panel-body">
-          { filter.type === 'select' &&
-            <Select { ...this._getSelect() }/>
-          }
+          { filter.type === 'daterange' && <Daterange { ...this._getDaterange() }/> }
+          { filter.type === 'select' && <Select { ...this._getSelect() }/> }
         </div>
         <div className="filter-panel-footer">
           <Button { ...this._getButton() } />
@@ -56,6 +54,15 @@ class Filter extends React.Component {
       label: 'Reset Filter',
       color: 'red',
       handler: this._handleReset
+    }
+  }
+
+  _getDaterange() {
+    const { defaultValue, filter } = this.props
+    return {
+      defaultValue,
+      ...filter,
+      onChange: this._handleChange
     }
   }
 

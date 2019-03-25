@@ -1,4 +1,4 @@
-import Scrollpane from '../scrollpane'
+import Scrollpane from '../../scrollpane'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'

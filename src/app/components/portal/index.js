@@ -52,12 +52,30 @@ class Portal extends React.Component {
     }
   }
 
+  _getMenu() {
+    return {
+      items: [
+        { label: 'Item 1', route: '/page1' },
+        { label: 'Item 2', items: [
+          { label: 'Item 2a', route: '/page2a' },
+          { label: 'Item 2b', route: '/page2b' },
+          { label: 'Item 2c', items: [
+            { label: 'Item 2ci', route: '/page2ci' },
+            { label: 'Item 2cii', route: '/page2cii' },
+            { label: 'Item 2ciii', route: '/page2ciii' }
+          ] }
+        ] },
+        { label: 'Item 3', route: '/page3' }
+      ]
+    }
+  }
+
   _handleAccount() {
     this.context.drawer.open(<Account />, 'right')
   }
 
   _handleMenu() {
-    this.context.drawer.open(<Menu />, 'left')
+    this.context.drawer.open(<Menu { ...this._getMenu() } />, 'left')
   }
 
 }

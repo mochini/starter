@@ -34,6 +34,7 @@
 .collection-tool,
 .collection-layout {
   border-left: 1px solid fadeout(@black, 90);
+  line-height: 1.4285em;
   padding: 0.4em 0.6em;
   display: flex;
   color: fadeout(@black, 60);
@@ -55,18 +56,16 @@
 .collection-body {
   flex: 1;
   display: flex;
+  background-color: fadeout(@black, 90);
 }
 .collection-footer {
   background-color: fadeout(@black, 10);
   display: flex;
 }
 .collection-footer-icon {
-  display: flex;
   padding: 0.8em 0.8em 0.8em 1.2em;
-  .fa {
-    margin: auto;
-    color: @white;
-  }
+  color: @white;
+  text-align: center;
 }
 .collection-footer-text {
   color: @white;
@@ -76,14 +75,4 @@
 .collection-footer-buttons {
   padding: 0.8em 0.4em;
   flex: 1;
-}
-.collection-table {
-  flex: 1;
-  display: flex;
-  padding: 0.4em;
-  background-color: fadeout(@black, 90);
-  .table {
-    background-color: @white;
-
-  }
 }

@@ -1,0 +1,31 @@
+.list {
+  flex: 1;
+  .scrollable();
+  padding: 0.2em;
+}
+.list-item {
+  padding: 0.2em;
+}
+.list-tile {
+  display: flex;
+  background-color: @white;
+}
+.list-tile-icon {
+  border-right: 1px solid fadeout(@black, 90);
+  background-color: fadeout(@black, 95);
+  padding: 0.8em;
+  display: flex;
+  .fa {
+    margin: auto;
+  }
+  .fa-circle-o {
+    color: fadeout(@black, 60);
+  }
+  .fa-check-circle {
+    color: @blue;
+  }
+}
+.list-tile-details {
+  padding: 0.8em;
+  flex: 1;
+}

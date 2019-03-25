@@ -1,0 +1,33 @@
+.tiles {
+  .scrollable();
+  flex: 1;
+  padding: 0.2em;
+}
+.tile-item {
+  width: calc(100% / 3);
+  padding: 0.2em;
+  float: left;
+}
+.tile {
+  background-color: @white;
+  display: flex;
+}
+.tile-icon {
+  border-right: 1px solid fadeout(@black, 90);
+  background-color: fadeout(@black, 95);
+  padding: 0.8em;
+  display: flex;
+  .fa {
+    margin: auto;
+  }
+  .fa-circle-o {
+    color: fadeout(@black, 60);
+  }
+  .fa-check-circle {
+    color: @blue;
+  }
+}
+.tile-details {
+  padding: 0.8em;
+  flex: 1;
+}
