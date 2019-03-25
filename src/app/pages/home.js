@@ -3,7 +3,6 @@ import React from 'react'
 import Tabs from '../components/tabs'
 import Long from './long'
 import Grid from './grid'
-import Options from './options'
 
 class Home extends React.Component {
 
@@ -25,8 +24,7 @@ class Home extends React.Component {
     return {
       items: [
         { label: 'Foo', component: Grid },
-        { label: 'Bar', component: Long },
-        { label: 'Baz', component: Options }
+        { label: 'Bar', component: Long }
       ]
     }
   }

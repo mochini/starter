@@ -4,7 +4,7 @@ import drawer from './drawer'
 import * as actions from './actions'
 
 export default Singleton({
-  namespace: 'reframe.drawer',
+  namespace: 'drawer',
   component: drawer,
   reducer,
   actions

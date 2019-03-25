@@ -1,18 +1,15 @@
 const INITIAL_STATE = {
-  data: {}
+  filtering: true
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
 
   switch (action.type) {
 
-  case 'CHANGE':
+  case 'TOGGLE_FILTER':
     return {
       ...state,
-      data: {
-        ...state.data,
-        [action.key]: action.value
-      }
+      filtering: !state.filtering
     }
 
   default:

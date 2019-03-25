@@ -3,7 +3,7 @@ import React from 'react'
 
 class Filters extends React.Component {
 
-  static childContextTypes = {}
+  static contextTypes = {}
 
   static propTypes = {}
 
