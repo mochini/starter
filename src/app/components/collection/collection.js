@@ -27,6 +27,7 @@ class Collection extends React.Component {
     filtering: PropTypes.bool,
     filters: PropTypes.array,
     filter: PropTypes.object,
+    itemActions: PropTypes.array,
     layouts: PropTypes.array,
     layout: PropTypes.string,
     selectAll: PropTypes.bool,
@@ -39,6 +40,7 @@ class Collection extends React.Component {
     onChangeLayout: PropTypes.func,
     onChangeTool: PropTypes.func,
     onFilter: PropTypes.func,
+    onQuery: PropTypes.func,
     onToggle: PropTypes.func,
     onToggleAll: PropTypes.func
   }
@@ -46,6 +48,7 @@ class Collection extends React.Component {
   _handleChangeLayout = this._handleChangeLayout.bind(this)
   _handleChangeTool = this._handleChangeTool.bind(this)
   _handleFilter = this._handleFilter.bind(this)
+  _handleType = this._handleType.bind(this)
 
   render() {
     const { allLayouts, selected, tool } = this.props
@@ -53,14 +56,8 @@ class Collection extends React.Component {
       <div className="collection">
         <div className="collection-header">
           <div className="collection-header-buttons">
-            { allLayouts.length > 1 &&
-              <div className="collection-header-layout">
-                <Layouts { ...this._getLayouts() } />
-              </div>
-            }
-            <div className="collection-header-tools">
-              <Tools { ...this._getTools() } />
-            </div>
+            { allLayouts.length > 1 && <Layouts { ...this._getLayouts() } /> }
+            <Tools { ...this._getTools() } />
           </div>
           <div className="collection-header-searchbox">
             <Searchbox { ...this._getSearchbox() } />
@@ -97,8 +94,15 @@ class Collection extends React.Component {
     const { allLayouts, onChangeLayout } = this.props
     onChangeLayout(allLayouts[0].key)
     const { search } = this.context.router.history.location
-    const $filters = search.length > 0 ? qs.parse(search.slice(1)) : {}
-    console.log($filters)
+    const query = search.length > 0 ? qs.parse(search.slice(1)) : {}
+    this.props.onFilter(query.$filter)
+  }
+
+  componentDidUpdate(prevProps) {
+    const { filter } = this.props
+    if(!_.isEqual(filter, prevProps.filter)) {
+      this._handleChangeUrl()
+    }
   }
 
   _getButtons() {
@@ -111,7 +115,9 @@ class Collection extends React.Component {
   }
 
   _getColumns() {
-    return {}
+    return {
+      onClose: this._handleChangeTool.bind(this, null)
+    }
   }
 
   _getCustom() {
@@ -128,7 +134,8 @@ class Collection extends React.Component {
 
   _getExport() {
     return {
-      defaultValue: this.props.export
+      defaultValue: this.props.export,
+      onClose: this._handleChangeTool.bind(this, null)
     }
   }
 
@@ -137,13 +144,15 @@ class Collection extends React.Component {
     return {
       label: 'Filter Records',
       filters,
+      onClose: this._handleChangeTool.bind(this, null),
       onChange: this._handleFilter
     }
   }
 
   _getSearchbox() {
     return {
-      prompt: 'Search Items'
+      prompt: 'Search Items',
+      onChange: this._handleType
     }
   }
 
@@ -176,10 +185,12 @@ class Collection extends React.Component {
   }
 
   _getList() {
-    const { data, list, selected, selectAll, onToggle, onToggleAll } = this.props
+    const { data, itemActions, list, selected, selectAll, onToggle, onToggleAll } = this.props
     return {
       ...list,
+      itemActions,
       records: data,
+      selectable: true,
       selected,
       selectAll,
       onToggle,
@@ -199,10 +210,12 @@ class Collection extends React.Component {
   }
 
   _getTable() {
-    const { data, selected, selectAll, table, onToggle, onToggleAll } = this.props
+    const { data, itemActions, selected, selectAll, table, onToggle, onToggleAll } = this.props
     return {
       ...table,
+      itemActions,
       records: data,
+      selectable: true,
       selected,
       selectAll,
       onToggle,
@@ -211,10 +224,12 @@ class Collection extends React.Component {
   }
 
   _getTile() {
-    const { data, selected, selectAll, tile, onToggle, onToggleAll } = this.props
+    const { data, itemActions, selected, selectAll, tile, onToggle, onToggleAll } = this.props
     return {
       ...tile,
+      itemActions,
       records: data,
+      selectable: true,
       selected,
       selectAll,
       onToggle,
@@ -244,8 +259,19 @@ class Collection extends React.Component {
     this.props.onChangeTool(tool)
   }
 
+  _handleChangeUrl() {
+    const { history } = this.context.router
+    const $filter = this.props.filter
+    const query = qs.stringify({ $filter }, { encode: false })
+    history.replace(`${history.location.pathname}?${query}`)
+  }
+
   _handleFilter(filter) {
     this.props.onFilter(filter)
+  }
+
+  _handleType(q) {
+    this.props.onQuery(q)
   }
 
 }

@@ -6,29 +6,57 @@ class List extends React.Component {
 
   static propTypes = {
     format: PropTypes.any,
+    itemActions: PropTypes.array,
     records: PropTypes.array,
+    selectable: PropTypes.bool,
+    selectAll: PropTypes.bool,
     selected: PropTypes.array,
-    onToggle: PropTypes.func
+    onToggle: PropTypes.func,
+    onToggleAll: PropTypes.func
   }
 
   static defaultProps = {}
 
+  _handleToggleAll = this._handleToggleAll.bind(this)
+
   render() {
-    const { records, format, selected } = this.props
+    const { itemActions, records, format, selectable, selectAll, selected } = this.props
     return (
       <div className="list">
-        { records.map((row, index) => (
-          <div className="list-item" key={`row_${index}`}>
-            <div className={ this._getClass(index) }>
-              <div className="list-tile-icon" onClick={ this._handleToggle.bind(this, index) }>
-                { _.includes(selected, index) ?
+        <div className="list-tile-header">
+          <div className="list-tile">
+            { selectable &&
+              <div className="list-tile-icon" onClick={ this._handleToggleAll }>
+                { selectAll ?
                   <i className="fa fa-fw fa-check-circle" /> :
                   <i className="fa fa-fw fa-circle-o" />
                 }
               </div>
+            }
+            <div className="list-tile-details">
+              Header
+            </div>
+          </div>
+        </div>
+        { records.map((row, index) => (
+          <div className="list-item" key={`row_${index}`}>
+            <div className={ this._getClass(index) }>
+              { selectable &&
+                <div className="list-tile-icon" onClick={ this._handleToggle.bind(this, index) }>
+                  { _.includes(selected, index) ?
+                    <i className="fa fa-fw fa-check-circle" /> :
+                    <i className="fa fa-fw fa-circle-o" />
+                  }
+                </div>
+              }
               <div className="list-tile-details">
                 { _.isFunction(format) ? React.createElement(format, row) : format }
               </div>
+              { itemActions &&
+                <div className="list-tile-actions">
+                  <i className="fa fa-fw fa-ellipsis-v" />
+                </div>
+              }
             </div>
           </div>
         ))}
@@ -45,6 +73,11 @@ class List extends React.Component {
 
   _handleToggle(index) {
     this.props.onToggle(index)
+  }
+
+  _handleToggleAll() {
+    const { records } = this.props
+    this.props.onToggleAll(records.length)
   }
 
 }

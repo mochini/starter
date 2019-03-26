@@ -2,10 +2,13 @@ import _ from 'lodash'
 
 const INITIAL_STATE = {
   filter: {},
+  q: '',
   tool: null,
   layout: 'table',
   selectAll: false,
-  selected: []
+  selected: [],
+  sortDirection: 'desc',
+  sortOrder: 'created_at'
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -28,6 +31,19 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       filter: action.filter
+    }
+
+  case 'QUERY':
+    return {
+      ...state,
+      q: action.q
+    }
+
+  case 'SORT':
+    return {
+      ...state,
+      sortDirection: action.sortDirection,
+      sortOrder: action.sortOrder
     }
 
   case 'TOGGLE':

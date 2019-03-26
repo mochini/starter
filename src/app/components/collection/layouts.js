@@ -14,12 +14,14 @@ class Layouts extends React.Component {
   render() {
     const { layouts } = this.props
     return (
-      <div className="collection-layouts">
-        { layouts.map((layout, index) => (
-          <div className={ this._getClass(layout.key) } key={`layout_${index}`} onClick={ this._handleClick.bind(this, layout.key) } tooltip={ `${layout.title} View` }>
-            <i className={`fa fa-fw fa-${layout.icon}`} />
-          </div>
-        )) }
+      <div className="collection-header-layout">
+        <div className="collection-layouts">
+          { layouts.map((layout, index) => (
+            <div className={ this._getClass(layout.key) } key={`layout_${index}`} onClick={ this._handleClick.bind(this, layout.key) } tooltip={ `${layout.title} View` }>
+              <i className={`fa fa-fw fa-${layout.icon}`} />
+            </div>
+          )) }
+        </div>
       </div>
     )
   }

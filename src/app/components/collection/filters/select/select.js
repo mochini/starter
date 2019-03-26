@@ -25,14 +25,11 @@ class Select extends React.Component {
       <div className="select">
         { options.map((option, index) => (
           <div className="select-option" key={`option_${index}`} onClick={ this._handleClick.bind(this, index) }>
-            <div className="select-option-icon">
-              { _.includes(selected, this._getValue(option)) ?
-                <i className="fa fa-fw fa-check-circle" /> :
-                <i className="fa fa-fw fa-circle-o" />
-              }
-            </div>
             <div className="select-option-label">
               <label>{ this._getText(option) }</label>
+            </div>
+            <div className="select-option-icon">
+              { _.includes(selected, this._getValue(option)) && <i className="fa fa-fw fa-check" /> }
             </div>
           </div>
         )) }

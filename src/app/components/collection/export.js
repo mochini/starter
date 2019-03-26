@@ -1,24 +1,33 @@
-import Buttons from '../../buttons'
+import Sortable from '../sortable'
 import PropTypes from 'prop-types'
-import Sortable from '../../sortable'
+import Buttons from '../buttons'
 import React from 'react'
 
 class Export extends React.Component {
 
   static contextTypes = {}
 
-  static propTypes = {}
+  static propTypes = {
+    onClose: PropTypes.func
+  }
+
+  _handleClose = this._handleClose.bind(this)
 
   render() {
     return (
-      <div className="export-panel">
-        <div className="export-panel-header">
-          Export Records
+      <div className="collection-panel">
+        <div className="collection-panel-header">
+          <div className="collection-panel-header-label">
+            Export Records
+          </div>
+          <div className="collection-panel-header-close" onClick={ this._handleClose }>
+            <i className="fa fa-fw fa-remove" />
+          </div>
         </div>
-        <div className="export-panel-body">
+        <div className="collection-panel-body">
           <Sortable { ...this._getSortable() } />
         </div>
-        <div className="export-panel-footer">
+        <div className="collection-panel-footer">
           <Buttons { ...this._getButtons() } />
         </div>
       </div>
@@ -40,6 +49,10 @@ class Export extends React.Component {
       defaultValue,
       onUpdate: (items) => this.setState({ items })
     }
+  }
+
+  _handleClose() {
+    this.props.onClose()
   }
 
 }

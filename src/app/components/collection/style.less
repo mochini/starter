@@ -8,6 +8,7 @@
   border-left: 1px solid fadeout(@black, 90);
   flex: 0 0 325px;
   display: flex;
+  position: relative;
 }
 .collection-header {
   @media (min-width: 768px) {
@@ -96,4 +97,45 @@
 .collection-footer-buttons {
   padding: 0.8em 0.4em;
   flex: 1;
+}
+.collection-panel {
+  .translatex-transition(100%, 0, .25s);
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: @white;
+  display: flex;
+  flex-direction: column;
+}
+.collection-panel-header {
+  border-bottom: 1px solid fadeout(@black, 90);
+  background-color: fadeout(@black, 95);
+  display: flex;
+  cursor: pointer;
+  display: flex;
+}
+.collection-panel-header-back {
+  padding: 0.8em 0 0.8em 0.8em;
+  color: fadeout(@black, 60);
+}
+.collection-panel-header-label {
+  padding: 0.8em;
+  flex: 1;
+}
+.collection-panel-header-close {
+  padding: 0.8em 0.8em 0.8em 0;
+  color: fadeout(@black, 60);
+  cursor: pointer;
+  &:hover {
+    color: fadeout(@black, 40);
+  }
+}
+.collection-panel-body {
+  flex: 1;
+}
+.collection-panel-footer {
+  background-color: fadeout(@black, 10);
+  padding: 0.8em 0.4em;
 }

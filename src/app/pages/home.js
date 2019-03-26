@@ -43,6 +43,10 @@ class Home extends React.Component {
 
   _getCollection() {
     return {
+      itemActions: [
+        { label: 'one' },
+        { label: 'two' }
+      ],
       data: Array(200).fill().map((row, index) => (
         { one: `foo${index}`, two: 'bar', three: 'baz' }
       )),
@@ -58,7 +62,6 @@ class Home extends React.Component {
           { label: 'Two', key: 'two' },
           { label: 'Three', key: 'three' }
         ],
-        selectable: true,
         rowClass: (row) => row.one
       },
       filters: [

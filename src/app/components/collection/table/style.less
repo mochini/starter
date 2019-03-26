@@ -10,10 +10,12 @@
   th, td {
     padding: 0.8em;
   }
+  .collapsing {
+    width: 2em;
+    white-space: nowrap;
+  }
   &.selectable {
     tr > *:first-child {
-      width: 1px;
-      white-space: nowrap;
       cursor: pointer;
     }
     .fa-circle-o {
@@ -59,5 +61,11 @@
   display: flex;
   td {
     border-bottom: 1px solid fadeout(@black, 90);
+  }
+  .table-actions {
+    cursor: pointer;
+    .fa {
+      color: fadeout(@black, 60);
+    }
   }
 }

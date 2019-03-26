@@ -50,7 +50,7 @@ class Item extends React.Component {
   }
 
   _getIcon() {
-    return this.props.checked ? 'check-square' : 'square-o'
+    return this.props.checked ? 'check-circle' : 'circle-o'
   }
 
   _handleToggle() {

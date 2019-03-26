@@ -10,24 +10,29 @@ class Items extends React.Component {
     data: PropTypes.object,
     filters: PropTypes.array,
     label: PropTypes.string,
+    onClose: PropTypes.func,
     onSelect: PropTypes.func,
     onReset: PropTypes.func
   }
 
   static defaultProps = {}
 
+  _handleClose = this._handleClose.bind(this)
   _handleReset = this._handleReset.bind(this)
 
   render() {
     const { data, filters, label } = this.props
     return (
-      <div className="filter-panel">
-        <div className="filter-panel-header">
-          <div className="filter-panel-header-label">
+      <div className="collection-panel">
+        <div className="collection-panel-header">
+          <div className="collection-panel-header-label">
             { label }
           </div>
+          <div className="collection-panel-header-close" onClick={ this._handleClose }>
+            <i className="fa fa-fw fa-remove" />
+          </div>
         </div>
-        <div className="filter-panel-body">
+        <div className="collection-panel-body">
           <div className="filter-items">
             { filters.map((filter, index) => (
               <div className="filter-item "key={`filter_${index}`} onClick={ this._handleSelect.bind(this, index) }>
@@ -48,7 +53,7 @@ class Items extends React.Component {
             ))}
           </div>
         </div>
-        <div className="filter-panel-footer">
+        <div className="collection-panel-footer">
           <Button { ...this._getButton() } />
         </div>
       </div>
@@ -61,6 +66,10 @@ class Items extends React.Component {
       color: 'red',
       handler: this._handleReset
     }
+  }
+
+  _handleClose() {
+    this.props.onClose()
   }
 
   _handleReset() {

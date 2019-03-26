@@ -14,12 +14,14 @@ class Tools extends React.Component {
   render() {
     const { tools } = this.props
     return (
-      <div className="collection-tools">
-        { tools.map((tool, index) => (
-          <div key={`tool_${index}`} className={ this._getClass(tool.key) } tooltip={ tool.title } onClick={ this._handleClick.bind(this, tool.key) }>
-            <i className={`fa fa-fw fa-${tool.icon}`} />
-          </div>
-        ))}
+      <div className="collection-header-tools">
+        <div className="collection-tools">
+          { tools.map((tool, index) => (
+            <div key={`tool_${index}`} className={ this._getClass(tool.key) } tooltip={ tool.title } onClick={ this._handleClick.bind(this, tool.key) }>
+              <i className={`fa fa-fw fa-${tool.icon}`} />
+            </div>
+          ))}
+        </div>
       </div>
     )
   }

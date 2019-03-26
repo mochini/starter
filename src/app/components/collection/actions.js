@@ -13,6 +13,11 @@ export const filter = (filter) => ({
   filter
 })
 
+export const query = (q) => ({
+  type: 'QUERY',
+  q
+})
+
 export const toggle = (index) => ({
   type: 'TOGGLE',
   index

@@ -28,21 +28,20 @@ class Filter extends React.Component {
   render() {
     const { filter } = this.props
     return (
-      <div className="filter-panel">
-        <div className="filter-panel-header" onClick={ this._handleBack }>
-          <div className="filter-panel-header-nav">
+      <div className="collection-panel">
+        <div className="collection-panel-header" onClick={ this._handleBack }>
+          <div className="collection-panel-header-back">
             <i className="fa fa-fw fa-chevron-left" />
           </div>
-          <div className="filter-panel-header-label">
+          <div className="collection-panel-header-label">
             { filter.label }
           </div>
-          <div className="filter-panel-header-nav" />
         </div>
-        <div className="filter-panel-body">
+        <div className="collection-panel-body">
           { filter.type === 'daterange' && <Daterange { ...this._getDaterange() }/> }
           { filter.type === 'select' && <Select { ...this._getSelect() }/> }
         </div>
-        <div className="filter-panel-footer">
+        <div className="collection-panel-footer">
           <Button { ...this._getButton() } />
         </div>
       </div>

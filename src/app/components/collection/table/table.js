@@ -7,6 +7,7 @@ class Table extends React.Component {
 
   static propTypes = {
     columns: PropTypes.array,
+    itemActions: PropTypes.array,
     records: PropTypes.array,
     rowClass: PropTypes.func,
     selectAll: PropTypes.bool,
@@ -22,7 +23,6 @@ class Table extends React.Component {
   }
 
   static defaultProps = {
-    selectable: false,
     onReachBottom: () => {},
     onSelect: () => {}
   }
@@ -40,7 +40,7 @@ class Table extends React.Component {
   _handleToggleAll = this._handleToggleAll.bind(this)
 
   render() {
-    const { columns, records, selectable, selectAll, selected, sortColumn, sortOrder } = this.props
+    const { columns, itemActions, records, selectable, selectAll, selected, sortColumn, sortOrder } = this.props
     return (
       <div className={ this._getClass() } ref={ (node) => this.table = node }>
         <div className="table-head">
@@ -66,6 +66,9 @@ class Table extends React.Component {
                     }
                   </th>
                 ))}
+                { itemActions &&
+                  <th { ...this._getHeader(columns.length + (selectable ? 1 : 0 )) } />
+                }
               </tr>
             </thead>
           </table>
@@ -77,7 +80,7 @@ class Table extends React.Component {
                 { records.map((row, index) => (
                   <tr className={ this._getRowClass(index) } key={`foo_${index}`}>
                     { selectable &&
-                      <td onClick={ this._handleToggle.bind(this, index) }>
+                      <td onClick={ this._handleToggle.bind(this, index) } className="collapsing">
                         { _.includes(selected, index) ?
                           <i className="fa fa-fw fa-check-circle" /> :
                           <i className="fa fa-fw fa-circle-o" />
@@ -89,6 +92,11 @@ class Table extends React.Component {
                         { row[columns[index].key] }
                       </td>
                     ))}
+                    { itemActions &&
+                      <td className="collapsing table-actions">
+                        <i className="fa fa-fw fa-ellipsis-v" />
+                      </td>
+                    }
                   </tr>
                 ))}
               </tbody>

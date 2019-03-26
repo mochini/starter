@@ -3,6 +3,12 @@
   .scrollable();
   padding: 0.2em;
 }
+.list-tile-header {
+  padding: 0.2em;
+  .list-tile-details  {
+    background-color: fadeout(@black, 95);
+  }
+}
 .list-item {
   padding: 0.2em;
 }
@@ -13,6 +19,7 @@
     background-color: fadeout(@yellow, 90);
   }
 }
+.list-tile-header-icon,
 .list-tile-icon {
   border-right: 1px solid fadeout(@black, 90);
   background-color: fadeout(@black, 95);
@@ -35,4 +42,13 @@
 .list-tile-details {
   padding: 0.8em;
   flex: 1;
+}
+.list-tile-actions {
+  padding: 0.8em 0.8em 0.8em 0;
+  display: flex;
+  cursor: pointer;
+  .fa {
+    margin: auto;
+    color: fadeout(@black, 60);
+  }
 }

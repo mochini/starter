@@ -15,6 +15,7 @@ class Filters extends React.Component {
     label: PropTypes.string,
     selected: PropTypes.number,
     onChange: PropTypes.func,
+    onClose: PropTypes.func,
     onReset: PropTypes.func,
     onSelect: PropTypes.func,
     onUpdate: PropTypes.func
@@ -29,6 +30,7 @@ class Filters extends React.Component {
   }
 
   _handleBack = this._handleBack.bind(this)
+  _handleClose = this._handleClose.bind(this)
   _handleReset = this._handleReset.bind(this)
   _handleSelect = this._handleSelect.bind(this)
   _handleUpdate = this._handleUpdate.bind(this)
@@ -66,6 +68,7 @@ class Filters extends React.Component {
       data,
       filters,
       label,
+      onClose: this._handleClose,
       onSelect: this._handleSelect,
       onReset: this._handleReset
     }
@@ -86,6 +89,10 @@ class Filters extends React.Component {
 
   _handleBack() {
     this.props.onSelect(null)
+  }
+
+  _handleClose() {
+    this.props.onClose()
   }
 
   _handleReset(key) {

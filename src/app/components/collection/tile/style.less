@@ -3,8 +3,17 @@
   flex: 1;
   padding: 0.2em;
 }
+.tile-header {
+  padding: 0.2em;
+  .tile-details  {
+    background-color: fadeout(@black, 95);
+  }
+}
 .tile-item {
-  width: calc(100% / 3);
+  @media (max-width: 414px) { width: 100%; }
+  @media (min-width: 415px) and (max-width: 768px) { width: calc(100% / 2); }
+  @media (min-width: 769px) and (max-width: 1024px) { width: calc(100% / 3); }
+  @media (min-width: 1025px) { width: calc(100% / 4); }
   padding: 0.2em;
   float: left;
 }
@@ -33,4 +42,13 @@
 .tile-details {
   padding: 0.8em;
   flex: 1;
+}
+.tile-actions {
+  padding: 0.8em 0.8em 0.8em 0;
+  display: flex;
+  cursor: pointer;
+  .fa {
+    margin: auto;
+    color: fadeout(@black, 60);
+  }
 }
