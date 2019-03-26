@@ -1,11 +1,12 @@
 .collection {
   flex: 1;
   display: flex;
+  overflow: hidden;
 }
 .collection-sidebar {
+  border-right: 1px solid fadeout(@black, 90);
   flex: 0 0 320px;
   display: flex;
-  border-right: 1px solid fadeout(@black, 90);
 }
 .collection-main {
   flex: 1;
@@ -15,6 +16,7 @@
 .collection-header {
   border-bottom: 1px solid fadeout(@black, 90);
   display: flex;
+  padding: 0 0 0 0.6em;
 }
 .collection-header-searchbox {
   flex: 1;
@@ -59,11 +61,12 @@
   background-color: fadeout(@black, 90);
 }
 .collection-footer {
+  .translatey-transition(100%, 0, .1s);
   background-color: fadeout(@black, 10);
   display: flex;
 }
-.collection-footer-icon {
-  padding: 0.8em 0.8em 0.8em 1.2em;
+.collection-footer-count {
+  padding: 0.6em 0.8em 0.6em 1.2em;
   color: @white;
   text-align: center;
 }

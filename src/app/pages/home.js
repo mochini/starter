@@ -1,6 +1,12 @@
+import Collection from '../components/collection'
 import PropTypes from 'prop-types'
 import React from 'react'
-import Collection from '../components/collection'
+
+const Token = record => (
+  <div className="token">
+    { record.one }
+  </div>
+)
 
 class Long extends React.Component {
 
@@ -21,6 +27,9 @@ class Long extends React.Component {
       data: Array(200).fill().map((row, index) => (
         { one: `foo${index}`, two: 'bar', three: 'baz' }
       )),
+      tile: {
+        format: Token
+      },
       table: {
         columns: [
           { label: 'One', key: 'one' },

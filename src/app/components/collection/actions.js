@@ -12,3 +12,13 @@ export const filter = (filter) => ({
   type: 'FILTER',
   filter
 })
+
+export const toggle = (index) => ({
+  type: 'TOGGLE',
+  index
+})
+
+export const toggleAll = (rows) => ({
+  type: 'TOGGLE_ALL',
+  rows
+})

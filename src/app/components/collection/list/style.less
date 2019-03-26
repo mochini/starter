@@ -9,12 +9,19 @@
 .list-tile {
   display: flex;
   background-color: @white;
+  &.selected .list-tile-details {
+    background-color: fadeout(@yellow, 95);
+  }
 }
 .list-tile-icon {
   border-right: 1px solid fadeout(@black, 90);
   background-color: fadeout(@black, 95);
   padding: 0.8em;
   display: flex;
+  cursor: pointer;
+  &:hover {
+    background-color: fadeout(@black, 90);
+  }
   .fa {
     margin: auto;
   }

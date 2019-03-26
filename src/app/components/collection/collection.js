@@ -1,3 +1,4 @@
+import { CSSTransition } from 'react-transition-group'
 import Searchbox from '../searchbox'
 import PropTypes from 'prop-types'
 import Message from '../message'
@@ -24,12 +25,19 @@ class Collection extends React.Component {
     filtering: PropTypes.bool,
     filters: PropTypes.array,
     filter: PropTypes.object,
+    layouts: PropTypes.array,
     layout: PropTypes.string,
+    selectAll: PropTypes.bool,
+    selected: PropTypes.array,
+    list: PropTypes.object,
     table: PropTypes.object,
+    tile: PropTypes.object,
     tool: PropTypes.string,
     onChangeLayout: PropTypes.func,
     onChangeTool: PropTypes.func,
-    onFilter: PropTypes.func
+    onFilter: PropTypes.func,
+    onToggle: PropTypes.func,
+    onToggleAll: PropTypes.func
   }
 
   _handleChangeLayout = this._handleChangeLayout.bind(this)
@@ -37,7 +45,7 @@ class Collection extends React.Component {
   _handleFilter = this._handleFilter.bind(this)
 
   render() {
-    const { layout, tool } = this.props
+    const { layouts, layout, selected, tool } = this.props
     return (
       <div className="collection">
         { tool &&
@@ -52,9 +60,11 @@ class Collection extends React.Component {
             <div className="collection-header-searchbox">
               <Searchbox { ...this._getSearchbox() } />
             </div>
-            <div className="collection-header-layout">
-              <Layouts { ...this._getLayouts() } />
-            </div>
+            { layouts.length > 1 &&
+              <div className="collection-header-layout">
+                <Layouts { ...this._getLayouts() } />
+              </div>
+            }
             <div className="collection-header-layout">
               <Tools { ...this._getTools() } />
             </div>
@@ -66,21 +76,27 @@ class Collection extends React.Component {
             { layout === 'tile' && <Tile { ...this._getTile() } /> }
             { layout === 'map' && <div>Map</div> }
           </div>
-          <div className="collection-footer">
-            <div className="collection-footer-icon">
-              <i className="fa fa-fw fa-chevron-up" />
-              <div>10</div>
+          <CSSTransition key="drawer-panel" in={ selected.length > 0 } classNames="translatey" timeout={ 100 } mountOnEnter={ true } unmountOnExit={ true }>
+            <div className="collection-footer">
+              <div className="collection-footer-count">
+                <i className="fa fa-fw fa-chevron-up" />
+                <div className="count">
+                  { selected.length }
+                </div>
+              </div>
+              <div className="collection-footer-buttons">
+                <Buttons { ...this._getButtons() } />
+              </div>
             </div>
-            <div className="collection-footer-buttons">
-              <Buttons { ...this._getButtons() } />
-            </div>
-          </div>
+          </CSSTransition>
         </div>
       </div>
     )
   }
 
   componentDidMount() {
+    const { layouts, onChangeLayout } = this.props
+    onChangeLayout(layouts[0].key)
     const { search } = this.context.router.history.location
     const $filters = search.length > 0 ? qs.parse(search.slice(1)) : {}
     console.log($filters)
@@ -127,38 +143,47 @@ class Collection extends React.Component {
   }
 
   _getLayouts() {
-    const { layout } = this.props
+    const { layout, layouts } = this.props
     return {
-      layouts: [
-        { key: 'table', icon: 'table' },
-        { key: 'list', icon: 'list' },
-        { key: 'tile', icon: 'th' },
-        { key: 'map', icon: 'map-marker' }
-      ],
+      layouts,
       layout,
       onChange: this._handleChangeLayout
     }
   }
 
   _getList() {
-    const { data } = this.props
+    const { data, list, selected, selectAll, onToggle, onToggleAll } = this.props
     return {
-      data
+      ...list,
+      data,
+      selected,
+      selectAll,
+      onToggle,
+      onToggleAll
     }
   }
 
   _getTable() {
-    const { data, table } = this.props
+    const { data, selected, selectAll, table, onToggle, onToggleAll } = this.props
     return {
+      ...table,
       data,
-      ...table
+      selected,
+      selectAll,
+      onToggle,
+      onToggleAll
     }
   }
 
   _getTile() {
-    const { data } = this.props
+    const { data, selected, selectAll, tile, onToggle, onToggleAll } = this.props
     return {
-      data
+      ...tile,
+      data,
+      selected,
+      selectAll,
+      onToggle,
+      onToggleAll
     }
   }
 
