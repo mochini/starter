@@ -16,7 +16,7 @@ class Layouts extends React.Component {
     return (
       <div className="collection-layouts">
         { layouts.map((layout, index) => (
-          <div className={ this._getClass(layout.key) } key={`layout_${index}`} onClick={ this._handleClick.bind(this, layout.key) } title={ layout.key }>
+          <div className={ this._getClass(layout.key) } key={`layout_${index}`} onClick={ this._handleClick.bind(this, layout.key) } tooltip={ `${layout.title} View` }>
             <i className={`fa fa-fw fa-${layout.icon}`} />
           </div>
         )) }

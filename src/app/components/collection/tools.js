@@ -16,7 +16,7 @@ class Tools extends React.Component {
     return (
       <div className="collection-tools">
         { tools.map((tool, index) => (
-          <div key={`tool_${index}`} className={ this._getClass(tool.key) } title={ tool.title} onClick={ this._handleClick.bind(this, tool.key) }>
+          <div key={`tool_${index}`} className={ this._getClass(tool.key) } tooltip={ tool.title } onClick={ this._handleClick.bind(this, tool.key) }>
             <i className={`fa fa-fw fa-${tool.icon}`} />
           </div>
         ))}

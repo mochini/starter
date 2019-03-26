@@ -12,9 +12,9 @@ export const allLayouts = createSelector(
   table, layouts, list, tile,
   (table, layouts, list, tile) => {
     const allLayouts = []
-    if(table) allLayouts.push({ key: 'table', icon: 'table' })
-    if(list) allLayouts.push({ key: 'list', icon: 'list' })
-    if(tile) allLayouts.push({ key: 'tile', icon: 'th' })
+    if(table) allLayouts.push({ key: 'table', icon: 'table', title: 'Table' })
+    if(list) allLayouts.push({ key: 'list', icon: 'list', title: 'List' })
+    if(tile) allLayouts.push({ key: 'tile', icon: 'th', title: 'Tile' })
     return [
       ...allLayouts,
       ...layouts

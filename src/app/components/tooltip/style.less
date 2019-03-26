@@ -1,0 +1,46 @@
+[tooltip] {
+  position: relative;
+}
+[tooltip]::after {
+  content: attr(tooltip);
+  position: absolute;
+  left: 50%;
+  top: -6px;
+  transform: translateX(-50%) translateY(-100%);
+  background: fadeout(@black, 30);
+  text-align: center;
+  color: @white;
+  padding: 4px 2px;
+  font-size: 11px;
+  line-height: 14px;
+  min-width: 85px;
+  border-radius: 5px;
+  pointer-events: none;
+  padding: 4px 4px;
+  z-index: 99;
+  opacity: 0;
+}
+[tooltip-position='left']::after {
+  left: 0%;
+  top: 50%;
+  margin-left: -8px;
+  transform: translateX(-100%) translateY(-50%);
+}
+[tooltip-position='top']::after {
+  left: 50%;
+}
+[tooltip]::after,
+[tooltip-position='bottom']::after {
+  top: 100%;
+  margin-top: 8px;
+  transform: translateX(-50%) translateY(0%);
+}
+[tooltip-position='right']::after {
+  left: 100%;
+  top: 50%;
+  margin-left: 8px;
+  transform: translateX(0%) translateY(-50%);
+}
+[tooltip]:hover::after {
+  opacity:1
+}
