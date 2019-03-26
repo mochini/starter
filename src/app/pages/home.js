@@ -67,6 +67,12 @@ class Home extends React.Component {
         { label: 'Baz', key: 'baz', type: 'select', options: ['g','h','i'] },
         { label: 'Expires On', key: 'expires_on', type: 'daterange' },
         { label: 'Created At', key: 'created_at', type: 'daterange' }
+      ],
+      export: [
+        { label: 'ID', key: 'id' },
+        { label: 'First Name', key: 'first_name' },
+        { label: 'Last Name', key: 'last_name' },
+        { label: 'Email', key: 'email' }
       ]
     }
   }

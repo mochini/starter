@@ -1,7 +1,6 @@
 import { CSSTransition } from 'react-transition-group'
 import Searchbox from '../searchbox'
 import PropTypes from 'prop-types'
-import Message from '../message'
 import Buttons from '../buttons'
 import Filters from './filters'
 import Layouts from './layouts'
@@ -24,6 +23,7 @@ class Collection extends React.Component {
   static propTypes = {
     allLayouts: PropTypes.array,
     data: PropTypes.array,
+    export: PropTypes.array,
     filtering: PropTypes.bool,
     filters: PropTypes.array,
     filter: PropTypes.object,
@@ -51,42 +51,43 @@ class Collection extends React.Component {
     const { allLayouts, selected, tool } = this.props
     return (
       <div className="collection">
-        { tool &&
-          <div className="collection-sidebar">
-            { this._getSidebarComponent() }
-          </div>
-        }
-        <div className="collection-main">
-          <div className="collection-header">
-            <div className="collection-header-searchbox">
-              <Searchbox { ...this._getSearchbox() } />
-            </div>
+        <div className="collection-header">
+          <div className="collection-header-buttons">
             { allLayouts.length > 1 &&
               <div className="collection-header-layout">
                 <Layouts { ...this._getLayouts() } />
               </div>
             }
-            <div className="collection-header-layout">
+            <div className="collection-header-tools">
               <Tools { ...this._getTools() } />
             </div>
           </div>
-          <div className="collection-body">
-            { false && <Message { ...this._getEmpty() } /> }
-            { this._getLayoutComponent() }
+          <div className="collection-header-searchbox">
+            <Searchbox { ...this._getSearchbox() } />
           </div>
-          <CSSTransition key="drawer-panel" in={ selected.length > 0 } classNames="translatey" timeout={ 100 } mountOnEnter={ true } unmountOnExit={ true }>
-            <div className="collection-footer">
-              <div className="collection-footer-count">
-                <i className="fa fa-fw fa-chevron-up" />
-                <div className="count">
-                  { selected.length }
+        </div>
+        <div className="collection-body">
+          <div className="collection-main">
+            { this._getLayoutComponent() }
+            <CSSTransition key="drawer-panel" in={ selected.length > 0 } classNames="translatey" timeout={ 100 } mountOnEnter={ true } unmountOnExit={ true }>
+              <div className="collection-footer">
+                <div className="collection-footer-count">
+                  <i className="fa fa-fw fa-chevron-up" />
+                  <div className="count">
+                    { selected.length }
+                  </div>
+                </div>
+                <div className="collection-footer-buttons">
+                  <Buttons { ...this._getButtons() } />
                 </div>
               </div>
-              <div className="collection-footer-buttons">
-                <Buttons { ...this._getButtons() } />
-              </div>
+            </CSSTransition>
+          </div>
+          { tool &&
+            <div className="collection-sidebar">
+              { this._getSidebarComponent() }
             </div>
-          </CSSTransition>
+          }
         </div>
       </div>
     )
@@ -126,7 +127,9 @@ class Collection extends React.Component {
   }
 
   _getExport() {
-    return {}
+    return {
+      defaultValue: this.props.export
+    }
   }
 
   _getFilters() {

@@ -1,11 +1,13 @@
 import { BrowserRouter as Router } from 'react-router-dom'
-import React, { Suspense } from 'react'
-import { hot } from 'react-hot-loader'
+import HTML5Backend from 'react-dnd-html5-backend'
 import Uploader from './components/uploader'
 import Presence from './components/presence'
+import { DragDropContext } from 'react-dnd'
 import Tracker from './components/tracker'
 import Drawer from './components/drawer'
 import Portal from './components/portal'
+import React, { Suspense } from 'react'
+import { hot } from 'react-hot-loader'
 import Tasks from './components/tasks'
 import Flash from './components/flash'
 import Modal from './components/modal'
@@ -51,5 +53,8 @@ class App extends React.Component {
   }
 
 }
+
+App = DragDropContext(HTML5Backend)(App)
+App = hot(module)(App)
 
 export default hot(module)(App)

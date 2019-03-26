@@ -16,6 +16,7 @@ class Table extends React.Component {
     sortOrder: PropTypes.string,
     onReachBottom: PropTypes.func,
     onSelect: PropTypes.func,
+    onSort: PropTypes.func,
     onToggle: PropTypes.func,
     onToggleAll: PropTypes.func
   }
@@ -159,7 +160,7 @@ class Table extends React.Component {
   }
 
   _handleSort(index) {
-    // this.props.onSort(index)
+    this.props.onSort(index)
   }
 
   _handleToggle(index) {

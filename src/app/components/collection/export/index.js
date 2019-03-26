@@ -1,5 +1,6 @@
 import Buttons from '../../buttons'
 import PropTypes from 'prop-types'
+import Sortable from '../../sortable'
 import React from 'react'
 
 class Export extends React.Component {
@@ -15,7 +16,7 @@ class Export extends React.Component {
           Export Records
         </div>
         <div className="export-panel-body">
-          exportrecords
+          <Sortable { ...this._getSortable() } />
         </div>
         <div className="export-panel-footer">
           <Buttons { ...this._getButtons() } />
@@ -33,6 +34,13 @@ class Export extends React.Component {
     }
   }
 
+  _getSortable() {
+    const { defaultValue } = this.props
+    return {
+      defaultValue,
+      onUpdate: (items) => this.setState({ items })
+    }
+  }
 
 }
 
