@@ -82,9 +82,9 @@ class Home extends React.Component {
 
   _handleTasks() {
     this.context.tasks.open([
-      { label: 'Foo' },
-      { label: 'Bar' },
-      { label: 'Baz' }
+      { label: 'Foo', handler: () => console.log('foo') },
+      { label: 'Bar', handler: () => console.log('bar') },
+      { label: 'Baz', handler: () => console.log('baz') }
     ])
   }
 

@@ -24,25 +24,27 @@ class Tasks extends React.Component {
 
   render() {
     const { children, items, open } = this.props
-    return ([
-      children,
-      <CSSTransition key="tasks-overlay" in={ open } classNames="opacity" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
-        <div className="tasks-overlay" onClick={ this._handleClose } />
-      </CSSTransition>,
-      <CSSTransition key="tasks-list" in={ open } classNames="translatey" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
-        <div className="tasks-list">
-          <div className="tasks-list-body">
-            { items && items.map((item, index) => {
-              if(item.show === false) return
-              return <Button key={`task_${index}`} { ...this._getButton(item) }/>
-            }) }
+    return (
+      <div className="tasks">
+        { children }
+        <CSSTransition key="tasks-overlay" in={ open } classNames="opacity" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
+          <div className="tasks-overlay" onClick={ this._handleClose } />
+        </CSSTransition>
+        <CSSTransition key="tasks-list" in={ open } classNames="translatey" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
+          <div className="tasks-list">
+            <div className="tasks-list-body">
+              { items && items.map((item, index) => {
+                if(item.show === false) return
+                return <Button key={`task_${index}`} { ...this._getButton(item) }/>
+              }) }
+            </div>
+            <div className="tasks-cancel" onClick={ this._handleClose }>
+              Cancel
+            </div>
           </div>
-          <div className="tasks-cancel" onClick={ this._handleClose }>
-            Cancel
-          </div>
-        </div>
-      </CSSTransition>
-    ])
+        </CSSTransition>
+      </div>
+    )
   }
 
   componentDidUpdate(prevProps) {
