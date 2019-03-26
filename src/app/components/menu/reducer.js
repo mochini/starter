@@ -1,4 +1,5 @@
 const INITIAL_STATE = {
+  classNames: 'next',
   path: []
 }
 
@@ -9,6 +10,7 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'FORWARD':
     return {
       ...state,
+      classNames: 'next',
       path: [
         ...state.path,
         action.index
@@ -18,6 +20,7 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'BACK':
     return {
       ...state,
+      classNames: 'back',
       path: [
         ...state.path.slice(0, -1)
       ]

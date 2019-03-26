@@ -1,3 +1,4 @@
+import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import PropTypes from 'prop-types'
 import Panel from './panel'
 import React from 'react'
@@ -10,6 +11,7 @@ class Menu extends React.Component {
   }
 
   static propTypes = {
+    classNames: PropTypes.string,
     items: PropTypes.array,
     path: PropTypes.array,
     onBack: PropTypes.func,
@@ -22,9 +24,14 @@ class Menu extends React.Component {
   _handleForward = this._handleForward.bind(this)
 
   render() {
+    const { path, classNames } = this.props
     return (
-      <div className="menu">
-        <Panel { ...this._getPanel() } />
+      <div className={`menu ${classNames}`}>
+        <TransitionGroup>
+          <CSSTransition key={`panel_${path.length}`} classNames="translatex" timeout={ 500 } mountOnEnter={ true } unmountOnExit={ true }>
+            <Panel { ...this._getPanel() } />
+          </CSSTransition>
+        </TransitionGroup>
       </div>
     )
   }

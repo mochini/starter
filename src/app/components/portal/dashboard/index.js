@@ -1,11 +1,10 @@
-import RouterStack from '../stack/router'
-import Dashboard from './dashboard'
+import Account from '../../account'
 import PropTypes from 'prop-types'
-import Account from '../account'
-import Menu from '../menu'
+import Avatar from '../../avatar'
+import Menu from '../../menu'
 import React from 'react'
 
-class Portal extends React.Component {
+class Dashboard extends React.Component {
 
   static contextTypes = {
     drawer: PropTypes.object,
@@ -14,7 +13,6 @@ class Portal extends React.Component {
 
   static propTypes = {
     children: PropTypes.any,
-    routes: PropTypes.array,
     t: PropTypes.func
   }
 
@@ -24,11 +22,22 @@ class Portal extends React.Component {
   _handleMenu = this._handleMenu.bind(this)
 
   render() {
-    const { routes } = this.props
     return (
-      <div className="portal">
-        <Dashboard />
-        <RouterStack routes={ routes } />
+      <div className="dashboard">
+        <div className="dashboard-header">
+          <div className="dashboard-header-menu" onClick={ this._handleMenu }>
+            <i className="fa fa-fw fa-bars" />
+          </div>
+          <div className="dashboard-header-title">
+            Starter
+          </div>
+          <div className="dashboard-header-account" onClick={ this._handleAccount }>
+            <Avatar { ...this._getAvatar() } />
+          </div>
+        </div>
+        <div className="dashboard-body">
+          dash
+        </div>
       </div>
     )
   }
@@ -68,4 +77,4 @@ class Portal extends React.Component {
 
 }
 
-export default Portal
+export default Dashboard

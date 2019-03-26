@@ -1,16 +1,19 @@
+import ModalPanel from '../components/modal_panel'
 import Collection from '../components/collection'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const Token = record => (
+const Token = (record) => (
   <div className="token">
     { record.one }
   </div>
 )
 
-class Long extends React.Component {
+class Home extends React.Component {
 
-  static contextTypes = {}
+  static contextTypes = {
+    tasks: PropTypes.object
+  }
 
   static propTypes = {}
 
@@ -18,8 +21,24 @@ class Long extends React.Component {
 
   render() {
     return (
-      <Collection { ...this._getCollection() } />
+      <ModalPanel { ...this._getPanel() }>
+        <Collection { ...this._getCollection() } />
+      </ModalPanel>
     )
+  }
+
+  _getPanel() {
+    return {
+      leftItems: [{
+        icon: 'chevron-left',
+        handler: () => {}
+      }],
+      title: 'List',
+      rightItems: [{
+        icon: 'ellipsis-v',
+        handler: this._handleTasks.bind(this)
+      }]
+    }
   }
 
   _getCollection() {
@@ -27,6 +46,9 @@ class Long extends React.Component {
       data: Array(200).fill().map((row, index) => (
         { one: `foo${index}`, two: 'bar', three: 'baz' }
       )),
+      list: {
+        format: Token
+      },
       tile: {
         format: Token
       },
@@ -49,7 +71,15 @@ class Long extends React.Component {
     }
   }
 
+  _handleTasks() {
+    this.context.tasks.open([
+      { label: 'Foo' },
+      { label: 'Bar' },
+      { label: 'Baz' }
+    ])
+  }
+
 
 }
 
-export default Long
+export default Home

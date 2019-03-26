@@ -6,6 +6,7 @@ import Presence from './components/presence'
 import Tracker from './components/tracker'
 import Drawer from './components/drawer'
 import Portal from './components/portal'
+import Tasks from './components/tasks'
 import Flash from './components/flash'
 import Modal from './components/modal'
 import Root from './components/root'
@@ -33,7 +34,9 @@ class App extends React.Component {
                     <Uploader>
                       <Modal>
                         <Drawer>
-                          <Portal routes={ routes } />
+                          <Tasks>
+                            <Portal routes={ routes } />
+                          </Tasks>
                         </Drawer>
                       </Modal>
                     </Uploader>

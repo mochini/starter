@@ -12,6 +12,7 @@ import Tools from './tools'
 import List from './list'
 import Tile from './tile'
 import React from 'react'
+import _ from 'lodash'
 import qs from 'qs'
 
 class Collection extends React.Component {
@@ -21,6 +22,7 @@ class Collection extends React.Component {
   }
 
   static propTypes = {
+    allLayouts: PropTypes.array,
     data: PropTypes.array,
     filtering: PropTypes.bool,
     filters: PropTypes.array,
@@ -32,6 +34,7 @@ class Collection extends React.Component {
     list: PropTypes.object,
     table: PropTypes.object,
     tile: PropTypes.object,
+    tools: PropTypes.array,
     tool: PropTypes.string,
     onChangeLayout: PropTypes.func,
     onChangeTool: PropTypes.func,
@@ -45,14 +48,12 @@ class Collection extends React.Component {
   _handleFilter = this._handleFilter.bind(this)
 
   render() {
-    const { layouts, layout, selected, tool } = this.props
+    const { allLayouts, selected, tool } = this.props
     return (
       <div className="collection">
         { tool &&
           <div className="collection-sidebar">
-            { tool === 'filter' && <Filters { ...this._getFilters() } /> }
-            { tool === 'columns' && <Columns { ...this._getColumns() } /> }
-            { tool === 'export' && <Export { ...this._getExport() } /> }
+            { this._getSidebarComponent() }
           </div>
         }
         <div className="collection-main">
@@ -60,7 +61,7 @@ class Collection extends React.Component {
             <div className="collection-header-searchbox">
               <Searchbox { ...this._getSearchbox() } />
             </div>
-            { layouts.length > 1 &&
+            { allLayouts.length > 1 &&
               <div className="collection-header-layout">
                 <Layouts { ...this._getLayouts() } />
               </div>
@@ -71,10 +72,7 @@ class Collection extends React.Component {
           </div>
           <div className="collection-body">
             { false && <Message { ...this._getEmpty() } /> }
-            { layout === 'table' && <Table { ...this._getTable() } /> }
-            { layout === 'list' && <List { ...this._getList() } /> }
-            { layout === 'tile' && <Tile { ...this._getTile() } /> }
-            { layout === 'map' && <div>Map</div> }
+            { this._getLayoutComponent() }
           </div>
           <CSSTransition key="drawer-panel" in={ selected.length > 0 } classNames="translatey" timeout={ 100 } mountOnEnter={ true } unmountOnExit={ true }>
             <div className="collection-footer">
@@ -95,8 +93,8 @@ class Collection extends React.Component {
   }
 
   componentDidMount() {
-    const { layouts, onChangeLayout } = this.props
-    onChangeLayout(layouts[0].key)
+    const { allLayouts, onChangeLayout } = this.props
+    onChangeLayout(allLayouts[0].key)
     const { search } = this.context.router.history.location
     const $filters = search.length > 0 ? qs.parse(search.slice(1)) : {}
     console.log($filters)
@@ -113,6 +111,18 @@ class Collection extends React.Component {
 
   _getColumns() {
     return {}
+  }
+
+  _getCustom() {
+    const { data, selected, selectAll, onToggle, onToggleAll } = this.props
+    return {
+      records: data,
+      selected,
+      selectAll,
+      onToggle,
+      onToggleAll
+    }
+
   }
 
   _getExport() {
@@ -143,19 +153,30 @@ class Collection extends React.Component {
   }
 
   _getLayouts() {
-    const { layout, layouts } = this.props
+    const { layout, allLayouts } = this.props
     return {
-      layouts,
+      layouts: allLayouts,
       layout,
       onChange: this._handleChangeLayout
     }
+  }
+
+  _getLayoutComponent() {
+    const { allLayouts, layout } = this.props
+    if(layout === 'table') return <Table { ...this._getTable() } />
+    if(layout === 'list') return <List { ...this._getList() } />
+    if(layout === 'tile') return <Tile { ...this._getList() } />
+    const custom = _.find(allLayouts, { key: layout })
+    if(!custom) return null
+    const { component } = custom
+    return _.isFunction(component) ? React.createElement(component, this._getCustom()) : component
   }
 
   _getList() {
     const { data, list, selected, selectAll, onToggle, onToggleAll } = this.props
     return {
       ...list,
-      data,
+      records: data,
       selected,
       selectAll,
       onToggle,
@@ -163,11 +184,22 @@ class Collection extends React.Component {
     }
   }
 
+  _getSidebarComponent() {
+    const { tools, tool } = this.props
+    if(tool === 'filter') return <Filters { ...this._getFilters() } />
+    if(tool === 'columns') return <Columns { ...this._getColumns() } />
+    if(tool === 'export') return <Export { ...this._getExport() } />
+    const custom = _.find(tools, { key: tool })
+    if(!custom) return null
+    const { component } = custom
+    return _.isFunction(component) ? React.createElement(component, this._getCustom()) : component
+  }
+
   _getTable() {
     const { data, selected, selectAll, table, onToggle, onToggleAll } = this.props
     return {
       ...table,
-      data,
+      records: data,
       selected,
       selectAll,
       onToggle,
@@ -179,7 +211,7 @@ class Collection extends React.Component {
     const { data, selected, selectAll, tile, onToggle, onToggleAll } = this.props
     return {
       ...tile,
-      data,
+      records: data,
       selected,
       selectAll,
       onToggle,
@@ -188,13 +220,14 @@ class Collection extends React.Component {
   }
 
   _getTools() {
-    const { tool } = this.props
+    const { tools, tool } = this.props
     return {
       tool,
       tools: [
         { title: 'Filter Records', icon: 'filter', key: 'filter' },
         { title: 'Adjust Columns', icon: 'sliders', key: 'columns' },
-        { title: 'Export Records', icon: 'download', key: 'export' }
+        { title: 'Export Records', icon: 'download', key: 'export' },
+        ...tools || {}
       ],
       onChangeTool: this._handleChangeTool
     }

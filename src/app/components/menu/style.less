@@ -2,9 +2,33 @@
   flex: 1;
   position: relative;
   overflow: hidden;
+  &.next .menu-panel {
+    &.translatex-enter.translatex-enter-active,
+    &.translatex-exit {
+      transform: translateX(0);
+    }
+    &.translatex-enter {
+      transform: translateX(100%);
+    }
+    &.translatex-exit.translatex-exit-active {
+      transform: translateX(-100%);
+    }
+  }
+  &.back .menu-panel {
+    &.translatex-enter.translatex-enter-active,
+    &.translatex-exit {
+      transform: translateX(0);
+    }
+    &.translatex-enter {
+      transform: translateX(-100%);
+    }
+    &.translatex-exit.translatex-exit-active {
+      transform: translateX(100%);
+    }
+  }
 }
 .menu-panel {
-  .translatex-transition(100%, 0, .25s);
+  .translatex-transition(100%, 0, .5s);
   position: absolute;
   top: 0;
   right: 0;

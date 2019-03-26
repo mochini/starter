@@ -7,7 +7,7 @@ class Table extends React.Component {
 
   static propTypes = {
     columns: PropTypes.array,
-    data: PropTypes.array,
+    records: PropTypes.array,
     rowClass: PropTypes.func,
     selectAll: PropTypes.bool,
     selected: PropTypes.array,
@@ -39,7 +39,7 @@ class Table extends React.Component {
   _handleToggleAll = this._handleToggleAll.bind(this)
 
   render() {
-    const { columns, data, selectable, selectAll, selected, sortColumn, sortOrder } = this.props
+    const { columns, records, selectable, selectAll, selected, sortColumn, sortOrder } = this.props
     return (
       <div className={ this._getClass() } ref={ (node) => this.table = node }>
         <div className="table-head">
@@ -73,7 +73,7 @@ class Table extends React.Component {
           <Scrollpane { ...this._getScrollpane() }>
             <table ref={ (node) => this.body = node }>
               <tbody>
-                { data.map((row, index) => (
+                { records.map((row, index) => (
                   <tr className={ this._getRowClass(index) } key={`foo_${index}`}>
                     { selectable &&
                       <td onClick={ this._handleToggle.bind(this, index) }>
@@ -104,8 +104,8 @@ class Table extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { data, selected, selectAll } = this.props
-    if(data.length !== prevProps.data.length) {
+    const { records, selected, selectAll } = this.props
+    if(records.length !== prevProps.records.length) {
       this._handleResize()
     } else if(selectAll !== prevProps.selectAll) {
       this._handleSelect()
@@ -134,9 +134,9 @@ class Table extends React.Component {
   }
 
   _getRowClass(index) {
-    const { data, rowClass, selected } = this.props
+    const { records, rowClass, selected } = this.props
     const classes = []
-    if(rowClass) classes.push(rowClass(data[index]))
+    if(rowClass) classes.push(rowClass(records[index]))
     if(_.includes(selected, index)) classes.push('selected')
     return classes.join(' ')
   }
@@ -154,12 +154,12 @@ class Table extends React.Component {
   }
 
   _handleSelect() {
-    const { data, selected, onSelect } = this.props
-    onSelect(data.filter((row, index) => _.includes(selected, index)))
+    const { records, selected, onSelect } = this.props
+    onSelect(records.filter((row, index) => _.includes(selected, index)))
   }
 
   _handleSort(index) {
-    this.props.onSort(index)
+    // this.props.onSort(index)
   }
 
   _handleToggle(index) {
@@ -167,8 +167,8 @@ class Table extends React.Component {
   }
 
   _handleToggleAll() {
-    const { data } = this.props
-    this.props.onToggleAll(data.length)
+    const { records } = this.props
+    this.props.onToggleAll(records.length)
   }
 
 }

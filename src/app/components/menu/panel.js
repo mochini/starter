@@ -24,11 +24,12 @@ class Panel extends React.Component {
     return (
       <div className="menu-panel">
         <div className="menu-panel-header" onClick={ this._handleBack }>
-          { path.length > 0 &&
-            <div className="menu-panel-header-nav">
-              <i className="fa fa-fw fa-chevron-left" />
-            </div>
-          }
+          <div className="menu-panel-header-nav">
+            { path.length > 0 ?
+              <i className="fa fa-fw fa-chevron-left" /> :
+              <i className="fa fa-fw fa-shield"></i>
+            }
+          </div>
           <div className="menu-panel-header-label">
             Menu
           </div>

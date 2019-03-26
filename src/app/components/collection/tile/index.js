@@ -5,8 +5,8 @@ import _ from 'lodash'
 class List extends React.Component {
 
   static propTypes = {
-    data: PropTypes.array,
     format: PropTypes.any,
+    records: PropTypes.array,
     selected: PropTypes.array,
     onToggle: PropTypes.func
   }
@@ -14,10 +14,10 @@ class List extends React.Component {
   static defaultProps = {}
 
   render() {
-    const { data, format, selected } = this.props
+    const { records, format, selected } = this.props
     return (
       <div className="tiles">
-        { data.map((row, index) => (
+        { records.map((row, index) => (
           <div className="tile-item" key={`row_${index}`}>
             <div className={ this._getClass(index) }>
               <div className="tile-icon" onClick={ this._handleToggle.bind(this, index) }>
