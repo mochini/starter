@@ -25,6 +25,7 @@ class Stack extends React.Component {
 
   render() {
     const { cards } = this.state
+    if(cards.length === 0) return null
     return (
       <div className="stack">
         { cards.map((card, index) => (

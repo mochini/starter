@@ -1,7 +1,7 @@
-import Account from '../../account'
+import Account from '../account'
 import PropTypes from 'prop-types'
-import Avatar from '../../avatar'
-import Menu from '../../menu'
+import Avatar from '../avatar'
+import Menu from '../menu'
 import React from 'react'
 
 class Dashboard extends React.Component {

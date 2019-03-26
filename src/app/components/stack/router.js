@@ -26,6 +26,7 @@ class Router extends React.Component {
 
   componentDidMount() {
     const { pathname } = this.props
+    if(pathname === '/') return
     const route = this._matchRoute(pathname)
     const cards = [ route ]
     this.setState({ cards })

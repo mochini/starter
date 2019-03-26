@@ -1,5 +1,5 @@
 import RouterStack from '../stack/router'
-import Dashboard from './dashboard'
+import Dashboard from '../dashboard'
 import PropTypes from 'prop-types'
 import Account from '../account'
 import Menu from '../menu'
