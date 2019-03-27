@@ -4,6 +4,7 @@ import Uploader from './components/uploader'
 import Presence from './components/presence'
 import { DragDropContext } from 'react-dnd'
 import Tracker from './components/tracker'
+import Network from './components/network'
 import Drawer from './components/drawer'
 import Portal from './components/portal'
 import React, { Suspense } from 'react'
@@ -28,25 +29,27 @@ class App extends React.Component {
     return (
       <Suspense fallback={ null }>
         <Root reducers={ reducers }>
-          <Tracker>
-            <Host>
-              <Router>
-                <Flash>
-                  <Presence>
-                    <Uploader>
-                      <Modal>
-                        <Drawer>
-                          <Tasks>
-                            <Portal routes={ routes } />
-                          </Tasks>
-                        </Drawer>
-                      </Modal>
-                    </Uploader>
-                  </Presence>
-                </Flash>
-              </Router>
-            </Host>
-          </Tracker>
+          <Network>
+            <Tracker>
+              <Host>
+                <Router>
+                  <Flash>
+                    <Presence>
+                      <Uploader>
+                        <Modal>
+                          <Drawer>
+                            <Tasks>
+                              <Portal routes={ routes } />
+                            </Tasks>
+                          </Drawer>
+                        </Modal>
+                      </Uploader>
+                    </Presence>
+                  </Flash>
+                </Router>
+              </Host>
+            </Tracker>
+          </Network>
         </Root>
       </Suspense>
     )
