@@ -43,8 +43,10 @@ class Select extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { selected, onChange  } = this.props
-    if(selected.length !== prevProps.selected.length) {
+    const { defaultValue, selected, onChange, onSet } = this.props
+    if(!_.isEqual(defaultValue, prevProps.defaultValue)) {
+      onSet(defaultValue)
+    } else if(!_.isEqual(selected, prevProps.selected)) {
       onChange(selected)
     }
   }

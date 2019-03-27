@@ -36,7 +36,6 @@ class Dashboard extends React.Component {
           </div>
         </div>
         <div className="dashboard-body">
-          dash
         </div>
       </div>
     )

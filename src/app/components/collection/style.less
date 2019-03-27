@@ -16,12 +16,19 @@
   }
 }
 .collection-header-searchbox {
-  @media (min-width: 768px) { order: 1; flex: 1; }
+  @media (min-width: 768px) {
+    order: 1;
+    flex: 1;
+    border-right: 1px solid fadeout(@black, 90);
+  }
   padding-left: 0.6em;
   border-bottom: 1px solid fadeout(@black, 90);
+
 }
 .collection-header-buttons {
-  @media (min-width: 768px) { order: 2; }
+  @media (min-width: 768px) {
+    order: 2;
+  }
   display: flex;
   justify-content: center;
   border-bottom: 1px solid fadeout(@black, 90);
@@ -136,7 +143,7 @@
   flex: 1;
 }
 .collection-panel-content {
-  flex: 1;  
+  flex: 1;
 }
 .collection-panel-footer {
   background-color: fadeout(@black, 10);

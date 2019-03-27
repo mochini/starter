@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import Button from '../../button'
 import React from 'react'
+import _ from 'lodash'
 
 class Items extends React.Component {
 
@@ -39,13 +40,13 @@ class Items extends React.Component {
                 <div className="filter-item-label">
                   { filter.label }
                 </div>
-                <div className="filter-item-count">
-                  { data[filter.key] && data[filter.key].length > 0 &&
+                { data[filter.key] && _.isArray(data[filter.key]) && data[filter.key].length > 0 &&
+                  <div className="filter-item-count">
                     <div className="count">
                       { data[filter.key].length }
                     </div>
-                  }
-                </div>
+                  </div>
+                }
                 <div className="filter-item-icon">
                   <i className="fa fa-fw fa-chevron-right" />
                 </div>

@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import _ from 'lodash'
 
 class Filters extends React.Component {
 
@@ -39,13 +40,15 @@ class Filters extends React.Component {
   }
 
   componentDidMount() {
-    const { defaultValue, onSet  } = this.props
+    const { defaultValue, onSet } = this.props
     if(defaultValue) onSet(defaultValue)
   }
 
   componentDidUpdate(prevProps) {
-    const { selected, onChange  } = this.props
-    if(selected !== prevProps.selected) {
+    const { defaultValue, selected, onChange, onSet } = this.props
+    if(!_.isEqual(defaultValue, prevProps.defaultValue)) {
+      onSet(defaultValue)
+    } else if(selected !== prevProps.selected) {
       onChange(selected)
     }
   }

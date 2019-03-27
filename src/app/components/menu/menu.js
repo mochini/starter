@@ -28,7 +28,7 @@ class Menu extends React.Component {
     return (
       <div className={`menu ${classNames}`}>
         <TransitionGroup>
-          <CSSTransition key={`panel_${path.length}`} classNames="translatex" timeout={ 500 } mountOnEnter={ true } unmountOnExit={ true }>
+          <CSSTransition key={`panel_${path.length}`} classNames="translatex" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
             <Panel { ...this._getPanel() } />
           </CSSTransition>
         </TransitionGroup>
