@@ -1,5 +1,6 @@
 import Actions from '../actions/index'
 import PropTypes from 'prop-types'
+import Format from '../../format'
 import React from 'react'
 import _ from 'lodash'
 
@@ -39,8 +40,8 @@ class List extends React.Component {
             </div>
           </div>
         </div>
-        { records.map((row, index) => (
-          <div className="tile-item" key={`row_${index}`}>
+        { records.map((record, index) => (
+          <div className="tile-item" key={`item_${index}`}>
             <div className={ this._getClass(index) }>
               { selectable &&
                 <div className="tile-icon" onClick={ this._handleToggle.bind(this, index) }>
@@ -51,7 +52,7 @@ class List extends React.Component {
                 </div>
               }
               <div className="tile-details">
-                { _.isFunction(format) ? React.createElement(format, row) : format }
+                <Format { ...record } format={ format } />
               </div>
               { itemActions &&
                 <div className="tile-actions">

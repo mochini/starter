@@ -1,5 +1,6 @@
 import Actions from '../actions/index'
 import PropTypes from 'prop-types'
+import Format from '../../format'
 import React from 'react'
 import _ from 'lodash'
 
@@ -76,7 +77,7 @@ class Table extends React.Component {
         <div className="table-body">
           <table ref={ (node) => this.body = node }>
             <tbody>
-              { records.map((row, index) => (
+              { records.map((record, index) => (
                 <tr className={ this._getRowClass(index) } key={`foo_${index}`}>
                   { selectable &&
                     <td onClick={ this._handleToggle.bind(this, index) } className="collapsing">
@@ -88,7 +89,12 @@ class Table extends React.Component {
                   }
                   { columns.map((column, index) => (
                     <td key={`column_${index}`}>
-                      { row[columns[index].key] }
+                      { column.format ?
+                        <Format { ...record } format={ column.format } value={ _.get(record, column.key) } /> :
+                        <div className="table-cell">
+                          { _.get(record, column.key) }
+                        </div>
+                      }
                     </td>
                   ))}
                   { itemActions &&
