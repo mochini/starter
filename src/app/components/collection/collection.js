@@ -1,6 +1,7 @@
 import { CSSTransition } from 'react-transition-group'
 import Searchbox from '../searchbox'
 import PropTypes from 'prop-types'
+import Infinite from '../infinite'
 import Buttons from '../buttons'
 import Filters from './filters'
 import Layouts from './layouts'
@@ -23,6 +24,7 @@ class Collection extends React.Component {
   static propTypes = {
     allLayouts: PropTypes.array,
     data: PropTypes.array,
+    endpoint: PropTypes.string,
     export: PropTypes.array,
     filtering: PropTypes.bool,
     filters: PropTypes.array,
@@ -65,7 +67,7 @@ class Collection extends React.Component {
         </div>
         <div className="collection-body">
           <div className="collection-main">
-            { this._getLayoutComponent() }
+            <Infinite { ...this._getInfinite() } />
             <CSSTransition key="drawer-panel" in={ selected.length > 0 } classNames="translatey" timeout={ 100 } mountOnEnter={ true } unmountOnExit={ true }>
               <div className="collection-footer">
                 <div className="collection-footer-count">
@@ -123,9 +125,8 @@ class Collection extends React.Component {
   }
 
   _getCustom() {
-    const { data, selected, selectAll, onToggle, onToggleAll } = this.props
+    const { selected, selectAll, onToggle, onToggleAll } = this.props
     return {
-      records: data,
       selected,
       selectAll,
       onToggle,
@@ -150,18 +151,18 @@ class Collection extends React.Component {
     }
   }
 
+  _getInfinite() {
+    const { endpoint } = this.props
+    return {
+      endpoint,
+      ...this._getLayout()
+    }
+  }
+
   _getSearchbox() {
     return {
       prompt: 'Search Items',
       onChange: this._handleType
-    }
-  }
-
-  _getEmpty() {
-    return {
-      icon: 'user',
-      title: 'Foo Bar Baz',
-      text: 'foo bar baz foo bar baz foo bar baz foo bar baz foo bar baz'
     }
   }
 
@@ -174,23 +175,21 @@ class Collection extends React.Component {
     }
   }
 
-  _getLayoutComponent() {
+  _getLayout(props) {
     const { allLayouts, layout } = this.props
-    if(layout === 'table') return <Table { ...this._getTable() } />
-    if(layout === 'list') return <List { ...this._getList() } />
-    if(layout === 'tile') return <Tile { ...this._getList() } />
+    if(layout === 'table') return { layout: Table, parentProps: this._getTable() }
+    if(layout === 'list') return { layout: List, parentProps: this._getList() }
+    if(layout === 'tile') return { layout: Tile, parentProps: this._getTile() }
     const custom = _.find(allLayouts, { key: layout })
-    if(!custom) return null
-    const { component } = custom
-    return _.isFunction(component) ? React.createElement(component, this._getCustom()) : component
+    if(custom) return { layout: custom.component, parentProps: this._getCustom() }
+    return null
   }
 
   _getList() {
-    const { data, itemActions, list, selected, selectAll, onToggle, onToggleAll } = this.props
+    const { itemActions, list, selected, selectAll, onToggle, onToggleAll } = this.props
     return {
       ...list,
       itemActions,
-      records: data,
       selectable: true,
       selected,
       selectAll,
@@ -211,11 +210,10 @@ class Collection extends React.Component {
   }
 
   _getTable() {
-    const { data, itemActions, selected, selectAll, table, onToggle, onToggleAll } = this.props
+    const { itemActions, selected, selectAll, table, onToggle, onToggleAll } = this.props
     return {
       ...table,
       itemActions,
-      records: data,
       selectable: true,
       selected,
       selectAll,
@@ -225,11 +223,10 @@ class Collection extends React.Component {
   }
 
   _getTile() {
-    const { data, itemActions, selected, selectAll, tile, onToggle, onToggleAll } = this.props
+    const { itemActions, selected, selectAll, tile, onToggle, onToggleAll } = this.props
     return {
       ...tile,
       itemActions,
-      records: data,
       selectable: true,
       selected,
       selectAll,

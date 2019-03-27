@@ -1,5 +1,5 @@
+import Actions from '../actions/index'
 import PropTypes from 'prop-types'
-import Action from '../action'
 import React from 'react'
 import _ from 'lodash'
 
@@ -55,7 +55,7 @@ class List extends React.Component {
               </div>
               { itemActions &&
                 <div className="list-tile-actions">
-                  <Action />
+                  <Actions { ...this._getActions() } />
                 </div>
               }
             </div>
@@ -63,6 +63,13 @@ class List extends React.Component {
         ))}
       </div>
     )
+  }
+
+  _getActions() {
+    const { itemActions } = this.props
+    return {
+      items: itemActions
+    }
   }
 
   _getClass(index) {

@@ -1,6 +1,5 @@
-import Scrollpane from '../../scrollpane'
+import Actions from '../actions/index'
 import PropTypes from 'prop-types'
-import Action from '../action'
 import React from 'react'
 import _ from 'lodash'
 
@@ -75,34 +74,32 @@ class Table extends React.Component {
           </table>
         </div>
         <div className="table-body">
-          <Scrollpane { ...this._getScrollpane() }>
-            <table ref={ (node) => this.body = node }>
-              <tbody>
-                { records.map((row, index) => (
-                  <tr className={ this._getRowClass(index) } key={`foo_${index}`}>
-                    { selectable &&
-                      <td onClick={ this._handleToggle.bind(this, index) } className="collapsing">
-                        { _.includes(selected, index) ?
-                          <i className="fa fa-fw fa-check-circle" /> :
-                          <i className="fa fa-fw fa-circle-o" />
-                        }
-                      </td>
-                    }
-                    { columns.map((column, index) => (
-                      <td key={`column_${index}`}>
-                        { row[columns[index].key] }
-                      </td>
-                    ))}
-                    { itemActions &&
-                      <td className="collapsing table-actions">
-                        <Action />
-                      </td>
-                    }
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </Scrollpane>
+          <table ref={ (node) => this.body = node }>
+            <tbody>
+              { records.map((row, index) => (
+                <tr className={ this._getRowClass(index) } key={`foo_${index}`}>
+                  { selectable &&
+                    <td onClick={ this._handleToggle.bind(this, index) } className="collapsing">
+                      { _.includes(selected, index) ?
+                        <i className="fa fa-fw fa-check-circle" /> :
+                        <i className="fa fa-fw fa-circle-o" />
+                      }
+                    </td>
+                  }
+                  { columns.map((column, index) => (
+                    <td key={`column_${index}`}>
+                      { row[columns[index].key] }
+                    </td>
+                  ))}
+                  { itemActions &&
+                    <td className="collapsing table-actions">
+                      <Actions { ...this._getActions() } />
+                    </td>
+                  }
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     )
@@ -126,6 +123,13 @@ class Table extends React.Component {
 
   componentWillUnmount() {
     window.removeEventListener('resize', this._handleResize, true)
+  }
+
+  _getActions() {
+    const { itemActions } = this.props
+    return {
+      items: itemActions
+    }
   }
 
   _getClass() {

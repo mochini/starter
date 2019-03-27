@@ -9,13 +9,13 @@ class Infinite extends React.Component {
 
   static propTypes = {
     all: PropTypes.number,
-    cacheKey: PropTypes.string,
     endpoint: PropTypes.any,
     filter: PropTypes.object,
     footer: PropTypes.any,
     header: PropTypes.any,
     layout: PropTypes.any,
     next: PropTypes.string,
+    parentProps: PropTypes.object,
     records: PropTypes.array,
     sort: PropTypes.object,
     status: PropTypes.string,
@@ -26,7 +26,6 @@ class Infinite extends React.Component {
   }
 
   static defaultProps = {
-    cacheKey: null,
     filter: {},
     footer: null,
     header: null,
@@ -45,21 +44,21 @@ class Infinite extends React.Component {
   _handleTimeout = this._handleTimeout.bind(this)
 
   render() {
-    const { all, layout, records, status, total } = this.props
+    const { all, layout, parentProps, records, status, total } = this.props
     return (
       <div className="reframe-infinite">
-        { status === 'loading' && !records && this._getComponent(Loader) }
-        { status === 'delayed' && this._getComponent(Delayed) }
-        { status === 'timeout' && this._getComponent(Timeout) }
-        { status === 'failed' && this._getComponent(Failure) }
-        { status !== 'failed' && total === 0 && all !== 0 && this._getComponent(NotFound) }
-        { status !== 'failed' && total === 0 && all === 0 && this._getComponent(Empty) }
+        { status === 'loading' && !records && <Loader /> }
+        { status === 'delayed' && <Delayed /> }
+        { status === 'timeout' && <Timeout /> }
+        { status === 'failed' && <Failure /> }
+        { status !== 'failed' && total === 0 && all !== 0 && <NotFound /> }
+        { status !== 'failed' && total === 0 && all === 0 && <Empty /> }
         { status !== 'failed' && records && records.length > 0 && layout &&
           <Scrollpane { ...this._getScrollpane() }>
-            { React.createElement(layout, this.props) }
+            <this.props.layout { ...this.props } { ...parentProps } />
           </Scrollpane>
         }
-        { status === 'loading' && records && records.length > 0 && this._getComponent(Appending) }
+        { status === 'loading' && records && records.length > 0 && <Appending /> }
       </div>
     )
   }
@@ -69,24 +68,20 @@ class Infinite extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { cacheKey, filter, sort, status } = this.props
+    const { filter, sort, status } = this.props
     if(this.timeout && status !== prevProps.status && prevProps.status === 'loading') {
       clearTimeout(this.timeout)
     }
-    if(cacheKey !== prevProps.cacheKey  || !_.isEqual(prevProps.filter, filter) || !_.isEqual(prevProps.sort, sort)) {
+    if(!_.isEqual(prevProps.filter, filter) || !_.isEqual(prevProps.sort, sort)) {
       this._handleFetch(0, true)
     }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    const ignored = ['con','empty','layout','footer','router']
+    const ignored = ['con','router']
     return Object.keys(_.omit(this.props, ignored)).reduce((update, key) => {
       return update || !_.isEqual(this.props[key], nextProps[key])
     }, false)
-  }
-
-  _getComponent(component){
-    return _.isFunction(component) ? React.createElement(component, this.props) : component
   }
 
   _getMore(next, skip, reload, loaded, total) {
@@ -117,13 +112,12 @@ class Infinite extends React.Component {
   }
 
   _handleFetch(skip = null, reload = false) {
-    const { endpoint, filter, next, records, sort, total, onFetch } = this.props
+    const { endpoint, next, records, sort, total, onFetch } = this.props
     const loaded = records ? records.length : 0
-    const query = {
-      $page: this._getPagination(skip),
-      ...(filter ? { $filter: filter } : {}),
-      ...(sort && sort.key ? { $sort: (sort.order === 'desc' ? '-' : '') + sort.key } : {})
-    }
+    const $page = this._getPagination(skip)
+    const $filter = this.props.filter
+    const $sort = (sort.order === 'desc' ? '-' : '') + sort.key
+    const query = { $page, $filter, $sort }
     if(onFetch && this._getMore(next, skip, reload, loaded, total)) onFetch(endpoint, query)
     this.timeout = setTimeout(this._handleDelay, 5000)
   }

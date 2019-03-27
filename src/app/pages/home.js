@@ -6,7 +6,8 @@ import New from './new'
 
 const Token = (record) => (
   <div className="token">
-    { record.one }
+    <strong>{ record.full_name }</strong><br />
+    { record.email }
   </div>
 )
 
@@ -45,8 +46,9 @@ class Home extends React.Component {
   _getCollection() {
     return {
       itemActions: [
-        { label: 'one' },
-        { label: 'two' }
+        { label: 'Edit', modal: New },
+        { label: 'Bar', handler: () => console.log('bar') },
+        { label: 'Baz', handler: () => console.log('baz') }
       ],
       endpoint: '/api/users',
       list: {
