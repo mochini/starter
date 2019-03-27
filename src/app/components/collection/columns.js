@@ -1,3 +1,4 @@
+import Sortable from '../sortable'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -6,6 +7,7 @@ class Columns extends React.Component {
   static contextTypes = {}
 
   static propTypes = {
+    defaultValue: PropTypes.array,
     onClose: PropTypes.func
   }
 
@@ -23,9 +25,20 @@ class Columns extends React.Component {
           </div>
         </div>
         <div className="collection-panel-body">
+          <div className="collection-panel-content">
+            <Sortable { ...this._getSortable() } />
+          </div>
         </div>
       </div>
     )
+  }
+
+  _getSortable() {
+    const { defaultValue } = this.props
+    return {
+      defaultValue,
+      onUpdate: (items) => this.setState({ items })
+    }
   }
 
   _handleClose() {

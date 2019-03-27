@@ -3,7 +3,7 @@ export const set = (selected) => ({
   selected
 })
 
-export const toggle = (index) => ({
+export const toggle = (value) => ({
   type: 'TOGGLE',
-  index
+  value
 })

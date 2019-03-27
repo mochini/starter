@@ -26,7 +26,8 @@ class Sortable extends React.Component {
   }
 
   componentDidMount() {
-    if(this.props.defaultValue) this._handleSet()
+    const { defaultValue } = this.props
+    if(defaultValue) this._handleSet()
   }
 
   componentDidUpdate(prevProps) {

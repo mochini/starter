@@ -66,17 +66,14 @@ class Home extends React.Component {
         rowClass: (row) => row.one
       },
       filters: [
-        { label: 'Foo', key: 'foo', type: 'select', options: [{value: 0, text: 'a'},{value: 1, text: 'b'},{value: 2, text: 'c'}] },
-        { label: 'Bar', key: 'bar', type: 'select', options: ['d','e','f'] },
-        { label: 'Baz', key: 'baz', type: 'select', options: ['g','h','i'] },
-        { label: 'Expires On', key: 'expires_on', type: 'daterange' },
-        { label: 'Created At', key: 'created_at', type: 'daterange' }
+        { label: 'One', key: 'one', type: 'select', options: [{value: 0, text: 'a'},{value: 1, text: 'b'},{value: 2, text: 'c'}] },
+        { label: 'Two', key: 'two', type: 'select', options: ['d','e','f'] },
+        { label: 'Three', key: 'three', type: 'daterange' }
       ],
       export: [
-        { label: 'ID', key: 'id' },
-        { label: 'First Name', key: 'first_name' },
-        { label: 'Last Name', key: 'last_name' },
-        { label: 'Email', key: 'email' }
+        { label: 'One', key: 'one' },
+        { label: 'Two', key: 'two' },
+        { label: 'Three', key: 'three' }
       ]
     }
   }

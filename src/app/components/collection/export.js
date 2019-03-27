@@ -8,6 +8,7 @@ class Export extends React.Component {
   static contextTypes = {}
 
   static propTypes = {
+    defaultValue: PropTypes.array,
     onClose: PropTypes.func
   }
 
@@ -25,7 +26,9 @@ class Export extends React.Component {
           </div>
         </div>
         <div className="collection-panel-body">
-          <Sortable { ...this._getSortable() } />
+          <div className="collection-panel-content">
+            <Sortable { ...this._getSortable() } />
+          </div>
         </div>
         <div className="collection-panel-footer">
           <Buttons { ...this._getButtons() } />

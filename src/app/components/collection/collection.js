@@ -115,7 +115,9 @@ class Collection extends React.Component {
   }
 
   _getColumns() {
+    const { table } = this.props
     return {
+      defaultValue: table.columns,
       onClose: this._handleChangeTool.bind(this, null)
     }
   }
@@ -129,7 +131,6 @@ class Collection extends React.Component {
       onToggle,
       onToggleAll
     }
-
   }
 
   _getExport() {

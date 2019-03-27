@@ -1,7 +1,5 @@
-import _ from 'lodash'
-
 const INITIAL_STATE = {
-  selected: []
+  selected: null
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -17,9 +15,7 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'TOGGLE':
     return {
       ...state,
-      selected: [
-        ..._.xor(state.selected, [action.index])
-      ]
+      selected: action.value === state.selected ? null : action.value
     }
 
   default:
