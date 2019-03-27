@@ -45,18 +45,19 @@ const test = async () => {
 
   const mocha = new Mocha()
 
-  if(args[0]) {
+  if(fs.existsSync(args[0]) && fs.statSync(args[0]).isFile()) {
 
-    mocha.addFile(`${args[0]}_test.js`)
+    mocha.addFile(args[0])
 
   } else {
 
-    glob.sync('src/@(app|server)/**/*_test.js').map((test) => {
+    const root = args[0] || 'src/@(app|server)'
+
+    glob.sync(`${root}/**/*test.js`).map((test) => {
       mocha.addFile(test)
     })
 
   }
-
 
   mocha.suite.beforeAll('migrate and seed', async () => {
     await knex.migrate.rollback()

@@ -4,7 +4,7 @@ import infinite from './infinite'
 import * as actions from './actions'
 
 export default Factory({
-  namespace: 'reframe.infinite',
+  namespace: 'infinite',
   component: infinite,
   reducer,
   actions

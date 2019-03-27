@@ -48,9 +48,7 @@ class Home extends React.Component {
         { label: 'one' },
         { label: 'two' }
       ],
-      data: Array(200).fill().map((row, index) => (
-        { one: `foo${index}`, two: 'bar', three: 'baz' }
-      )),
+      endpoint: '/api/users',
       list: {
         format: Token
       },
@@ -59,21 +57,16 @@ class Home extends React.Component {
       },
       table: {
         columns: [
-          { label: 'One', key: 'one' },
-          { label: 'Two', key: 'two' },
-          { label: 'Three', key: 'three' }
-        ],
-        rowClass: (row) => row.one
+          { label: 'ID', key: 'id' },
+          { label: 'Name', key: 'full_name' },
+          { label: 'Email', key: 'email' }
+        ]
       },
-      filters: [
-        { label: 'One', key: 'one', type: 'select', options: [{value: 0, text: 'a'},{value: 1, text: 'b'},{value: 2, text: 'c'}] },
-        { label: 'Two', key: 'two', type: 'select', options: ['d','e','f'] },
-        { label: 'Three', key: 'three', type: 'daterange' }
-      ],
+      filters: [],
       export: [
-        { label: 'One', key: 'one' },
-        { label: 'Two', key: 'two' },
-        { label: 'Three', key: 'three' }
+        { label: 'ID', key: 'id' },
+        { label: 'Name', key: 'full_name' },
+        { label: 'Email', key: 'email' }
       ]
     }
   }

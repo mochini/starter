@@ -122,7 +122,6 @@ class Table extends React.Component {
     } else if(selected.length !== prevProps.selected.length) {
       this._handleSelect()
     }
-
   }
 
   componentWillUnmount() {

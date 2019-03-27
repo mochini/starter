@@ -2,7 +2,6 @@ import _ from 'lodash'
 
 const INITIAL_STATE = {
   records: null,
-  request_id: null,
   status: 'pending'
 }
 
@@ -13,19 +12,16 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'FETCH_REQUEST':
     return {
       ...state,
-      request_id: action.request_id,
       status: (status !== 'pending' && action.request.params.$page.skip === 0) ? 'loading' : 'refreshing'
     }
 
   case 'FETCH_SUCCESS':
-    if(action.request_id !== state.request_id) return state
     if(!_.includes(['loading','refreshing','delayed'], state.status)) return state
     const loaded = state.records ? state.records.length : 0
     if(action.result.pagination.all !== undefined) {
       return {
         ...state,
         all: action.result.pagination.all,
-        request_id: null,
         records: (action.result.pagination.skip > 0) ? [
           ...state.records || [],
           ...action.result.data
@@ -37,7 +33,6 @@ const reducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         next: action.result.pagination.next,
-        request_id: null,
         records: (action.result.pagination.skip > 0) ? [
           ...state.records || [],
           ...action.result.data
