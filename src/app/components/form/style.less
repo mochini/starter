@@ -1,5 +1,40 @@
-.form {
+.form-container {
   flex: 1;
-  background-color: fadeout(@black, 95);
+  position: relative;
+  .form-panel {
+    .translatex-transition(100%, 0, .25s);
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: @white;
+    display: flex;
+  }
+}
+.ui.form {
+  flex: 1;
   padding: 0.8em;
+  .scrollable();
+}
+.form-instructions {
+  background-color: fadeout(@black, 95);
+}
+.error-message {
+  background-color: @red !important;
+  color: @white !important;
+  padding: 0.6em 1em;
+  border-radius: 0 0 0.3em 0.3em !important;
+}
+.field {
+  textarea {
+    line-height: 1.8em !important;
+  }
+}
+.field-label {
+  font-weight: bold;
+  color: @black;
+}
+.field-instructions {
+  color: fadeout(@black, 60);
 }

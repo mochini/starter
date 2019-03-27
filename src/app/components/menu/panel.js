@@ -10,6 +10,7 @@ class Panel extends React.Component {
 
   static propTypes = {
     items: PropTypes.array,
+    label: PropTypes.string,
     path: PropTypes.array,
     onBack: PropTypes.func,
     onForward: PropTypes.func
@@ -20,7 +21,7 @@ class Panel extends React.Component {
   _handleBack = this._handleBack.bind(this)
 
   render() {
-    const { items, path } = this.props
+    const { items, label, path } = this.props
     return (
       <div className="menu-panel">
         <div className="menu-panel-header" onClick={ this._handleBack }>
@@ -31,7 +32,7 @@ class Panel extends React.Component {
             }
           </div>
           <div className="menu-panel-header-label">
-            Menu
+            { label || 'Menu' }
           </div>
         </div>
         <div className="menu-panel-body">

@@ -2,6 +2,7 @@ import { withTranslation } from 'react-i18next'
 import PropTypes from 'prop-types'
 import Avatar from '../avatar'
 import React from 'react'
+import Edit from './edit'
 
 class Account extends React.Component {
 
@@ -46,7 +47,7 @@ class Account extends React.Component {
   }
 
   _handleEdit() {
-    this.context.modal.open(<div>Edit</div>)
+    this.context.modal.open(Edit)
     this.context.drawer.close()
   }
 

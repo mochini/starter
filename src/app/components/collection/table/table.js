@@ -1,5 +1,6 @@
 import Scrollpane from '../../scrollpane'
 import PropTypes from 'prop-types'
+import Action from '../action'
 import React from 'react'
 import _ from 'lodash'
 
@@ -94,7 +95,7 @@ class Table extends React.Component {
                     ))}
                     { itemActions &&
                       <td className="collapsing table-actions">
-                        <i className="fa fa-fw fa-ellipsis-v" />
+                        <Action />
                       </td>
                     }
                   </tr>

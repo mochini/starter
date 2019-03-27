@@ -1,0 +1,27 @@
+.actions {
+  position: relative;
+  padding: 0.8em;
+  cursor: pointer;
+  .fa {
+    color: fadeout(@black, 60);
+  }
+}
+.actions-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 99;
+  background-color: @white;
+  border: 1px solid fadeout(@black, 90);
+  min-width: 150px;
+  .actions-item:last-child {
+    border-bottom: none;
+  }
+}
+.actions-item {
+  padding: 0.4em 0.8em;
+  cursor: pointer;
+  &:hover {
+    background-color: fadeout(@black, 95);
+  }
+}

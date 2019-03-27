@@ -1,0 +1,114 @@
+.datefield-input {
+  border: 1px solid fadeout(@black, 90);
+  background-color: @white;
+  border-radius: 5px;
+  display: flex;
+  &:focus {
+    outline: none !important;
+    border-color: #85B7D9;
+  }
+}
+.datefield-field {
+  padding: .4em 1em;
+  flex: 1;
+  span {
+    color: lighten(@black, 80);
+  }
+}
+.datefield-remove {
+  flex: 0 0 2.5em;
+  display: flex;
+  .fa {
+    &:hover {
+      color: fadeout(@black, 70);
+    }
+    margin: auto;
+    font-size: 1.4em;
+    line-height: 1.1em;
+    color: fadeout(@black, 80);
+    cursor: pointer;
+  }
+}
+.datefield-chooser {
+  padding: 1em;
+}
+.datefield-month {
+  display: flex;
+  flex-direction: column;
+}
+.datefield-header {
+  background-color: fadeout(@black, 80);
+  flex: 1;
+  display: flex;
+}
+.datefield-weekdays {
+  background-color: fadeout(@black, 90);
+  flex: 1;
+  display: flex;
+}
+.datefield-previous,
+.datefield-title,
+.datefield-next,
+.datefield-weekday,
+.datefield-day {
+  flex: 0 0 calc(100% / 7);
+  border: 1px solid @white;
+  text-align: center;
+}
+.datefield-weekday {
+  padding: 0.5em 0;
+  font-size: 0.9em;
+  text-transform: uppercase;
+}
+.datefield-previous,
+.datefield-title,
+.datefield-next,
+.datefield-day {
+  padding: 0.5em 0;
+  text-align: center;
+}
+.datefield-previous,
+.datefield-next {
+  &:hover {
+    background-color: fadeout(@black, 85);
+  }
+  cursor: pointer;
+}
+.datefield-title {
+  flex: 1;
+}
+.datefield-week {
+  flex: 1;
+  display: flex;
+}
+.datefield-day {
+  &:hover {
+    background-color: fadeout(@black, 90);
+  }
+  flex: 1;
+  background-color: fadeout(@black, 95);
+  cursor: pointer;
+  color: fadeout(@black, 30);
+  &.notmonth {
+    color: fadeout(@black, 80);
+  }
+  &.today {
+    color: @black;
+    font-weight: bold;
+  }
+  &.selected {
+    &:hover {
+      background-color: fadeout(@yellow, 80);
+    }
+    background-color: fadeout(@yellow, 85);
+  }
+}
+.error {
+  .datefield-input {
+    border-color: #DB2828 !important;
+    border-radius: 5px 5px 0 0;
+  }
+  .datefield-icon {
+    border-radius: 5px 0 0 0;
+  }
+}

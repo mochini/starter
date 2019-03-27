@@ -2,6 +2,7 @@ import ModalPanel from '../components/modal_panel'
 import Collection from '../components/collection'
 import PropTypes from 'prop-types'
 import React from 'react'
+import New from './new'
 
 const Token = (record) => (
   <div className="token">
@@ -82,7 +83,7 @@ class Home extends React.Component {
 
   _handleTasks() {
     this.context.tasks.open([
-      { label: 'Foo', handler: () => console.log('foo') },
+      { label: 'Foo', modal: New },
       { label: 'Bar', handler: () => console.log('bar') },
       { label: 'Baz', handler: () => console.log('baz') }
     ])

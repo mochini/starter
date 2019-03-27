@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import Action from '../action'
 import React from 'react'
 import _ from 'lodash'
 
@@ -54,7 +55,7 @@ class List extends React.Component {
               </div>
               { itemActions &&
                 <div className="list-tile-actions">
-                  <i className="fa fa-fw fa-ellipsis-v" />
+                  <Action />
                 </div>
               }
             </div>

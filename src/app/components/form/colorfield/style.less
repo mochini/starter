@@ -1,0 +1,39 @@
+.colorfield {
+  background-color: @white;
+  border: 1px solid fadeout(@black, 90);
+  border-radius: 0.5em;
+  padding: 0.3em;
+  overflow: hidden;
+  display: inline-block;
+  width: 14.3em;
+  &:focus {
+    outline: none !important;
+    border-color: #85B7D9;
+  }
+}
+.colorfield-color {
+  position: relative;
+  width: 2.7em;
+  height: 2.7em;
+  display: flex;
+  float: left;
+  color: @white;
+  cursor: pointer;
+  &:hover::after {
+    background-color: fadeout(@black, 90);
+  }
+  &::after {
+    content: " ";
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+
+  }
+  i {
+    margin: auto;
+    font-size: 1.5em;
+    line-height: 1em;
+  }
+}
