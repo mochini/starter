@@ -1,8 +1,15 @@
+import Numberfield from './numberfield'
+import Videofield from './videofield'
 import Colorfield from './colorfield'
+import Phonefield from './phonefield'
+import Emailfield from './emailfield'
+import Moneyfield from './moneyfield'
 import Datefield from './datefield'
 import Textfield from './textfield'
 import PropTypes from 'prop-types'
+import Select from './selectfield'
 import Textarea from './textarea'
+import Dropdown from './dropdown'
 import React from 'react'
 
 class Field extends React.Component {
@@ -28,6 +35,13 @@ class Field extends React.Component {
         { field.type === 'textfield' && <Textfield { ...this._getField(field) } /> }
         { field.type === 'colorfield' && <Colorfield { ...this._getField(field) } /> }
         { field.type === 'datefield' && <Datefield { ...this._getField(field) } /> }
+        { field.type === 'numberfield' && <Numberfield { ...this._getField(field) } /> }
+        { field.type === 'phonefield' && <Phonefield { ...this._getField(field) } /> }
+        { field.type === 'emailfield' && <Emailfield { ...this._getField(field) } /> }
+        { field.type === 'moneyfield' && <Moneyfield { ...this._getField(field) } /> }
+        { field.type === 'videofield' && <Videofield { ...this._getField(field) } /> }
+        { field.type === 'dropdown' && <Dropdown { ...this._getField(field) } /> }
+        { field.type === 'select' && <Select { ...this._getField(field) } /> }
         { errors[field.name] && <div className="error-message">{ errors[field.name] }</div> }
       </div>
     )

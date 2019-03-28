@@ -1,11 +1,11 @@
 import { Factory } from 'redux-rubberstamp'
 import reducer from './reducer'
-import select from './select'
+import search from './search'
 import * as actions from './actions'
 
 export default Factory({
-  namespace: 'filters:select',
-  component: select,
+  namespace: 'search',
+  component: search,
   reducer,
   actions
 })

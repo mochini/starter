@@ -1,11 +1,11 @@
 import { Factory } from 'redux-rubberstamp'
 import reducer from './reducer'
-import datefield from './datefield'
+import select from './select'
 import * as actions from './actions'
 
 export default Factory({
-  namespace: 'datefield',
-  component: datefield,
+  namespace: 'checkbox_group',
+  component: select(true),
   reducer,
   actions
 })

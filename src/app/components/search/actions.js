@@ -1,3 +1,8 @@
+export const query = (q) => ({
+  type: 'QUERY',
+  q
+})
+
 export const set = (selected) => ({
   type: 'SET',
   selected

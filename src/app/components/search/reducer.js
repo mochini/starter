@@ -1,12 +1,19 @@
 import _ from 'lodash'
 
 const INITIAL_STATE = {
+  q: '',
   selected: []
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
 
   switch (action.type) {
+
+  case 'QUERY':
+    return {
+      ...state,
+      q: action.q
+    }
 
   case 'SET':
     return {

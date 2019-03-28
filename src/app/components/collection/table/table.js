@@ -80,7 +80,7 @@ class Table extends React.Component {
               { records.map((record, index) => (
                 <tr className={ this._getRowClass(index) } key={`foo_${index}`}>
                   { selectable &&
-                    <td onClick={ this._handleToggle.bind(this, index) } className="collapsing">
+                    <td onClick={ this._handleToggle.bind(this, index) } className="collapsing table-cell">
                       { _.includes(selected, index) ?
                         <i className="fa fa-fw fa-check-circle" /> :
                         <i className="fa fa-fw fa-circle-o" />

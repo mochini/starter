@@ -46,7 +46,7 @@ class Infinite extends React.Component {
   render() {
     const { all, layout, parentProps, records, status, total } = this.props
     return (
-      <div className="reframe-infinite">
+      <div className="infinite">
         { status === 'loading' && !records && <Loader /> }
         { status === 'delayed' && <Delayed /> }
         { status === 'timeout' && <Timeout /> }
@@ -55,7 +55,7 @@ class Infinite extends React.Component {
         { status !== 'failed' && total === 0 && all === 0 && <Empty /> }
         { status !== 'failed' && records && records.length > 0 && layout &&
           <Scrollpane { ...this._getScrollpane() }>
-            <this.props.layout { ...this.props } { ...parentProps } />
+            <this.props.layout { ...this._getLayout() } { ...parentProps } />
           </Scrollpane>
         }
         { status === 'loading' && records && records.length > 0 && <Appending /> }
@@ -82,6 +82,12 @@ class Infinite extends React.Component {
     return Object.keys(_.omit(this.props, ignored)).reduce((update, key) => {
       return update || !_.isEqual(this.props[key], nextProps[key])
     }, false)
+  }
+
+  _getLayout() {
+    return {
+      ...this.props
+    }
   }
 
   _getMore(next, skip, reload, loaded, total) {

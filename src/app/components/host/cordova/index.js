@@ -62,6 +62,7 @@ class Cordova extends React.Component {
         allowSleep: this._handleAllowSleep,
         hasFocus: this._handleHasFocus,
         signin: this._handleSignin,
+        setTitle: () => {},
         keepAwake: this._handleKeepAwake,
         openWindow: this._handleOpenWindow
       }

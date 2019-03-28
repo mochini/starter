@@ -19,14 +19,6 @@ class Edit extends React.Component {
     return <Form { ...this._getForm() } />
   }
 
-  _getInstructions() {
-    return {
-      icon: 'map',
-      title: 'Let\'s plan a college tour!',
-      text: 'To begin, give your tour a memorable name like "Spring Break Tour" and indicate where you will begin and end your journey.'
-    }
-  }
-
   _getForm() {
     return {
       title: 'New Tour',
@@ -39,7 +31,15 @@ class Edit extends React.Component {
         { label: 'Email', name: 'email', type: 'textfield', required: true },
         { label: 'Date', name: 'date', type: 'datefield' },
         { label: 'Color', name: 'color', type: 'colorfield' },
-        { label: 'Description', name: 'description', type: 'textarea' }
+        { label: 'Description', name: 'description', type: 'textarea' },
+        { label: 'Number', name: 'number', type: 'numberfield' },
+        { label: 'Phone', name: 'phone', type: 'phonefield' },
+        { label: 'Email', name: 'email', type: 'emailfield' },
+        { label: 'Money', name: 'money', type: 'moneyfield' },
+        { label: 'Time', name: 'time', type: 'timefield' },
+        { label: 'Select', name: 'select', type: 'select' },
+        { label: 'Video', name: 'video', type: 'videofield' },
+        { label: 'Dropdown', name: 'dropdown', type: 'dropdown', options: [{value:1,text:'One'}] }
       ],
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess
