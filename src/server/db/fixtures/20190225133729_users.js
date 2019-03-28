@@ -1,5 +1,7 @@
 import bcrypt from 'bcrypt-nodejs'
-const moment = require('moment')
+import moment from 'moment'
+import faker from 'faker'
+
 
 exports.seed = async (knex, Promise) => {
 
@@ -17,7 +19,17 @@ exports.seed = async (knex, Promise) => {
       photo_id: 1,
       created_at: moment(),
       updated_at: moment()
-    }
+    },
+    ...Array(100).fill().map(n => ({
+      first_name: faker.name.firstName(),
+      last_name: faker.name.lastName(),
+      email: faker.internet.email(),
+      password_salt,
+      password_hash: bcrypt.hashSync('test', password_salt),
+      photo_id: 1,
+      created_at: moment(),
+      updated_at: moment()
+    }))
   ])
 
 }

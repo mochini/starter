@@ -1,14 +1,17 @@
 import { Router } from 'express'
+import User from '../models/user'
 
 const router = new Router({ mergeParams: true })
 
-router.get('/', (req, res) => {
-  const base = parseInt(req.query.$page.skip)
+router.get('/', async (req, res) => {
+  const users = await User.fetchAll({
+    transacting: req.trx
+  })
   res.status(200).json({
-    data: Array(100).fill().map((n, index) => ({
-      id: base + index + 1,
-      full_name: `Greg Kops ${base + index}`,
-      email: `mochini+${base + index}@gmail.com`
+    data: users.map((user, index) => ({
+      id: user.get('id'),
+      full_name: user.get('full_name'),
+      email: user.get('email')
     })),
     pagination: {
       all: 500,
@@ -19,12 +22,17 @@ router.get('/', (req, res) => {
   })
 })
 
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
+  const user = await User.query(qb => {
+    qb.where('id', req.params.id )
+  }).fetch({
+    transacting: req.trx
+  })
   res.status(200).json({
     data: {
-      id: 1,
-      full_name: 'Greg Kops 1',
-      email: 'mochini+1@gmail.com'
+      id: user.get('id'),
+      full_name: user.get('full_name'),
+      email: user.get('email')
     }
   })
 })
