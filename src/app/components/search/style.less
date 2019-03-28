@@ -1,20 +1,16 @@
 .search {
   flex: 1;
   display: flex;
-}
-.search-dynamic {
-  flex: 1;
-  display: flex;
   flex-direction: column;
 }
-.search-dynamic-header {
+.search-header {
   border-bottom: 1px solid fadeout(@black, 90);
 }
-.search-dynamic-body {
+.search-body {
   flex: 1;
   display: flex;
 }
-.search-options {
+.search-list {
   flex: 1;
   .scrollable();
 }
@@ -27,12 +23,13 @@
   }
 }
 .search-option-label {
-  padding: 0.8em;
   flex: 1;
 }
 .search-option-icon {
   padding: 0.8em 0.8em 0.8em 0;
+  display: flex;
   .fa-check {
+    margin: auto;
     color: @green;
   }
 }

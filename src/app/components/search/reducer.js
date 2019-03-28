@@ -24,9 +24,9 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'TOGGLE':
     return {
       ...state,
-      selected: [
-        ..._.xor(state.selected, [action.index])
-      ]
+      selected: action.multiple ? [
+        ..._.xor(state.selected, [action.value])
+      ] : !_.includes(state.selected, action.value) ? [action.value] : null
     }
 
   default:

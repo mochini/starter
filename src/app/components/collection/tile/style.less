@@ -29,6 +29,10 @@
   background-color: fadeout(@black, 95);
   padding: 0.8em;
   display: flex;
+  cursor: pointer;
+  &:hover {
+    background-color: fadeout(@black, 90);
+  }
   .fa {
     margin: auto;
   }
@@ -40,10 +44,6 @@
   }
 }
 .tile-details {
-  padding: 0.8em;
   flex: 1;
   overflow: hidden;
-}
-.tile-actions {
-  padding: 0;
 }

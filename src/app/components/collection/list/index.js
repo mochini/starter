@@ -1,6 +1,7 @@
 import Actions from '../actions/index'
 import PropTypes from 'prop-types'
 import Format from '../../format'
+import Token from '../../token'
 import React from 'react'
 import _ from 'lodash'
 
@@ -17,7 +18,9 @@ class List extends React.Component {
     onToggleAll: PropTypes.func
   }
 
-  static defaultProps = {}
+  static defaultProps = {
+    format: Token
+  }
 
   _handleToggleAll = this._handleToggleAll.bind(this)
 
@@ -36,7 +39,7 @@ class List extends React.Component {
               </div>
             }
             <div className="list-tile-details">
-              Header
+              <Format value="Header" format={ Token } />
             </div>
           </div>
         </div>
@@ -54,7 +57,7 @@ class List extends React.Component {
               <div className="list-tile-details">
                 <Format { ...record } format={ format } />
               </div>
-              { itemActions &&
+              { itemActions && itemActions.length > 0 &&
                 <div className="list-tile-actions">
                   <Actions { ...this._getActions() } />
                 </div>

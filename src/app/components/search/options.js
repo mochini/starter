@@ -9,8 +9,8 @@ class Options extends React.Component {
 
   static propTypes = {
     format: PropTypes.any,
-    records: PropTypes.array,
-    searched: PropTypes.array,
+    options: PropTypes.array,
+    selected: PropTypes.array,
     text: PropTypes.string,
     value: PropTypes.string,
     onToggle: PropTypes.func
@@ -19,16 +19,16 @@ class Options extends React.Component {
   static defaultProps = {}
 
   render() {
-    const { format, records, searched } = this.props
+    const { format, options, selected } = this.props
     return (
       <div className="search-options">
-        { records.map((option, index) => (
+        { options.map((option, index) => (
           <div className="search-option" key={`option_${index}`} onClick={ this._handleClick.bind(this, option) }>
             <div className="search-option-label">
               <Format { ...option } format={ format } value={ this._getText(option) } />
             </div>
             <div className="search-option-icon">
-              { _.includes(searched, this._getValue(option)) && <i className="fa fa-fw fa-check" /> }
+              { _.includes(selected, this._getValue(option)) && <i className="fa fa-fw fa-check" /> }
             </div>
           </div>
         )) }

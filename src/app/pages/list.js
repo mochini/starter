@@ -2,8 +2,8 @@ import { Page } from '../components/page'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const Token = (record) => (
-  <div className="token">
+const UserToken = (record) => (
+  <div className="user-token">
     <strong>{ record.full_name }</strong><br />
     { record.email }
   </div>
@@ -13,13 +13,16 @@ const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Users',
   collection: {
     itemActions: [
+      { label: 'One' },
+      { label: 'Two' },
+      { label: 'Three' }
     ],
     endpoint: '/api/users',
     list: {
-      format: Token
+      format: UserToken
     },
     tile: {
-      format: Token
+      format: UserToken
     },
     table: {
       columns: [
@@ -29,7 +32,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       ]
     },
     filters: [
-      { label: 'Users', key: 'user_id', type: 'select', endpoint: '/api/users', value: 'id', text: 'full_name' }
+      { label: 'Users', key: 'user_id', type: 'select', endpoint: '/api/users', value: 'id', text: 'full_name', multiple: true, format: UserToken }
     ],
     export: [
       { label: 'ID', key: 'id' },

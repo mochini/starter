@@ -7,9 +7,10 @@ class Select extends React.Component {
   static contextTypes = {}
 
   static propTypes = {
-    defaultValue: PropTypes.array,
+    defaultValue: PropTypes.any,
     endpoint: PropTypes.string,
     format: PropTypes.any,
+    multiple: PropTypes.bool,
     options: PropTypes.array,
     selected: PropTypes.array,
     text: PropTypes.string,

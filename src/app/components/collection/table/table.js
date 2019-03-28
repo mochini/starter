@@ -67,7 +67,7 @@ class Table extends React.Component {
                     }
                   </th>
                 ))}
-                { itemActions &&
+                { itemActions && itemActions.length > 0 &&
                   <th { ...this._getHeader(columns.length + (selectable ? 1 : 0 )) } />
                 }
               </tr>
@@ -97,7 +97,7 @@ class Table extends React.Component {
                       }
                     </td>
                   ))}
-                  { itemActions &&
+                  { itemActions && itemActions.length > 0 &&
                     <td className="collapsing table-actions">
                       <Actions { ...this._getActions() } />
                     </td>
