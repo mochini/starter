@@ -32,6 +32,7 @@ class Collection extends React.Component {
     itemActions: PropTypes.array,
     layouts: PropTypes.array,
     layout: PropTypes.string,
+    q: PropTypes.string,
     selectAll: PropTypes.bool,
     selected: PropTypes.array,
     list: PropTypes.object,
@@ -152,9 +153,11 @@ class Collection extends React.Component {
   }
 
   _getInfinite() {
-    const { endpoint } = this.props
+    const { endpoint, q } = this.props
+    const filter = { q }
     return {
       endpoint,
+      filter,
       ...this._getLayout()
     }
   }

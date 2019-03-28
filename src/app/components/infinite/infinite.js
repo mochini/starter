@@ -69,6 +69,7 @@ class Infinite extends React.Component {
 
   componentDidUpdate(prevProps) {
     const { filter, sort, status } = this.props
+    console.log(filter)
     if(this.timeout && status !== prevProps.status && prevProps.status === 'loading') {
       clearTimeout(this.timeout)
     }
