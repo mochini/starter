@@ -4,7 +4,7 @@ import videofield from './videofield'
 import * as actions from './actions'
 
 export default Factory({
-  namespace: 'reframe.videofield',
+  namespace: 'videofield',
   component: videofield,
   reducer,
   actions

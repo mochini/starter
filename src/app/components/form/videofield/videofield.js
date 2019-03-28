@@ -27,11 +27,11 @@ class VideoField extends React.Component{
     const { src } = this.props
     if(!src) return <Button { ...this._getNewButton() } />
     return (
-      <div className="reframe-videofield">
-        <div className="reframe-videofield-player">
+      <div className="videofield">
+        <div className="videofield-player">
           <iframe { ...this._getIframe()} />
         </div>
-        <div className="reframe-videofield-footer">
+        <div className="videofield-footer">
           <Buttons { ...this._getEditButtons() } />
         </div>
       </div>

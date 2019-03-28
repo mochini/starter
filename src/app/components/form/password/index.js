@@ -46,8 +46,8 @@ class Password extends React.Component {
   render() {
     const { schema } = this.props
     return (
-      <div className="reframe-password">
-        <div className="reframe-password-input">
+      <div className="password">
+        <div className="password-input">
           <input { ...this._getInput() } />
         </div>
         { schema.length > 0 &&
@@ -77,7 +77,7 @@ class Password extends React.Component {
 
   _getClass() {
     const { strong } = this.state
-    const classes = ['reframe-password-icon']
+    const classes = ['password-icon']
     if(strong) classes.push('strong')
     if(!strong) classes.push('weak')
     return classes.join(' ')

@@ -24,11 +24,11 @@ class Picker extends React.Component{
     const { status } = this.props
     return (
       <ModalPanel { ...this._getPanel() }>
-        <div className="reframe-videofield-picker">
-          <div className="reframe-videofield-picker-header">
+        <div className="videofield-picker">
+          <div className="videofield-picker-header">
             <input { ...this._getInput() } />
           </div>
-          <div className="reframe-videofield-picker-body">
+          <div className="videofield-picker-body">
             { status === 'pending' &&
               <Message { ...this._getPendingMessage() } />
             }
@@ -36,7 +36,7 @@ class Picker extends React.Component{
               <Loader />
             }
             { status === 'success' &&
-              <div className="reframe-videofield-player">
+              <div className="videofield-player">
                 <iframe { ...this._getIframe()} />
               </div>
             }
@@ -109,8 +109,8 @@ class Picker extends React.Component{
 }
 
 const mapStateToProps = (state, props) => ({
-  src: state.reframe.videofield[props.cid].src,
-  status: state.reframe.videofield[props.cid].status
+  src: state.videofield[props.cid].src,
+  status: state.videofield[props.cid].status
 })
 
 export default connect(mapStateToProps)(Picker)

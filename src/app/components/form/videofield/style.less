@@ -1,4 +1,4 @@
-.reframe-videofield {
+.videofield {
   width: 100%;
   max-width: 400px;
   display: flex;
@@ -8,13 +8,13 @@
   background-color: fadeout(@black, 97);
   overflow: hidden;
 }
-.reframe-videofield-body {
+.videofield-body {
   border-bottom: 1px solid fadeout(@black, 95);
 }
-.reframe-videofield-footer {
+.videofield-footer {
   padding: 0.4em;
 }
-.reframe-videofield-player {
+.videofield-player {
   position: relative;
 	padding-bottom: 56.25%;
 	height: 0;
@@ -28,12 +28,12 @@
   }
 }
 
-.reframe-videofield-picker {
+.videofield-picker {
   flex: 1;
   display: flex;
   flex-direction: column;
 }
-.reframe-videofield-picker-header {
+.videofield-picker-header {
   background-color: fadeout(@black, 97);
   border-bottom: 1px solid fadeout(@black, 95);
   input {
@@ -49,10 +49,10 @@
   }
 
 }
-.reframe-videofield-picker-body {
+.videofield-picker-body {
   flex: 1;
   display: flex;
-  .reframe-videofield-player {
+  .videofield-player {
     margin: auto 0.8em;
   }
 }
