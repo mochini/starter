@@ -57,9 +57,14 @@ class Collection extends React.Component {
     search: true
   }
 
+  state = {
+    cacheKey: _.random(9999999999).toString(36)
+  }
+
   _handleChangeLayout = this._handleChangeLayout.bind(this)
   _handleChangeTool = this._handleChangeTool.bind(this)
   _handleFilter = this._handleFilter.bind(this)
+  _handleRefresh = this._handleRefresh.bind(this)
   _handleSelect = this._handleSelect.bind(this)
   _handleType = this._handleType.bind(this)
 
@@ -71,6 +76,13 @@ class Collection extends React.Component {
           <div className="collection-header-buttons">
             { allLayouts.length > 1 && <Layouts { ...this._getLayouts() } /> }
             <Tools { ...this._getTools() } />
+            <div className="collection-header-tools">
+              <div className="collection-tools">
+                <div className="collection-tool" tooltip="Refresh Data" onClick={ this._handleRefresh }>
+                  <i className="fa fa-fw fa-refresh" />
+                </div>
+              </div>
+            </div>
           </div>
           <div className="collection-header-searchbox">
             { search && <Searchbox { ...this._getSearchbox() } /> }
@@ -171,9 +183,11 @@ class Collection extends React.Component {
   }
 
   _getInfinite() {
+    const { cacheKey } = this.state
     const { batchActions, endpoint, filter, q } = this.props
     const sort  = this.props.sort ? [this.props.sort] : null
     return {
+      cacheKey,
       endpoint,
       filter: {
         $and: [
@@ -292,6 +306,12 @@ class Collection extends React.Component {
     const query = search.length > 0 ? qs.parse(search.slice(1), { decoder }) : {}
     const filter =  query.$filter || { $and: [] }
     this.props.onFilter(filter)
+  }
+
+  _handleRefresh() {
+    this.setState({
+      cacheKey: _.random(9999999999).toString(36)
+    })
   }
 
   _handleSelect(selected) {

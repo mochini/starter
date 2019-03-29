@@ -9,6 +9,7 @@ class Infinite extends React.Component {
 
   static propTypes = {
     all: PropTypes.number,
+    cacheKey: PropTypes.string,
     endpoint: PropTypes.any,
     filter: PropTypes.object,
     layout: PropTypes.any,
@@ -73,11 +74,11 @@ class Infinite extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { filter, selected, sort, status } = this.props
+    const { cacheKey, filter, selected, sort, status } = this.props
     if(this.timeout && status !== prevProps.status && prevProps.status === 'loading') {
       clearTimeout(this.timeout)
     }
-    if(!_.isEqual(prevProps.filter, filter) || !_.isEqual(prevProps.sort, sort)) {
+    if(cacheKey !== prevProps.cacheKey || !_.isEqual(prevProps.filter, filter) || !_.isEqual(prevProps.sort, sort)) {
       this._handleFetch(0, true)
     }
     if(selected.length !== prevProps.selected.length) {
