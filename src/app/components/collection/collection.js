@@ -23,8 +23,10 @@ class Collection extends React.Component {
 
   static propTypes = {
     allLayouts: PropTypes.array,
+    batchActions: PropTypes.array,
     data: PropTypes.array,
     endpoint: PropTypes.string,
+    entity: PropTypes.string,
     export: PropTypes.array,
     filtering: PropTypes.bool,
     filters: PropTypes.array,
@@ -32,10 +34,12 @@ class Collection extends React.Component {
     itemActions: PropTypes.array,
     layouts: PropTypes.array,
     layout: PropTypes.string,
+    list: PropTypes.object,
     q: PropTypes.string,
+    search: PropTypes.bool,
     selectAll: PropTypes.bool,
     selected: PropTypes.array,
-    list: PropTypes.object,
+    sort: PropTypes.object,
     table: PropTypes.object,
     tile: PropTypes.object,
     tools: PropTypes.array,
@@ -44,8 +48,14 @@ class Collection extends React.Component {
     onChangeTool: PropTypes.func,
     onFilter: PropTypes.func,
     onQuery: PropTypes.func,
+    onSort: PropTypes.func,
     onToggle: PropTypes.func,
     onToggleAll: PropTypes.func
+  }
+
+  static defaultProps = {
+    entity: 'record',
+    search: true
   }
 
   _handleChangeLayout = this._handleChangeLayout.bind(this)
@@ -54,7 +64,7 @@ class Collection extends React.Component {
   _handleType = this._handleType.bind(this)
 
   render() {
-    const { allLayouts, selected, tool } = this.props
+    const { allLayouts, batchActions, search, selected, tool } = this.props
     return (
       <div className="collection">
         <div className="collection-header">
@@ -63,25 +73,27 @@ class Collection extends React.Component {
             <Tools { ...this._getTools() } />
           </div>
           <div className="collection-header-searchbox">
-            <Searchbox { ...this._getSearchbox() } />
+            { search && <Searchbox { ...this._getSearchbox() } /> }
           </div>
         </div>
         <div className="collection-body">
           <div className="collection-main">
             <Infinite { ...this._getInfinite() } />
-            <CSSTransition key="drawer-panel" in={ selected.length > 0 } classNames="translatey" timeout={ 100 } mountOnEnter={ true } unmountOnExit={ true }>
-              <div className="collection-footer">
-                <div className="collection-footer-count">
-                  <i className="fa fa-fw fa-chevron-up" />
-                  <div className="count">
-                    { selected.length }
+            { batchActions &&
+              <CSSTransition key="drawer-panel" in={ selected.length > 0 } classNames="translatey" timeout={ 100 } mountOnEnter={ true } unmountOnExit={ true }>
+                <div className="collection-footer">
+                  <div className="collection-footer-count">
+                    <i className="fa fa-fw fa-chevron-up" />
+                    <div className="count">
+                      { selected.length }
+                    </div>
+                  </div>
+                  <div className="collection-footer-buttons">
+                    <Buttons { ...this._getButtons() } />
                   </div>
                 </div>
-                <div className="collection-footer-buttons">
-                  <Buttons { ...this._getButtons() } />
-                </div>
-              </div>
-            </CSSTransition>
+              </CSSTransition>
+            }
           </div>
           { tool &&
             <div className="collection-sidebar">
@@ -109,11 +121,13 @@ class Collection extends React.Component {
   }
 
   _getButtons() {
+    const { batchActions, selected } = this.props
     return {
-      buttons: [
-        { label: 'Submit All', color: 'green' },
-        { label: 'Delete All', color: 'red' }
-      ]
+      buttons: batchActions.map(action => ({
+        ...action,
+        color: 'red',
+        handler: () => action.handler(selected)
+      }))
     }
   }
 
@@ -126,9 +140,10 @@ class Collection extends React.Component {
   }
 
   _getCustom() {
-    const { selected, selectAll, onToggle, onToggleAll } = this.props
+    const { batchActions, selected, selectAll, onToggle, onToggleAll } = this.props
     return {
       selected,
+      selectable: batchActions !== undefined,
       selectAll,
       onToggle,
       onToggleAll
@@ -136,8 +151,13 @@ class Collection extends React.Component {
   }
 
   _getExport() {
+    const { endpoint, entity, filter, sort } = this.props
     return {
       defaultValue: this.props.export,
+      endpoint,
+      entity,
+      filter,
+      sort,
       onClose: this._handleChangeTool.bind(this, null)
     }
   }
@@ -155,7 +175,7 @@ class Collection extends React.Component {
   _getInfinite() {
     const { endpoint, q } = this.props
     const filter = { $and: [{ last_name: { $lk: q } } ] }
-    const sort  = []
+    const sort  = this.props.sort ? [this.props.sort] : null
     return {
       endpoint,
       filter,
@@ -191,11 +211,11 @@ class Collection extends React.Component {
   }
 
   _getList() {
-    const { itemActions, list, selected, selectAll, onToggle, onToggleAll } = this.props
+    const { batchActions, itemActions, list, selected, selectAll, onToggle, onToggleAll } = this.props
     return {
       ...list,
       itemActions,
-      selectable: true,
+      selectable: batchActions !== undefined,
       selected,
       selectAll,
       onToggle,
@@ -215,24 +235,25 @@ class Collection extends React.Component {
   }
 
   _getTable() {
-    const { itemActions, selected, selectAll, table, onToggle, onToggleAll } = this.props
+    const { batchActions, itemActions, selected, selectAll, table, onSort, onToggle, onToggleAll } = this.props
     return {
       ...table,
       itemActions,
-      selectable: true,
+      selectable: batchActions !== undefined,
       selected,
       selectAll,
+      onSort,
       onToggle,
       onToggleAll
     }
   }
 
   _getTile() {
-    const { itemActions, selected, selectAll, tile, onToggle, onToggleAll } = this.props
+    const { batchActions, itemActions, selected, selectAll, tile, onToggle, onToggleAll } = this.props
     return {
       ...tile,
       itemActions,
-      selectable: true,
+      selectable: batchActions !== undefined,
       selected,
       selectAll,
       onToggle,

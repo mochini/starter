@@ -12,12 +12,17 @@ const UserToken = (record) => (
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Users',
   collection: {
+    batchActions: [
+      { label: 'Archive All', handler: (selected) => console.log(`archive ${selected}`) },
+      { label: 'Delete All', handler: (selected) => console.log(`delete ${selected}`) }
+    ],
     itemActions: [
       { label: 'One' },
       { label: 'Two' },
       { label: 'Three' }
     ],
     endpoint: '/api/users',
+    entity: 'user',
     list: {
       format: UserToken
     },
@@ -26,13 +31,12 @@ const mapPropsToPage = (props, context, resources, page) => ({
     },
     table: {
       columns: [
-        { label: 'ID', key: 'id' },
-        { label: 'Name', key: 'full_name' },
+        { label: 'Name', key: 'full_name', sort: 'last_name' },
         { label: 'Email', key: 'email' }
       ]
     },
     filters: [
-      { label: 'Users', key: 'user_id', type: 'select', endpoint: '/api/users', value: 'id', text: 'full_name', multiple: true, format: UserToken }
+      { label: 'Users', key: 'id', type: 'select', endpoint: '/api/users', value: 'id', text: 'full_name', multiple: true, format: UserToken }
     ],
     export: [
       { label: 'ID', key: 'id' },

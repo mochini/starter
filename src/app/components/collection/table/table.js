@@ -19,13 +19,15 @@ class Table extends React.Component {
     onReachBottom: PropTypes.func,
     onSelect: PropTypes.func,
     onSort: PropTypes.func,
+    onSortColumn: PropTypes.func,
     onToggle: PropTypes.func,
     onToggleAll: PropTypes.func
   }
 
   static defaultProps = {
     onReachBottom: () => {},
-    onSelect: () => {}
+    onSelect: () => {},
+    onSort: () => {}
   }
 
   body = null
@@ -57,7 +59,7 @@ class Table extends React.Component {
                   </th>
                 }
                 { columns.map((column, index) => (
-                  <th key={`column_${index}`} { ...this._getHeader(index + (selectable ? 1 : 0 )) } onClick={ this._handleSort.bind(this, index)}>
+                  <th key={`column_${index}`} { ...this._getHeader(index + (selectable ? 1 : 0 )) } onClick={ this._handleSortColumn.bind(this, index)}>
                     { columns[index].label }
                     { sortColumn === index &&
                       (sortOrder === 'asc' ?
@@ -117,13 +119,17 @@ class Table extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { records, selected, selectAll } = this.props
+    const { records, selected, selectAll, sortColumn, sortOrder } = this.props
     if(records.length !== prevProps.records.length) {
       this._handleResize()
     } else if(selectAll !== prevProps.selectAll) {
       this._handleSelect()
     } else if(selected.length !== prevProps.selected.length) {
       this._handleSelect()
+    } else if(sortColumn !== prevProps.sortColumn) {
+      this._handleSort()
+    } else if(sortOrder !== prevProps.sortOrder) {
+      this._handleSort()
     }
   }
 
@@ -177,8 +183,15 @@ class Table extends React.Component {
     onSelect(records.filter((row, index) => _.includes(selected, index)))
   }
 
-  _handleSort(index) {
-    this.props.onSort(index)
+  _handleSort() {
+    const { columns, sortOrder } = this.props
+    const column = columns[this.props.sortColumn]
+    const key = column.sort || column.key
+    this.props.onSort(key, sortOrder)
+  }
+
+  _handleSortColumn(index) {
+    this.props.onSortColumn(index)
   }
 
   _handleToggle(index) {

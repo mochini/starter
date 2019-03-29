@@ -1,4 +1,4 @@
-export const sort = (index) => ({
-  type: 'SORT',
+export const sortColumn = (index) => ({
+  type: 'SORT_COLUMN',
   index
 })

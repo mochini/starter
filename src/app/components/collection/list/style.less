@@ -14,8 +14,10 @@
 .list-tile {
   display: flex;
   background-color: @white;
-  &.selected .list-tile-details {
-    background-color: fadeout(@yellow, 90);
+  &.selected {
+    .list-tile-details, .list-tile-actions {
+      background-color: fadeout(@yellow, 90);
+    }
   }
 }
 .list-tile-header-icon,

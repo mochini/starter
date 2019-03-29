@@ -1,7 +1,10 @@
+import { connect } from 'react-redux'
 import Sortable from '../sortable'
 import PropTypes from 'prop-types'
+import pluralize from 'pluralize'
 import Buttons from '../buttons'
 import React from 'react'
+import qs from 'qs'
 
 class Export extends React.Component {
 
@@ -9,6 +12,11 @@ class Export extends React.Component {
 
   static propTypes = {
     defaultValue: PropTypes.array,
+    endpoint: PropTypes.string,
+    entity: PropTypes.entity,
+    filter: PropTypes.filter,
+    sort: PropTypes.sort,
+    token: PropTypes.token,
     onClose: PropTypes.func
   }
 
@@ -40,8 +48,8 @@ class Export extends React.Component {
   _getButtons() {
     return {
       buttons: [
-        { label: 'Download CSV', color: 'red' },
-        { label: 'Download XLSX', color: 'red' }
+        { label: 'Download CSV', color: 'red', handler: this._handleDownload.bind(this, 'csv') },
+        { label: 'Download XLSX', color: 'red', handler: this._handleDownload.bind(this, 'xlsx') }
       ]
     }
   }
@@ -58,6 +66,26 @@ class Export extends React.Component {
     this.props.onClose()
   }
 
+  _handleDownload(extension) {
+    const { items } = this.state
+    const { endpoint, entity, token } = this.props
+    const $filter = this.props.filter
+    const $sort = this.props.sort
+    const $select = items.filter(item => item.checked).reduce((select, item) => ({
+      ...select,
+      [item.label]: item.key
+    }), {})
+    const query = qs.stringify({ $filter, $sort, $select })
+    const entities = pluralize(entity)
+    const enclosure = encodeURIComponent('"')
+    const url = `${endpoint}.${extension}?enclosure=${enclosure}&filename=${entities}&token=${token}&download=true&${query}`
+    window.location.href = url
+  }
+
 }
 
-export default Export
+const mapStateToProps = (state, props) => ({
+  token: state.presence.token
+})
+
+export default connect(mapStateToProps)(Export)

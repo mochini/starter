@@ -18,6 +18,12 @@ export const query = (q) => ({
   q
 })
 
+export const sort = (column, order) => ({
+  type: 'SORT',
+  column,
+  order
+})
+
 export const toggle = (index) => ({
   type: 'TOGGLE',
   index

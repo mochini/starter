@@ -3,6 +3,7 @@ import _ from 'lodash'
 const INITIAL_STATE = {
   filter: {},
   q: '',
+  sort: null,
   tool: null,
   layout: 'table',
   selectAll: false,
@@ -42,8 +43,10 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'SORT':
     return {
       ...state,
-      sortDirection: action.sortDirection,
-      sortOrder: action.sortOrder
+      sort: {
+        column: action.column,
+        order: action.order
+      }
     }
 
   case 'TOGGLE':

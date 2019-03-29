@@ -19,8 +19,10 @@
 .tile {
   background-color: @white;
   display: flex;
-  &.selected .tile-details {
-    background-color: fadeout(@yellow, 90);
+  &.selected {
+    .tile-details, .tile-actions {
+      background-color: fadeout(@yellow, 90);
+    }
   }
 }
 .tile-icon {

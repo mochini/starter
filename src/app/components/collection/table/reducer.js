@@ -7,7 +7,7 @@ const reducer = (state = INITIAL_STATE, action) => {
 
   switch (action.type) {
 
-  case 'SORT':
+  case 'SORT_COLUMN':
     return {
       ...state,
       sortColumn: action.index,

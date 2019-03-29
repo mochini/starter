@@ -11,8 +11,6 @@ class Infinite extends React.Component {
     all: PropTypes.number,
     endpoint: PropTypes.any,
     filter: PropTypes.object,
-    footer: PropTypes.any,
-    header: PropTypes.any,
     layout: PropTypes.any,
     next: PropTypes.string,
     parentProps: PropTypes.object,
@@ -27,12 +25,6 @@ class Infinite extends React.Component {
 
   static defaultProps = {
     filter: {},
-    footer: null,
-    header: null,
-    sort: {
-      key: null,
-      order: null
-    },
     onUpdateSelected: (ids) => {}
   }
 
