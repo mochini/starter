@@ -80,7 +80,7 @@ class Collection extends React.Component {
           <div className="collection-main">
             <Infinite { ...this._getInfinite() } />
             { batchActions &&
-              <CSSTransition key="drawer-panel" in={ selected.length > 0 } classNames="translatey" timeout={ 100 } mountOnEnter={ true } unmountOnExit={ true }>
+              <CSSTransition in={ selected.length > 0 } classNames="translatey" timeout={ 100 } mountOnEnter={ true } unmountOnExit={ true }>
                 <div className="collection-footer">
                   <div className="collection-footer-count">
                     <i className="fa fa-fw fa-chevron-up" />
@@ -95,11 +95,14 @@ class Collection extends React.Component {
               </CSSTransition>
             }
           </div>
-          { tool &&
+          <CSSTransition in={ tool } classNames="opacity" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
+            <div className="collection-overlay" onClick={ this._handleChangeTool.bind(this, null) } />
+          </CSSTransition>
+          <CSSTransition in={ tool } classNames="translatey" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
             <div className="collection-sidebar">
               { this._getSidebarComponent() }
             </div>
-          }
+          </CSSTransition>
         </div>
       </div>
     )
