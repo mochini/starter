@@ -154,10 +154,12 @@ class Collection extends React.Component {
 
   _getInfinite() {
     const { endpoint, q } = this.props
-    const filter = { q }
+    const filter = { $and: [{ last_name: { $lk: q } } ] }
+    const sort  = []
     return {
       endpoint,
       filter,
+      sort,
       ...this._getLayout()
     }
   }

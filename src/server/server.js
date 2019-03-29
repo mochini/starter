@@ -1,14 +1,14 @@
 import './lib/environment'
-import 'express-async-errors'
 import withTransaction from './server/transaction'
 import imagecache from './server/imagecache'
 import multiparty from 'connect-multiparty'
 import bodyParser from 'body-parser'
 import logger from './server/logger'
+import format from './server/format'
+import express from './lib/express'
 import arena from './server/arena'
 import ping from './server/ping'
 import i18n from './lib/i18n'
-import express from 'express'
 import path from 'path'
 import api from './api'
 import qs from 'qs'
@@ -38,6 +38,8 @@ server.use('/imagecache', imagecache)
 server.use('/ping', ping)
 
 server.use(arena)
+
+server.use(format)
 
 server.use('/api', api)
 

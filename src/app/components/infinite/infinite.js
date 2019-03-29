@@ -1,4 +1,4 @@
-import { Appending, Delayed, Empty, Failure, NotFound, Timeout } from './results'
+import Message from '../message'
 import Loader from '../loader'
 import Scrollpane from '../scrollpane'
 import PropTypes from 'prop-types'
@@ -48,17 +48,23 @@ class Infinite extends React.Component {
     return (
       <div className="infinite">
         { status === 'loading' && !records && <Loader /> }
-        { status === 'delayed' && <Delayed /> }
-        { status === 'timeout' && <Timeout /> }
-        { status === 'failed' && <Failure /> }
-        { status !== 'failed' && total === 0 && all !== 0 && <NotFound /> }
-        { status !== 'failed' && total === 0 && all === 0 && <Empty /> }
+        { status === 'delayed' && <Message { ...this._getDelayed() } /> }
+        { status === 'timeout' && <Message { ...this._getTimeout() } /> }
+        { status === 'failed' && <Message { ...this._getFailure() } /> }
+        { status !== 'failed' && total === 0 && all !== 0 && <Message { ...this._getNotFound() } /> }
+        { status !== 'failed' && total === 0 && all === 0 && <Message { ...this._getEmpty() } /> }
         { status !== 'failed' && records && records.length > 0 && layout &&
           <Scrollpane { ...this._getScrollpane() }>
             <this.props.layout { ...this._getLayout() } { ...parentProps } />
           </Scrollpane>
         }
-        { status === 'loading' && records && records.length > 0 && <Appending /> }
+        { status === 'loading' && records && records.length > 0 &&
+          <div className="infinite-loader">
+            <div className="ui active inverted dimmer">
+              <div className="ui small loader" />
+            </div>
+          </div>
+        }
       </div>
     )
   }
@@ -69,7 +75,6 @@ class Infinite extends React.Component {
 
   componentDidUpdate(prevProps) {
     const { filter, sort, status } = this.props
-    console.log(filter)
     if(this.timeout && status !== prevProps.status && prevProps.status === 'loading') {
       clearTimeout(this.timeout)
     }
@@ -85,9 +90,47 @@ class Infinite extends React.Component {
     }, false)
   }
 
+  _getDelayed() {
+    return {
+      text: 'This is taking longer than we expected...'
+    }
+  }
+
+  _getEmpty() {
+    return {
+      icon: 'times',
+      title: 'No records',
+      text: 'There are no records'
+    }
+  }
+
+  _getFailure() {
+    return {
+      icon: 'exclamation-triangle ',
+      title: 'Unable to load records',
+      text: 'There was a problem with fetching your data'
+    }
+  }
+
+  _getTimeout() {
+    return {
+      icon: 'hourglass-end',
+      title: 'Your request timed out',
+      text: 'It took too long to complete your request'
+    }
+  }
+
   _getLayout() {
     return {
       ...this.props
+    }
+  }
+
+  _getNotFound() {
+    return {
+      icon: 'times',
+      title: 'No Results Found',
+      text: 'No records matched your query'
     }
   }
 
@@ -119,12 +162,10 @@ class Infinite extends React.Component {
   }
 
   _handleFetch(skip = null, reload = false) {
-    const { endpoint, next, records, sort, total, onFetch } = this.props
+    const { endpoint, filter, next, records, sort, total, onFetch } = this.props
     const loaded = records ? records.length : 0
     const $page = this._getPagination(skip)
-    const $filter = this.props.filter
-    const $sort = (sort.order === 'desc' ? '-' : '') + sort.key
-    const query = { $page, $filter, $sort }
+    const query = { $page, $filter: filter, $sort: sort }
     if(onFetch && this._getMore(next, skip, reload, loaded, total)) onFetch(endpoint, query)
     this.timeout = setTimeout(this._handleDelay, 5000)
   }
