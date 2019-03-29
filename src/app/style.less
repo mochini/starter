@@ -27,16 +27,10 @@ body {
 	min-height: 0;
 }
 *:not(input, textarea) {
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
 	user-select: none;
 }
 input, textarea {
 	&, &:before, &:after {
-		-webkit-user-select: text !important;
-		-moz-user-select: text !important;
-		-ms-user-select: text !important;
 		user-select: text !important;
 	}
 }
@@ -69,54 +63,29 @@ main#main {
 	color: @blue;
 	text-decoration: underline;
 }
+.transition(@name, @property, @start, @end, @duration) {
+	&.@{name}-enter,
+	&.@{name}-exit {
+		transition: @property @duration ease-in-out 0s;
+		will-change: @property;
+	}
+	&.@{name}-enter,
+	&.@{name}-exit.@{name}-exit-active {
+		@{property}: @start;
+	}
+	&.@{name}-exit,
+	&.@{name}-enter.@{name}-enter-active,
+	&.@{name}-enter-done {
+		@{property}: @end;
+	}
+}
 
 .opacity-transition(@start, @end, @duration) {
-	&.opacity-enter,
-	&.opacity-exit {
-	  transition: opacity @duration ease-in-out 0s;
-		will-change: opacity;
-	}
-	&.opacity-enter,
-	&.opacity-exit.opacity-exit-active {
-		opacity: @start;
-	}
-	&.opacity-exit,
-	&.opacity-enter.opacity-enter-active,
-	&.opacity-enter-done {
-		opacity: @end;
-	}
+	.transition(opacity, opacity, @start, @end, @duration)
 }
 .translatex-transition(@start, @end, @duration) {
-	&.translatex-enter,
-	&.translatex-exit {
-	  transition: transform @duration ease-in-out 0s;
-		will-change: transform;
-	}
-	&.translatex-enter,
-	&.translatex-exit.translatex-exit-active {
-		transform: translateX(@start);
-	}
-	&.translatex-exit,
-	&.translatex-enter.translatex-enter-active {
-		transform: translateX(@end);
-	}
+	.transition(translatex, transform, translateX(@start), translateX(@end), @duration)
 }
 .translatey-transition(@start, @end, @duration) {
-	&.translatey-enter,
-	&.translatey-exit {
-	  transition: transform @duration ease-in-out 0s;
-		will-change: transform;
-	}
-	&.translatey-enter,
-	&.translatey-exit.translatey-exit-active {
-		transform: translateY(@start);
-	}
-	&.translatey-exit,
-	&.translatey-enter.translatey-enter-active {
-		transform: translateY(@end);
-	}
-}
-
-.user-token {
-	padding: 0.8em;
+	.transition(translatey, transform, translateY(@start), translateY(@end), @duration)
 }

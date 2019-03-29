@@ -39,7 +39,6 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Users', key: 'id', type: 'select', endpoint: '/api/users', value: 'id', text: 'full_name', multiple: true, format: UserToken }
     ],
     export: [
-      { label: 'ID', key: 'id' },
       { label: 'Name', key: 'full_name' },
       { label: 'Email', key: 'email' }
     ]
