@@ -14,9 +14,20 @@
 .list-tile {
   display: flex;
   background-color: @white;
+  cursor: pointer;
+  &:hover {
+    .list-tile-details, .list-tile-actions {
+      background-color: fadeout(@black, 95);
+    }
+  }
   &.selected {
     .list-tile-details, .list-tile-actions {
       background-color: fadeout(@yellow, 90);
+    }
+    &:hover {
+      .list-tile-details, .list-tile-actions {
+        background-color: fadeout(@yellow, 80);
+      }
     }
   }
 }

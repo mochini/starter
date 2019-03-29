@@ -19,9 +19,20 @@
 .tile {
   background-color: @white;
   display: flex;
+  cursor: pointer;
+  &:hover {
+    .tile-details, .tile-actions {
+      background-color: fadeout(@black, 95);
+    }
+  }
   &.selected {
     .tile-details, .tile-actions {
       background-color: fadeout(@yellow, 90);
+    }
+    &:hover {
+      .tile-details, .tile-actions {
+        background-color: fadeout(@yellow, 80);
+      }
     }
   }
 }

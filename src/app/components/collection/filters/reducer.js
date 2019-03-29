@@ -10,9 +10,9 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'RESET':
     return {
       ...state,
-      data: action.key ? {
+      data: action.key ? [
         ...state.data.filter(item => Object.keys(item)[0] !== action.key)
-      } : []
+      ] : []
     }
 
   case 'SELECT':

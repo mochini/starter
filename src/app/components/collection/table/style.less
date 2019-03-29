@@ -26,6 +26,9 @@
     }
     tr.selected {
       background-color: fadeout(@yellow, 90);
+      &:hover {
+        background-color: fadeout(@yellow, 80);
+      }
     }
   }
 }
@@ -59,6 +62,12 @@
   background-color: @white;
   flex: 1;
   display: flex;
+  tr {
+    cursor: pointer;
+    &:hover {
+      background-color: fadeout(@black, 95);
+    }
+  }
   td {
     border-bottom: 1px solid fadeout(@black, 90);
   }

@@ -40,10 +40,10 @@ class Items extends React.Component {
                 <div className="filter-item-label">
                   { filter.label }
                 </div>
-                { data[filter.key] && _.isArray(data[filter.key]) && data[filter.key].length > 0 &&
+                { data[filter.key] && data[filter.key].$in && data[filter.key].$in.length > 0 &&
                   <div className="filter-item-count">
                     <div className="count">
-                      { data[filter.key].length }
+                      { data[filter.key].$in.length }
                     </div>
                   </div>
                 }
