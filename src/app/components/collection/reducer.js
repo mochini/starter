@@ -1,7 +1,7 @@
 import _ from 'lodash'
 
 const INITIAL_STATE = {
-  filter: {},
+  filter: { },
   q: '',
   sort: null,
   tool: null,

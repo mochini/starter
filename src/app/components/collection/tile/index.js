@@ -7,9 +7,14 @@ import _ from 'lodash'
 
 class List extends React.Component {
 
+  static contextTypes = {
+    router: PropTypes.object
+  }
+
   static propTypes = {
     format: PropTypes.any,
     itemActions: PropTypes.array,
+    link: PropTypes.func,
     records: PropTypes.array,
     selectable: PropTypes.bool,
     selectAll: PropTypes.bool,
@@ -45,7 +50,7 @@ class List extends React.Component {
         </div>
         { records.map((record, index) => (
           <div className="tile-item" key={`item_${index}`}>
-            <div className={ this._getClass(index) }>
+            <div className={ this._getClass(index) } onClick={ this._handleClick.bind(this, record) }>
               { selectable &&
                 <div className="tile-icon" onClick={ this._handleToggle.bind(this, index) }>
                   { _.includes(selected, index) ?
@@ -81,6 +86,12 @@ class List extends React.Component {
     const classes = ['tile']
     if(_.includes(selected, index)) classes.push('selected')
     return classes.join(' ')
+  }
+
+  _handleClick(record) {
+    const { history } = this.context.router
+    const { link } = this.props
+    if(link) history.push(link(record))
   }
 
   _handleToggle(index) {

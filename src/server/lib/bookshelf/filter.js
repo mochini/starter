@@ -4,10 +4,9 @@ import _ from 'lodash'
 const filterPlugin = function(bookshelf) {
 
   const filter = function(options) {
-    this.query(qb => {
-      if(options.filter) applyFilters(qb, filter)
+    return this.query(qb => {
+      if(options.filter) applyFilters(qb, options.filter)
     })
-    return this
   }
 
   const applyFilters = (qb, $filters) => {
@@ -47,7 +46,13 @@ const filterPlugin = function(bookshelf) {
   const applyFilter = (qb, name, filter) => {
     if(name === '$and') return applyAnd(qb, filter)
     if(name === '$or') return applyOr(qb, filter)
+    if(name === 'q') return applySearch(qb, filter)
     _filterColumn(qb, name, filter)
+  }
+
+  const applySearch = (qb, filter) => {
+    const term = `%${filter.$eq.toLowerCase()}%`
+    qb.whereRaw('lower(first_name) like ? or lower(first_name) like ? or lower(email) like ?', [term,term,term])
   }
 
   const _filterColumn = (qb, column, filter) => {

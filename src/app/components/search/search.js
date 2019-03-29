@@ -30,8 +30,8 @@ class Search extends React.Component {
   static defaultProps = {
     format: Token,
     multiple: false,
-    text: 'title',
-    value: 'id',
+    text: 'text',
+    value: 'value',
     onChange: () => {}
   }
 
@@ -93,7 +93,7 @@ class Search extends React.Component {
     const { q, endpoint } = this.props
     return {
       endpoint,
-      filter: { q },
+      filter: q.length > 0 ? { q: { $eq: q } } : {},
       parentProps: this._getDynamic(),
       layout: Dynamic
     }

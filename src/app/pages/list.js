@@ -23,6 +23,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     ],
     endpoint: '/api/users',
     entity: 'user',
+    link: (record) => `/users/${record.id}`,
     list: {
       format: UserToken
     },
@@ -36,7 +37,8 @@ const mapPropsToPage = (props, context, resources, page) => ({
       ]
     },
     filters: [
-      { label: 'Users', key: 'id', type: 'select', endpoint: '/api/users', value: 'id', text: 'full_name', multiple: true, format: UserToken }
+      { label: 'Users', key: 'id', type: 'select', endpoint: '/api/users', value: 'id', text: 'full_name', multiple: true, format: UserToken },
+      { label: 'Created At', key: 'created_at', type: 'daterange' }
     ],
     export: [
       { label: 'Name', key: 'full_name' },

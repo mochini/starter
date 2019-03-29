@@ -1,7 +1,5 @@
-import _ from 'lodash'
-
 const INITIAL_STATE = {
-  data: {},
+  data: [],
   selected: null
 }
 
@@ -13,8 +11,8 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       data: action.key ? {
-        ..._.without(state.data, action.key)
-      } : {}
+        ...state.data.filter(item => Object.keys(item)[0] !== action.key)
+      } : []
     }
 
   case 'SELECT':
@@ -23,13 +21,19 @@ const reducer = (state = INITIAL_STATE, action) => {
       selected: action.index
     }
 
+  case 'SET':
+    return {
+      ...state,
+      data: action.data
+    }
+
   case 'UPDATE':
     return {
       ...state,
-      data: {
-        ...state.data,
-        [action.key]: action.value
-      }
+      data: [
+        ...state.data.filter(item => Object.keys(item)[0] !== action.key),
+        { [action.key]: action.value }
+      ]
     }
 
   default:

@@ -1,11 +1,41 @@
-import { createSelector } from 'reselect'
+import PropTypes from 'prop-types'
+import Search from '../../search'
+import React from 'react'
 import _ from 'lodash'
 
-const include = (state, props) => props.include || ['this','last','next']
+class Daterange extends React.Component {
 
-export const options = createSelector(
-  include,
-  (include) => {
+  static contextTypes = {}
+
+  static propTypes = {
+    defaultValue: PropTypes.object,
+    include: PropTypes.array,
+    options: PropTypes.array,
+    selected: PropTypes.string,
+    onChange: PropTypes.func,
+    onSet: PropTypes.func,
+    onToggle: PropTypes.func
+  }
+
+  static defaultProps = {
+    include: ['this','last','next'],
+    onChange: () => {}
+  }
+
+  _handleChange = this._handleChange.bind(this)
+
+  render() {
+    return <Search { ...this._getSearch() } />
+  }
+
+  _getDefaultValue() {
+    const { defaultValue } = this.props
+    if(!defaultValue) return null
+    return defaultValue.$dr
+  }
+
+  _getOptions() {
+    const { include } = this.props
     const options = []
     if(_.includes(include, 'this')) options.push({ value: 'this_week', text: 'This Week' })
     if(_.includes(include, 'last')) options.push({ value: 'last_week', text: 'Last Week' })
@@ -30,4 +60,26 @@ export const options = createSelector(
     options.push({ value: 'custom', text: 'Custom' })
     return options
   }
-)
+
+  _getSearch() {
+    return {
+      defaultValue: this._getDefaultValue(),
+      multiple: false,
+      options: this._getOptions(),
+      onChange: this._handleChange
+    }
+  }
+
+  _handleChange(selected) {
+    const { onChange } = this.props
+    return onChange({ $dr: selected })
+  }
+
+  _handleSet() {
+    const { defaultValue, onSet } = this.props
+    onSet(defaultValue.$dr)
+  }
+
+}
+
+export default Daterange

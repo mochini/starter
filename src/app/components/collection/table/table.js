@@ -6,9 +6,14 @@ import _ from 'lodash'
 
 class Table extends React.Component {
 
+  static contextTypes = {
+    router: PropTypes.object
+  }
+
   static propTypes = {
     columns: PropTypes.array,
     itemActions: PropTypes.array,
+    link: PropTypes.func,
     records: PropTypes.array,
     rowClass: PropTypes.func,
     selectAll: PropTypes.bool,
@@ -80,7 +85,7 @@ class Table extends React.Component {
           <table ref={ (node) => this.body = node }>
             <tbody>
               { records.map((record, index) => (
-                <tr className={ this._getRowClass(index) } key={`foo_${index}`}>
+                <tr className={ this._getRowClass(index) } key={`foo_${index}`} onClick={ this._handleClick.bind(this, record) }>
                   { selectable &&
                     <td onClick={ this._handleToggle.bind(this, index) } className="collapsing table-cell">
                       { _.includes(selected, index) ?
@@ -170,6 +175,12 @@ class Table extends React.Component {
     return {
       onReachBottom: this.props.onReachBottom
     }
+  }
+
+  _handleClick(record) {
+    const { history } = this.context.router
+    const { link } = this.props
+    if(link) history.push(link(record))
   }
 
   _handleResize() {

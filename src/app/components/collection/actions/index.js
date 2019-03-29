@@ -56,6 +56,7 @@ class Actions extends React.Component {
   }
 
   _handleClick(e) {
+    e.stopPropagation()
     const percent = (e.clientY / window.innerHeight) * 100
     const show = !this.state.show
     const position = percent < 80 ? 'bottom' : 'top'
@@ -64,6 +65,7 @@ class Actions extends React.Component {
 
   _handleClose(e) {
     if(!this.state.show) return
+    if(e) e.stopPropagation()
     if(e && e.target === this.icon) return
     this.setState({ show: false })
   }

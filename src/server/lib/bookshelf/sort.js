@@ -3,7 +3,6 @@ import _ from 'lodash'
 const sortPlugin = function(bookshelf) {
 
   const sort = function(options) {
-    console.log(options)
     return this.query(qb => {
       if(options.sort) applySort(qb, options.sort)
     })
@@ -22,7 +21,7 @@ const sortPlugin = function(bookshelf) {
 
   bookshelf.Collection.prototype.sort = sort
 
-  bookshelf.Model.sort = sort
+  bookshelf.Model.prototype.sort = sort
 
 }
 

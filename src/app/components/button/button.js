@@ -93,7 +93,8 @@ class Button extends React.Component {
     }
   }
 
-  _handleClick() {
+  _handleClick(e) {
+    e.stopPropagation()
     const { confirm, disabled, drawer, handler, location, modal, request, route, onDone } = this.props
     if(disabled) return
     const yesHandler = () => {

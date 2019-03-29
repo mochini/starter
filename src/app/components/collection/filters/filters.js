@@ -10,7 +10,8 @@ class Filters extends React.Component {
   static contextTypes = {}
 
   static propTypes = {
-    data: PropTypes.object,
+    defaultValue: PropTypes.object,
+    data: PropTypes.array,
     filters: PropTypes.array,
     label: PropTypes.string,
     selected: PropTypes.number,
@@ -18,6 +19,7 @@ class Filters extends React.Component {
     onClose: PropTypes.func,
     onReset: PropTypes.func,
     onSelect: PropTypes.func,
+    onSet: PropTypes.func,
     onUpdate: PropTypes.func
   }
 
@@ -47,8 +49,13 @@ class Filters extends React.Component {
     )
   }
 
+  componentDidMount() {
+    const { defaultValue, onSet } = this.props
+    if(defaultValue) onSet(defaultValue.$and)
+  }
+
   componentDidUpdate(prevProps) {
-    const { data, selected, onChange } = this.props
+    const { data, selected } = this.props
     if(selected !== prevProps.selected) {
       if(selected !== null) {
         this.setState({ selected })
@@ -58,14 +65,17 @@ class Filters extends React.Component {
         }, 500)
       }
     } else if(!_.isEqual(data, prevProps.data)) {
-      onChange(data)
+      this._handleChange()
     }
   }
 
   _getItems() {
     const { data, filters, label } = this.props
     return {
-      data,
+      data: data.reduce((data, item) => ({
+        ...data,
+        [Object.keys(item)[0]]: Object.values(item)[0]
+      }), {}),
       filters,
       label,
       onClose: this._handleClose,
@@ -75,11 +85,12 @@ class Filters extends React.Component {
   }
 
   _getFilter(selected) {
-    const { data, filters } = this.props
+    const { filters } = this.props
     const filter = filters[selected]
     if(!filter) return {}
+    const data = this.props.data.find(item => Object.keys(item)[0] === filter.key)
     return {
-      defaultValue: data[filter.key],
+      defaultValue: data ? data[filter.key] : null,
       filter,
       onBack: this._handleBack,
       onChange: this._handleUpdate,
@@ -89,6 +100,11 @@ class Filters extends React.Component {
 
   _handleBack() {
     this.props.onSelect(null)
+  }
+
+  _handleChange() {
+    const $and = this.props.data
+    this.props.onChange({ $and })
   }
 
   _handleClose() {

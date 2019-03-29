@@ -34,6 +34,7 @@ class Collection extends React.Component {
     itemActions: PropTypes.array,
     layouts: PropTypes.array,
     layout: PropTypes.string,
+    link: PropTypes.func,
     list: PropTypes.object,
     q: PropTypes.string,
     search: PropTypes.bool,
@@ -95,10 +96,10 @@ class Collection extends React.Component {
               </CSSTransition>
             }
           </div>
-          <CSSTransition in={ tool } classNames="opacity" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
+          <CSSTransition in={ tool !== null } classNames="opacity" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
             <div className="collection-overlay" onClick={ this._handleChangeTool.bind(this, null) } />
           </CSSTransition>
-          <CSSTransition in={ tool } classNames="translatey" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
+          <CSSTransition in={ tool !== null } classNames="translatey" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
             <div className="collection-sidebar">
               { this._getSidebarComponent() }
             </div>
@@ -111,9 +112,7 @@ class Collection extends React.Component {
   componentDidMount() {
     const { allLayouts, onChangeLayout } = this.props
     onChangeLayout(allLayouts[0].key)
-    const { search } = this.context.router.history.location
-    const query = search.length > 0 ? qs.parse(search.slice(1)) : {}
-    this.props.onFilter(query.$filter)
+    this._handleParseUrl()
   }
 
   componentDidUpdate(prevProps) {
@@ -143,8 +142,9 @@ class Collection extends React.Component {
   }
 
   _getCustom() {
-    const { batchActions, selected, selectAll, onToggle, onToggleAll } = this.props
+    const { batchActions, link, selected, selectAll, onToggle, onToggleAll } = this.props
     return {
+      link,
       selected,
       selectable: batchActions !== undefined,
       selectAll,
@@ -166,8 +166,9 @@ class Collection extends React.Component {
   }
 
   _getFilters() {
-    const { filters } = this.props
+    const { filter, filters } = this.props
     return {
+      defaultValue: filter,
       label: 'Filter Records',
       filters,
       onClose: this._handleChangeTool.bind(this, null),
@@ -176,12 +177,16 @@ class Collection extends React.Component {
   }
 
   _getInfinite() {
-    const { endpoint, q } = this.props
-    const filter = { $and: [{ last_name: { $lk: q } } ] }
+    const { endpoint, filter, q } = this.props
     const sort  = this.props.sort ? [this.props.sort] : null
     return {
       endpoint,
-      filter,
+      filter: {
+        $and: [
+          ...filter.$and || [],
+          ...q ? [{ q: { $eq: q  } }] : []
+        ]
+      },
       sort,
       ...this._getLayout()
     }
@@ -214,10 +219,11 @@ class Collection extends React.Component {
   }
 
   _getList() {
-    const { batchActions, itemActions, list, selected, selectAll, onToggle, onToggleAll } = this.props
+    const { batchActions, itemActions, link, list, selected, selectAll, onToggle, onToggleAll } = this.props
     return {
       ...list,
       itemActions,
+      link,
       selectable: batchActions !== undefined,
       selected,
       selectAll,
@@ -238,10 +244,11 @@ class Collection extends React.Component {
   }
 
   _getTable() {
-    const { batchActions, itemActions, selected, selectAll, table, onSort, onToggle, onToggleAll } = this.props
+    const { batchActions, itemActions, link, selected, selectAll, table, onSort, onToggle, onToggleAll } = this.props
     return {
       ...table,
       itemActions,
+      link,
       selectable: batchActions !== undefined,
       selected,
       selectAll,
@@ -252,10 +259,11 @@ class Collection extends React.Component {
   }
 
   _getTile() {
-    const { batchActions, itemActions, selected, selectAll, tile, onToggle, onToggleAll } = this.props
+    const { batchActions, itemActions, link, selected, selectAll, tile, onToggle, onToggleAll } = this.props
     return {
       ...tile,
       itemActions,
+      link,
       selectable: batchActions !== undefined,
       selected,
       selectAll,
@@ -294,6 +302,14 @@ class Collection extends React.Component {
   }
 
   _handleFilter(filter) {
+    this.props.onFilter(filter)
+  }
+
+  _handleParseUrl() {
+    const { search } = this.context.router.history.location
+    const decoder = (str) => str.match(/^\d$/) !== null ? parseInt(str) : str
+    const query = search.length > 0 ? qs.parse(search.slice(1), { decoder }) : {}
+    const filter =  query.$filter || { $and: [] }
     this.props.onFilter(filter)
   }
 
