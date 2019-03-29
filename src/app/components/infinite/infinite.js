@@ -15,16 +15,23 @@ class Infinite extends React.Component {
     next: PropTypes.string,
     parentProps: PropTypes.object,
     records: PropTypes.array,
-    sort: PropTypes.object,
+    selectable: PropTypes.bool,
+    selectAll: PropTypes.bool,
+    selected: PropTypes.array,
+    sort: PropTypes.array,
     status: PropTypes.string,
     total: PropTypes.number,
     onFetch: PropTypes.func,
     onFetchDelay: PropTypes.func,
-    onFetchTimeout: PropTypes.func
+    onFetchTimeout: PropTypes.func,
+    onSelect: PropTypes.func,
+    onToggle: PropTypes.func,
+    onToggleAll: PropTypes.func
   }
 
   static defaultProps = {
     filter: {},
+    selectable: false,
     onUpdateSelected: (ids) => {}
   }
 
@@ -66,12 +73,15 @@ class Infinite extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { filter, sort, status } = this.props
+    const { filter, selected, sort, status } = this.props
     if(this.timeout && status !== prevProps.status && prevProps.status === 'loading') {
       clearTimeout(this.timeout)
     }
     if(!_.isEqual(prevProps.filter, filter) || !_.isEqual(prevProps.sort, sort)) {
       this._handleFetch(0, true)
+    }
+    if(selected.length !== prevProps.selected.length) {
+      this._handleSelect()
     }
   }
 
@@ -113,8 +123,14 @@ class Infinite extends React.Component {
   }
 
   _getLayout() {
+    const { records, selectable, selected, selectAll, onToggle, onToggleAll } = this.props
     return {
-      ...this.props
+      records,
+      selectable,
+      selected,
+      selectAll,
+      onToggle,
+      onToggleAll
     }
   }
 
@@ -165,6 +181,12 @@ class Infinite extends React.Component {
   _handleRefresh() {
     const { onFetchTimeout } = this.props
     if(onFetchTimeout) onFetchTimeout()
+  }
+
+  _handleSelect() {
+    const { records, onSelect } = this.props
+    const selected = records.filter((record, index) => _.includes(this.props.selected, index))
+    onSelect(selected)
   }
 
   _handleTimeout() {

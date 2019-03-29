@@ -1,5 +1,4 @@
 import { Page } from '../components/page'
-import PropTypes from 'prop-types'
 import React from 'react'
 
 const UserToken = (record) => (
@@ -13,8 +12,8 @@ const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Users',
   collection: {
     batchActions: [
-      { label: 'Archive All', handler: (selected) => console.log(`archive ${selected}`) },
-      { label: 'Delete All', handler: (selected) => console.log(`delete ${selected}`) }
+      { label: 'Archive All', handler: (selected) => console.log('archive', selected) },
+      { label: 'Delete All', handler: (selected) => console.log('delete', selected) }
     ],
     itemActions: [
       { label: 'One' },

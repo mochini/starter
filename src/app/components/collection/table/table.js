@@ -205,7 +205,8 @@ class Table extends React.Component {
     this.props.onSortColumn(index)
   }
 
-  _handleToggle(index) {
+  _handleToggle(index, e) {
+    e.stopPropagation()
     this.props.onToggle(index)
   }
 

@@ -2,6 +2,8 @@ import _ from 'lodash'
 
 const INITIAL_STATE = {
   records: null,
+  selectAll: false,
+  selected: [],
   status: 'pending'
 }
 
@@ -57,6 +59,22 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       status: 'timeout'
+    }
+
+  case 'TOGGLE':
+    return {
+      ...state,
+      selectAll: false,
+      selected: [
+        ..._.xor(state.selected, [action.index])
+      ]
+    }
+
+  case 'TOGGLE_ALL':
+    return {
+      ...state,
+      selectAll: !state.selectAll,
+      selected: !state.selectAll ? Array(action.rows).fill().map((n, index) => index) : []
     }
 
   default:

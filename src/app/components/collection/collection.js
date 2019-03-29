@@ -37,9 +37,8 @@ class Collection extends React.Component {
     link: PropTypes.func,
     list: PropTypes.object,
     q: PropTypes.string,
-    search: PropTypes.bool,
-    selectAll: PropTypes.bool,
     selected: PropTypes.array,
+    search: PropTypes.bool,
     sort: PropTypes.object,
     table: PropTypes.object,
     tile: PropTypes.object,
@@ -49,9 +48,8 @@ class Collection extends React.Component {
     onChangeTool: PropTypes.func,
     onFilter: PropTypes.func,
     onQuery: PropTypes.func,
-    onSort: PropTypes.func,
-    onToggle: PropTypes.func,
-    onToggleAll: PropTypes.func
+    onSelect: PropTypes.func,
+    onSort: PropTypes.func
   }
 
   static defaultProps = {
@@ -62,6 +60,7 @@ class Collection extends React.Component {
   _handleChangeLayout = this._handleChangeLayout.bind(this)
   _handleChangeTool = this._handleChangeTool.bind(this)
   _handleFilter = this._handleFilter.bind(this)
+  _handleSelect = this._handleSelect.bind(this)
   _handleType = this._handleType.bind(this)
 
   render() {
@@ -142,14 +141,9 @@ class Collection extends React.Component {
   }
 
   _getCustom() {
-    const { batchActions, link, selected, selectAll, onToggle, onToggleAll } = this.props
+    const { link } = this.props
     return {
-      link,
-      selected,
-      selectable: batchActions !== undefined,
-      selectAll,
-      onToggle,
-      onToggleAll
+      link
     }
   }
 
@@ -177,7 +171,7 @@ class Collection extends React.Component {
   }
 
   _getInfinite() {
-    const { endpoint, filter, q } = this.props
+    const { batchActions, endpoint, filter, q } = this.props
     const sort  = this.props.sort ? [this.props.sort] : null
     return {
       endpoint,
@@ -187,7 +181,9 @@ class Collection extends React.Component {
           ...q ? [{ q: { $eq: q  } }] : []
         ]
       },
+      selectable: batchActions !== undefined,
       sort,
+      onSelect: this._handleSelect,
       ...this._getLayout()
     }
   }
@@ -219,16 +215,11 @@ class Collection extends React.Component {
   }
 
   _getList() {
-    const { batchActions, itemActions, link, list, selected, selectAll, onToggle, onToggleAll } = this.props
+    const { itemActions, link, list } = this.props
     return {
       ...list,
       itemActions,
-      link,
-      selectable: batchActions !== undefined,
-      selected,
-      selectAll,
-      onToggle,
-      onToggleAll
+      link
     }
   }
 
@@ -244,31 +235,21 @@ class Collection extends React.Component {
   }
 
   _getTable() {
-    const { batchActions, itemActions, link, selected, selectAll, table, onSort, onToggle, onToggleAll } = this.props
+    const { itemActions, link, table, onSort } = this.props
     return {
       ...table,
       itemActions,
       link,
-      selectable: batchActions !== undefined,
-      selected,
-      selectAll,
-      onSort,
-      onToggle,
-      onToggleAll
+      onSort
     }
   }
 
   _getTile() {
-    const { batchActions, itemActions, link, selected, selectAll, tile, onToggle, onToggleAll } = this.props
+    const { itemActions, link, tile } = this.props
     return {
       ...tile,
       itemActions,
-      link,
-      selectable: batchActions !== undefined,
-      selected,
-      selectAll,
-      onToggle,
-      onToggleAll
+      link
     }
   }
 
@@ -311,6 +292,10 @@ class Collection extends React.Component {
     const query = search.length > 0 ? qs.parse(search.slice(1), { decoder }) : {}
     const filter =  query.$filter || { $and: [] }
     this.props.onFilter(filter)
+  }
+
+  _handleSelect(selected) {
+    this.props.onSelect(selected)
   }
 
   _handleType(q) {

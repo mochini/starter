@@ -94,7 +94,8 @@ class List extends React.Component {
     if(link) history.push(link(record))
   }
 
-  _handleToggle(index) {
+  _handleToggle(index, e) {
+    e.stopPropagation()
     this.props.onToggle(index)
   }
 

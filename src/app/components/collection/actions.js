@@ -18,18 +18,13 @@ export const query = (q) => ({
   q
 })
 
+export const select = (selected) => ({
+  type: 'SELECT',
+  selected
+})
+
 export const sort = (column, order) => ({
   type: 'SORT',
   column,
   order
-})
-
-export const toggle = (index) => ({
-  type: 'TOGGLE',
-  index
-})
-
-export const toggleAll = (rows) => ({
-  type: 'TOGGLE_ALL',
-  rows
 })
