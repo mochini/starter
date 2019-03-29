@@ -13,6 +13,7 @@ const paginationPlugin = function(bookshelf) {
     const skip = page && page.skip ? parseInt(page.skip) : DEFAULT_SKIP
 
     const query = (qb) => {
+      if(limit === 0) return
       qb.limit(limit)
       qb.offset(skip)
     }

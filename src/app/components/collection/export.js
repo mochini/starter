@@ -13,16 +13,21 @@ class Export extends React.Component {
   static propTypes = {
     defaultValue: PropTypes.array,
     endpoint: PropTypes.string,
-    entity: PropTypes.entity,
-    filter: PropTypes.filter,
-    sort: PropTypes.sort,
-    token: PropTypes.token,
+    entity: PropTypes.string,
+    filter: PropTypes.object,
+    sort: PropTypes.object,
+    token: PropTypes.string,
     onClose: PropTypes.func
+  }
+
+  state = {
+    items: []
   }
 
   _handleClose = this._handleClose.bind(this)
 
   render() {
+    console.log(this.state.items)
     return (
       <div className="collection-panel">
         <div className="collection-panel-header">
@@ -69,13 +74,14 @@ class Export extends React.Component {
   _handleDownload(extension) {
     const { items } = this.state
     const { endpoint, entity, token } = this.props
+    const $page = { limit: 0 }
     const $filter = this.props.filter
     const $sort = this.props.sort
     const $select = items.filter(item => item.checked).reduce((select, item) => ({
       ...select,
       [item.label]: item.key
     }), {})
-    const query = qs.stringify({ $filter, $sort, $select })
+    const query = qs.stringify({ $page, $filter, $sort, $select })
     const entities = pluralize(entity)
     const enclosure = encodeURIComponent('"')
     const url = `${endpoint}.${extension}?enclosure=${enclosure}&filename=${entities}&token=${token}&download=true&${query}`

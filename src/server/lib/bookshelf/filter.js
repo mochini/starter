@@ -5,14 +5,14 @@ const filterPlugin = function(bookshelf) {
 
   const filter = function(options) {
     return this.query(qb => {
-      if(options.filter) applyFilters(qb, options.filter)
+      if(options.filter) applyFilters(qb, options.filter, options)
     })
   }
 
-  const applyFilters = (qb, $filters) => {
+  const applyFilters = (qb, $filters, options) => {
     const filters = normalizeFilters($filters)
-    if(filters.$and) return applyAnd(qb, filters.$and)
-    if(filters.$or) return applyOr(qb, filters.$or)
+    if(filters.$and) return applyAnd(qb, filters.$and, options)
+    if(filters.$or) return applyOr(qb, filters.$or, options)
   }
 
   const normalizeFilters = (filters) => {
@@ -25,37 +25,39 @@ const filterPlugin = function(bookshelf) {
     return filters
   }
 
-  const applyAnd = (qb, filters) => {
+  const applyAnd = (qb, filters, options) => {
     filters.map(filter => {
       qb.andWhere(function(builder) {
-        applyFilter(builder, Object.keys(filter)[0], Object.values(filter)[0])
+        applyFilter(builder, Object.keys(filter)[0], Object.values(filter)[0], options)
       })
     })
   }
 
-  const applyOr = (qb, filters) => {
+  const applyOr = (qb, filters, options) => {
     qb.andWhere(function(builder) {
       filters.map(filter => {
         builder.orWhere(function(builder2) {
-          applyFilter(builder2, Object.keys(filter)[0], Object.values(filter)[0])
+          applyFilter(builder2, Object.keys(filter)[0], Object.values(filter)[0], options)
         })
       })
     })
   }
 
-  const applyFilter = (qb, name, filter) => {
-    if(name === '$and') return applyAnd(qb, filter)
-    if(name === '$or') return applyOr(qb, filter)
-    if(name === 'q') return applySearch(qb, filter)
-    _filterColumn(qb, name, filter)
+  const applyFilter = (qb, name, filter, options) => {
+    if(name === '$and') return applyAnd(qb, filter, options)
+    if(name === '$or') return applyOr(qb, filter, options)
+    if(name === 'q') return filterSearch(qb, filter, options)
+    _filterColumn(qb, name, filter, options)
   }
 
-  const applySearch = (qb, filter) => {
-    const term = `%${filter.$eq.toLowerCase()}%`
-    qb.whereRaw('lower(first_name) like ? or lower(first_name) like ? or lower(email) like ?', [term,term,term])
+  const filterSearch = (qb, filter, options) => {
+    if(!options.searchParams) return
+    const phrase = `lower(${options.searchParams.join(' || \' \' || ')})`
+    const term = `%${filter.$eq}%`
+    qb.whereRaw(`${phrase} like ?`, term)
   }
 
-  const _filterColumn = (qb, column, filter) => {
+  const _filterColumn = (qb, column, filter, options) => {
     if(filter.$eq) {
       _filterEqual(qb, column, filter.$eq)
     } else if(filter.$ne) {

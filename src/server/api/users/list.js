@@ -4,7 +4,8 @@ import User from '../../models/user'
 const route = async (req, res) => {
 
   const users = await User.filter({
-    filter: req.query.$filter
+    filter: req.query.$filter,
+    searchParams: ['first_name','last_name','email']
   }).sort({
     sort: req.query.$sort
   }).fetchPage({

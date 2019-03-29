@@ -18,7 +18,7 @@ class Responder {
   }
 
   async render() {
-    const data = this._getData()
+    const data = await this._getData()
     if(this.req.query.download) {
       this.res.setHeader('Content-disposition', `attachment; filename=${this.filename}`)
     }
