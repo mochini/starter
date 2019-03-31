@@ -1,5 +1,5 @@
-import Message from '../components/message'
-import Form from '../components/form'
+import Message from '../../components/message'
+import Form from '../../components/form'
 import PropTypes from 'prop-types'
 import React from 'react'
 

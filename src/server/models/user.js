@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt-nodejs'
 import Model from '../core/model'
 import Asset from './asset'
+import Role from './role'
 
 const User = new Model({
 
@@ -39,6 +40,10 @@ const User = new Model({
 
   photo() {
     return this.belongsTo(Asset, 'photo_id')
+  },
+
+  roles() {
+    return this.belongsToMany(Role)
   }
 
 })

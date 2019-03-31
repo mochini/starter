@@ -16,6 +16,7 @@ import Root from './components/root'
 import Host from './components/host'
 import PropTypes from 'prop-types'
 import routes from './routes'
+import menu from './menu'
 import './components/i18n'
 
 class App extends React.Component {
@@ -39,7 +40,7 @@ class App extends React.Component {
                         <Modal>
                           <Drawer>
                             <Tasks>
-                              <Portal routes={ routes } />
+                              <Portal { ...this._getPortal() } />
                             </Tasks>
                           </Drawer>
                         </Modal>
@@ -53,6 +54,13 @@ class App extends React.Component {
         </Root>
       </Suspense>
     )
+  }
+
+  _getPortal() {
+    return {
+      menu,
+      routes
+    }
   }
 
 }

@@ -1,4 +1,4 @@
-import { Page } from '../components/page'
+import { Page } from '../../components/page'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -7,18 +7,17 @@ class Show extends React.Component {
   static contextTypes = {}
 
   static propTypes = {
-    user: PropTypes.object
+    role: PropTypes.object
   }
 
   static defaultProps = {
   }
 
   render() {
-    const { user } = this.props
+    const { role } = this.props
     return (
       <div>
-        <strong>{ user.full_name }</strong><br />
-        { user.email }
+        { role.title }
       </div>
     )
   }
@@ -27,11 +26,11 @@ class Show extends React.Component {
 }
 
 const mapResourcesToPage = (props, context, page) => ({
-  user: `/api/users/${page.params.id}`
+  role: `/api/roles/${page.params.id}`
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({
-  title: 'User',
+  title: 'Role',
   component: Show,
   leftItems: [
     { label: 'Foo' }

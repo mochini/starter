@@ -203,6 +203,8 @@ const filterPlugin = function(bookshelf) {
 
   bookshelf.Collection.prototype.filter = filter
 
+  bookshelf.Model.prototype.filter = filter
+
   bookshelf.Model.filter = filter
 
 }

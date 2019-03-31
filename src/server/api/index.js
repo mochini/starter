@@ -5,7 +5,7 @@ import error from './default/error'
 import session from './session'
 import assets from './assets'
 import signin from './signin'
-
+import roles from './roles'
 import users from './users'
 
 const router = new Router({ mergeParams: true })
@@ -17,6 +17,8 @@ router.use(token)
 router.use('/assets', assets)
 
 router.use('/session', session)
+
+router.use('/roles', roles)
 
 router.use('/users', users)
 

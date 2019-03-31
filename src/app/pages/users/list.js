@@ -1,4 +1,4 @@
-import { Page } from '../components/page'
+import { Page } from '../../components/page'
 import React from 'react'
 
 const UserToken = (record) => (
@@ -36,8 +36,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       ]
     },
     filters: [
-      { label: 'Users', key: 'id', type: 'select', endpoint: '/api/users', value: 'id', text: 'full_name', multiple: true, format: UserToken },
-      { label: 'Created At', key: 'created_at', type: 'daterange' }
+      { label: 'Roles', key: 'role_id', type: 'select', endpoint: '/api/roles', value: 'id', text: 'title', multiple: true }
     ],
     export: [
       { label: 'Name', key: 'full_name' },

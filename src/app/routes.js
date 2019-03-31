@@ -1,10 +1,14 @@
 import NotFound from './pages/not_found'
-import List from './pages/list'
-import Show from './pages/show'
+import RoleList from './pages/roles/list'
+import RoleShow from './pages/roles/show'
+import UserList from './pages/users/list'
+import UserShow from './pages/users/show'
 
 const routes = [
-  { path: '/users', component: List },
-  { path: '/users/:id', component: Show },
+  { path: '/roles', component: RoleList },
+  { path: '/roles/:id', component: RoleShow },
+  { path: '/users', component: UserList },
+  { path: '/users/:id', component: UserShow },
   { path: '/*', component: NotFound }
 
 ]

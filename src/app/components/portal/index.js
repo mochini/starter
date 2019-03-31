@@ -1,8 +1,6 @@
 import RouterStack from '../stack/router'
 import Dashboard from '../dashboard'
 import PropTypes from 'prop-types'
-import Account from '../account'
-import Menu from '../menu'
 import React from 'react'
 
 class Portal extends React.Component {
@@ -11,6 +9,7 @@ class Portal extends React.Component {
 
   static propTypes = {
     children: PropTypes.any,
+    menu: PropTypes.array,
     routes: PropTypes.array,
     t: PropTypes.func
   }
@@ -18,10 +17,10 @@ class Portal extends React.Component {
   static defaultProps = {}
 
   render() {
-    const { routes } = this.props
+    const { menu, routes } = this.props
     return (
       <div className="portal">
-        <Dashboard />
+        <Dashboard menu={ menu } />
         <RouterStack routes={ routes } />
       </div>
     )

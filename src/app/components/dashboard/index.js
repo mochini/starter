@@ -13,6 +13,7 @@ class Dashboard extends React.Component {
 
   static propTypes = {
     children: PropTypes.any,
+    menu: PropTypes.array,
     t: PropTypes.func
   }
 
@@ -49,10 +50,9 @@ class Dashboard extends React.Component {
   }
 
   _getMenu() {
+    const { menu } = this.props
     return {
-      items: [
-        { label: 'Users', route: '/users' }
-      ]
+      items: menu
     }
   }
 
