@@ -2,6 +2,7 @@ import ModalPanel from '../modal_panel'
 import Collection from '../collection'
 import PropTypes from 'prop-types'
 import Message from '../message'
+import Tabs from '../tabs'
 import React from 'react'
 
 class Page extends React.Component {
@@ -47,7 +48,7 @@ class Page extends React.Component {
   _handleUpdateTitle = this._handleUpdateTitle.bind(this)
 
   render() {
-    const { collection, message } = this.props
+    const { collection, message, tabs } = this.props
     const Component = this.props.component
     return (
       <ModalPanel { ...this._getModalPanel() }>
@@ -55,6 +56,7 @@ class Page extends React.Component {
           { Component && <Component { ...this._getComponent() } /> }
           { collection && <Collection { ...this._getCollection() } /> }
           { message && <Message { ...message } /> }
+          { tabs && <Tabs { ...tabs } /> }
           { this.props.children }
         </div>
       </ModalPanel>

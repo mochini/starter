@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import Edit from './edit'
 
-class Show extends React.Component {
+class Details extends React.Component {
 
   static contextTypes = {}
 
@@ -33,7 +33,12 @@ const mapResourcesToPage = (props, context, page) => ({
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'User',
-  component: Show,
+  tabs: {
+    items: [
+      { label: 'Details', component: <Details user={ resources.user } /> },
+      { label: 'Access', component: <Details user={ resources.user } /> }
+    ]
+  },
   tasks: {
     items: [
       { label: 'Edit User', modal: Edit }
