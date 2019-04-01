@@ -8,9 +8,7 @@ const routes = [
   { path: '/roles', component: RoleList },
   { path: '/roles/:id', component: RoleShow },
   { path: '/users', component: UserList },
-  { path: '/users/:id', component: UserShow },
-  { path: '/*', component: NotFound }
-
+  { path: '/users/:id', component: UserShow }
 ]
 
 export default routes

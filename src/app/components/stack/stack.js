@@ -67,7 +67,6 @@ class Stack extends React.Component {
     const { cards } = this.state
     const mountedIndexes = mounted - 1
     const cardIndexes = cards.length - 1
-    if(mounted === 0) return 'active'
     if(index > mountedIndexes && index === cardIndexes) return 'mounting'
     if(index === mountedIndexes && index === cardIndexes ) return 'active'
     if(index === mountedIndexes && index < cardIndexes ) return 'covering'

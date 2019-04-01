@@ -25,21 +25,23 @@ class Modal extends React.Component {
   render() {
     const { panel } = this.state
     const { children } = this.props
-    return ([
-      children,
-      <CSSTransition key="modal-overlay" in={ this.props.panel !== null } classNames="opacity" timeout={ 500 } mountOnEnter={ true } unmountOnExit={ true }>
-        <div className="modal-overlay" onClick={ this._handleClose } />
-      </CSSTransition>,
-      <CSSTransition key="modal-window" in={ this.props.panel !== null } classNames="translatey" timeout={ 500 } mountOnEnter={ true } unmountOnExit={ true }>
-        <div className="modal-window">
-          <div className="modal-window-container">
-            <div className="modal-window-panel">
-              { _.isFunction(panel) ? React.createElement(panel) : panel }
+    return (
+      <div className="modal">
+        { children }
+        <CSSTransition key="modal-overlay" in={ this.props.panel !== null } classNames="opacity" timeout={ 500 } mountOnEnter={ true } unmountOnExit={ true }>
+          <div className="modal-overlay" onClick={ this._handleClose } />
+        </CSSTransition>
+        <CSSTransition key="modal-window" in={ this.props.panel !== null } classNames="translatey" timeout={ 500 } mountOnEnter={ true } unmountOnExit={ true }>
+          <div className="modal-window">
+            <div className="modal-window-container">
+              <div className="modal-window-panel">
+                { _.isFunction(panel) ? React.createElement(panel) : panel }
+              </div>
             </div>
           </div>
-        </div>
-      </CSSTransition>
-    ])
+        </CSSTransition>
+      </div>
+    )
   }
 
   componentDidUpdate(prevProps, prevState) {

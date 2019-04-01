@@ -1,6 +1,8 @@
 .modal {
   flex: 1;
   display: flex;
+  overflow: hidden;
+  position: relative;
 }
 .modal-overlay {
   position: absolute;
@@ -27,35 +29,12 @@
   left: 0;
   display: flex;
 }
-@media only screen and (min-width: 1025px) {
-  .modal-window  {
-    max-width: ~"calc(1024px - 2em)";
-    max-height: ~"calc(768px - 2em)";
-  }
-}
-@media only screen and (min-width: 769px) {
-  .modal-overlay {
-    .opacity-transition(0, 0.5, .5s);
-    opacity: 0.5;
-    background-color: @black;
-  }
-  .modal-window  {
-    .opacity-transition(0, 1, .5s);
-    width: ~"calc(100% - 2em)";
-    height: ~"calc(100% - 2em)";
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-}
-@media only screen and (max-width: 768px) {
-  .modal-window  {
-    .translatey-transition(100%, 0, .5s);
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-  }
+.modal-window  {
+  .translatey-transition(100%, 0, .5s);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }
 .modal-window-panel {
   position: absolute;
@@ -65,4 +44,17 @@
   right: 0;
   display: flex;
   flex-direction: column;
+}
+@media only screen and (min-width: 1025px) {
+  .modal-window  {
+    width: ~"calc(1024px - 2em)";
+    height: ~"calc(768px - 2em)";
+    left: ~"calc(50% - 512px)";
+    top: ~"calc(50% - 394px)";
+  }
+}
+.modal-overlay {
+  .opacity-transition(0, 0.5, .5s);
+  opacity: 0.5;
+  background-color: @black;
 }

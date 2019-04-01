@@ -6,6 +6,7 @@ import Stack from './stack'
 class Router extends React.Component {
 
   static propTypes = {
+    action: PropTypes.string,
     routes: PropTypes.array,
     pathname: PropTypes.string
   }
@@ -14,10 +15,8 @@ class Router extends React.Component {
     cards: []
   }
 
-  constructor(props) {
-    super(props)
-    this.routes = this._collapseRoutes(props.routes, props.routes.path)
-  }
+  _handlePop = this._handlePop.bind(this)
+  _handlePush = this._handlePush.bind(this)
 
   render() {
     const { cards } = this.state
@@ -33,45 +32,44 @@ class Router extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { pathname } = this.props
+    const { action, pathname } = this.props
     if(prevProps.pathname !== pathname) {
-      const routeIndex = this.state.cards.reduce((routeIndex, route, index) => {
-        return routeIndex !== null ? routeIndex : (route.pathname === pathname ? index : null)
-      }, null)
-      if(routeIndex !== null) return this.setState({ cards: this.state.cards.slice(0, routeIndex + 1) })
-      const route = this._matchRoute(pathname)
-      if(!route) return
-      this.setState({
-        cards:[
-          ...this.state.cards,
-          route
-        ]
-      })
+      if(action === 'PUSH') {
+        const card = this._matchRoute(pathname)
+        this._handlePush(card)
+      } else if(action === 'POP') {
+        this._handlePop()
+      }
     }
   }
 
-  _collapseRoutes(routes, prefix = '') {
-    return routes.reduce((routes, route) => {
-      const path = (route.path !== '/') ? route.path : ''
-      const segment = (route.children) ? this._collapseRoutes(route, `${prefix}${path}`) : { [`${prefix}${path}`]: route.component }
-      return {
-        ...routes,
-        ...segment
-      }
-    }, {})
-  }
-
   _matchRoute(pathname) {
-    return Object.keys(this.routes).reduce((component, path) => {
-      if(component) return component
-      const matched = matchPath(pathname, { path, exact: true })
+    const { routes } = this.props
+    return routes.reduce((found, route) => {
+      if(found) return found
+      const matched = matchPath(pathname, { path: route.path, exact: true })
       if(!matched) return null
       return {
         pathname,
-        component: this.routes[path],
+        component: route.component,
         params: matched.params
       }
     }, null)
+  }
+
+  _handlePush(card) {
+    this.setState({
+      cards: [
+        ...this.state.cards,
+        card
+      ]
+    })
+  }
+
+  _handlePop() {
+    this.setState({
+      cards: this.state.cards.slice(0, -1)
+    })
   }
 
 }
@@ -88,9 +86,10 @@ class RouterWrapper extends React.Component {
   }
 
   render() {
-    const { pathname } = this.context.router.history.location
+    const { action, location } = this.context.router.history
+    const { pathname } = location
     return (
-      <Router { ...this.props } pathname={ pathname }>
+      <Router { ...this.props } action={ action } pathname={ pathname }>
         { this.props.children }
       </Router>
     )
