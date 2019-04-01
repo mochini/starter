@@ -106,7 +106,7 @@ class Table extends React.Component {
                   ))}
                   { itemActions && itemActions.length > 0 &&
                     <td className="collapsing table-actions">
-                      <Actions { ...this._getActions() } />
+                      <Actions { ...this._getActions(record) } />
                     </td>
                   }
                 </tr>
@@ -142,9 +142,10 @@ class Table extends React.Component {
     window.removeEventListener('resize', this._handleResize, true)
   }
 
-  _getActions() {
+  _getActions(record) {
     const { itemActions } = this.props
     return {
+      record,
       items: itemActions
     }
   }

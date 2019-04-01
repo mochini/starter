@@ -1,6 +1,7 @@
 import { Page } from '../../components/page'
 import PropTypes from 'prop-types'
 import React from 'react'
+import Edit from './edit'
 
 class Show extends React.Component {
 
@@ -33,12 +34,11 @@ const mapResourcesToPage = (props, context, page) => ({
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'User',
   component: Show,
-  leftItems: [
-    { label: 'Foo' }
-  ],
-  rightItems: [
-    { label: 'Bar' }
-  ]
+  tasks: {
+    items: [
+      { label: 'Edit User', modal: Edit }
+    ]
+  }
 })
 
 export default Page(mapResourcesToPage, mapPropsToPage)

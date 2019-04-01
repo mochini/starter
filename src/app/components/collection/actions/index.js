@@ -7,7 +7,8 @@ class Actions extends React.Component {
   static contextTypes = {}
 
   static propTypes = {
-    items: PropTypes.array
+    items: PropTypes.array,
+    record: PropTypes.object
   }
 
   icon = null
@@ -48,8 +49,10 @@ class Actions extends React.Component {
   }
 
   _getButton(item){
+    const { record } = this.props
     return {
       ...item,
+      modal: <item.modal { ...record } />,
       className: 'actions-item',
       onDone: this._handleClose.bind(this)
     }

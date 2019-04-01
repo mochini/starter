@@ -1,5 +1,7 @@
 import { Page } from '../../components/page'
 import React from 'react'
+import Edit from './edit'
+import New from './new'
 
 const UserToken = (record) => (
   <div className="user-token">
@@ -16,9 +18,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Delete All', handler: (selected) => console.log('delete', selected) }
     ],
     itemActions: [
-      { label: 'One' },
-      { label: 'Two' },
-      { label: 'Three' }
+      { label: 'Edit User', modal: (record) => <Edit id={ record.id } /> }
     ],
     endpoint: '/api/users',
     entity: 'user',
@@ -43,12 +43,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Email', key: 'email' }
     ]
   },
-  leftItems: [
-    { label: 'Foo' }
-  ],
-  rightItems: [
-    { label: 'Bar' }
-  ]
+  task: { label: 'New User', modal: New }
 })
 
 export default Page(null, mapPropsToPage)

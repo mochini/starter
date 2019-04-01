@@ -1,15 +1,16 @@
-import Message from '../../components/message'
-import Form from '../../components/form'
 import PropTypes from 'prop-types'
+import Form from '../../components/form'
 import React from 'react'
 
-class New extends React.Component {
+class Edit extends React.Component {
 
   static contextTypes = {
     modal: PropTypes.object
   }
 
-  static propTypes = {}
+  static propTypes = {
+    id: PropTypes.number
+  }
 
   static defaultProps = {}
 
@@ -21,10 +22,11 @@ class New extends React.Component {
   }
 
   _getForm() {
+    const { id } = this.props
     return {
-      title: 'New User',
-      method: 'POST',
-      action: '/api/users',
+      title: 'Edit User',
+      method: 'PATCH',
+      action: `/api/users/${id}/edit`,
       submitText: 'Save',
       fields: [
         { label: 'First Name', name: 'first_name', type: 'textfield', required: true },
@@ -46,4 +48,4 @@ class New extends React.Component {
 
 }
 
-export default New
+export default Edit

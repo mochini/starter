@@ -20,16 +20,21 @@ exports.seed = async (knex, Promise) => {
       created_at: moment(),
       updated_at: moment()
     },
-    ...Array(100).fill().map(n => ({
-      first_name: faker.name.firstName(),
-      last_name: faker.name.lastName(),
-      email: faker.internet.email(),
-      password_salt,
-      password_hash: bcrypt.hashSync('test', password_salt),
-      photo_id: 1,
-      created_at: moment(),
-      updated_at: moment()
-    }))
+    ...Array(100).fill().map(n => {
+      const first_name = faker.name.firstName()
+      const last_name = faker.name.lastName()
+      const email = `${first_name}.${last_name}@gmail.com`.toLowerCase()
+      return {
+        first_name,
+        last_name,
+        email,
+        password_salt,
+        password_hash: bcrypt.hashSync('test', password_salt),
+        photo_id: 1,
+        created_at: moment(),
+        updated_at: moment()
+      }
+    })
   ])
 
 }

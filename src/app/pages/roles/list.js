@@ -14,13 +14,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
         { label: 'Title', key: 'title' }
       ]
     }
-  },
-  leftItems: [
-    { label: 'Foo' }
-  ],
-  rightItems: [
-    { label: 'Bar' }
-  ]
+  }
 })
 
 export default Page(null, mapPropsToPage)

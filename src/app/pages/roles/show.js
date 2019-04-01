@@ -31,13 +31,7 @@ const mapResourcesToPage = (props, context, page) => ({
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Role',
-  component: Show,
-  leftItems: [
-    { label: 'Foo' }
-  ],
-  rightItems: [
-    { label: 'Bar' }
-  ]
+  component: Show
 })
 
 export default Page(mapResourcesToPage, mapPropsToPage)
