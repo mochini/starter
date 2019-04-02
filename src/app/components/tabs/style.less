@@ -14,10 +14,6 @@
 }
 .tabs-body {
   flex: 1;
-  .scrollable();
-}
-.tabs-body {
-  flex: 1;
   position: relative;
   width: 100%;
   overflow: hidden;
@@ -44,4 +40,9 @@
   &.left {
     transform: translateX(-100%);
   }
+}
+.tab-panel {
+  flex: 1;
+  padding: 0.8em;
+  .scrollable();
 }

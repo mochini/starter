@@ -73,7 +73,6 @@
   flex-direction: column;
 }
 .collection-sidebar {
-  border-left: 1px solid fadeout(@black, 90);
   flex: 0 0 325px;
   display: flex;
   position: relative;
@@ -141,10 +140,14 @@
   background-color: fadeout(@black, 10);
   padding: 0.8em 0.4em;
 }
+@media (min-width: 769px) {
+  .collection-sidebar {
+    border-left: 1px solid fadeout(@black, 90);
+  }
+}
 @media (max-width: 768px) {
   .collection-overlay {
-    .opacity-transition(0, 80, .25s);
-    position: absolute;
+    border-left: 1px solid fadeout(@black, 90);
     top: 0;
     right: 0;
     bottom: 0;
@@ -154,7 +157,7 @@
   .collection-sidebar {
     .translatey-transition(100%, 0, .25s);
     position: absolute;
-    top: 7em;
+    top: 0;
     right: 0;
     bottom: 0;
     left: 0;

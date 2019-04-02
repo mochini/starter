@@ -24,15 +24,14 @@ class Edit extends React.Component {
   _getForm() {
     const { id } = this.props
     return {
-      title: 'Edit User',
+      title: 'Edit Role',
       method: 'PATCH',
-      endpoint: `/api/users/${id}/edit`,
-      action: `/api/users/${id}`,
+      endpoint: `/api/roles/${id}`,
+      action: `/api/roles/${id}`,
       submitText: 'Save',
       fields: [
-        { label: 'First Name', name: 'first_name', type: 'textfield', required: true },
-        { label: 'Last Name', name: 'last_name', type: 'textfield', required: true },
-        { label: 'Email', name: 'email', type: 'textfield', required: true }
+        { label: 'Title', name: 'title', type: 'textfield', required: true },
+        { label: 'Description', name: 'description', type: 'textarea', required: true }
       ],
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess

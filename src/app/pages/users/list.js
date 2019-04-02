@@ -5,8 +5,15 @@ import New from './new'
 
 const UserToken = (record) => (
   <div className="user-token">
-    <strong>{ record.full_name }</strong><br />
-    { record.email }
+    <div className="user-token-image">
+      <div className="image">
+        <img src={ `http://i.pravatar.cc/300?u=${record.id}` } />
+      </div>
+    </div>
+    <div className="user-token-details">
+      <strong>{ record.full_name }</strong><br />
+      { record.email }
+    </div>
   </div>
 )
 

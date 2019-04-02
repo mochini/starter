@@ -49,7 +49,7 @@ class List extends React.Component {
           </div>
         </div>
         { records.map((record, index) => (
-          <div className="tile-item" key={`item_${index}`}>
+          <div className="tile-item" key={record.id}>
             <div className={ this._getClass(index) } onClick={ this._handleClick.bind(this, record) }>
               { selectable &&
                 <div className="tile-icon" onClick={ this._handleToggle.bind(this, index) }>
@@ -64,7 +64,7 @@ class List extends React.Component {
               </div>
               { itemActions && itemActions.length > 0 &&
                 <div className="tile-actions">
-                  <Actions { ...this._getActions() } />
+                  <Actions { ...this._getActions(record) } />
                 </div>
               }
             </div>
@@ -74,9 +74,10 @@ class List extends React.Component {
     )
   }
 
-  _getActions() {
+  _getActions(record) {
     const { itemActions } = this.props
     return {
+      record,
       items: itemActions
     }
   }

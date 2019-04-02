@@ -27,7 +27,6 @@ class Export extends React.Component {
   _handleClose = this._handleClose.bind(this)
 
   render() {
-    console.log(this.state.items)
     return (
       <div className="collection-panel">
         <div className="collection-panel-header">

@@ -119,7 +119,7 @@ class Search extends React.Component {
 
   _handleSet() {
     const { defaultValue, onSet } = this.props
-    onSet(_.castArray(defaultValue))
+    onSet(_.castArray(defaultValue || []))
   }
 
   _handleType(q) {

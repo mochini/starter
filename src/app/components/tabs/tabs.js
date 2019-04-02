@@ -38,8 +38,13 @@ class Tabs extends React.Component {
         </div>
         <div className="tabs-body">
           { items.map((item, index) => (
-            <div key={`tab_body_${index}`} className={ this._getTabClass(index) }>
-              { _.isFunction(item.component) ? React.createElement(item.component) : item.component }
+            <div key={`tab_${index}`} className={ this._getTabClass(index) }>
+              { item.component && (_.isFunction(item.component) ? React.createElement(item.component) : item.component) }
+              { item.panel &&
+                <div className="tab-panel">
+                  { _.isFunction(item.panel) ? React.createElement(item.panel) : item.panel }
+                </div>
+              }
             </div>
           )) }
         </div>

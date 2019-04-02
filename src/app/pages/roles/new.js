@@ -1,16 +1,14 @@
-import PropTypes from 'prop-types'
 import Form from '../../components/form'
+import PropTypes from 'prop-types'
 import React from 'react'
 
-class Edit extends React.Component {
+class New extends React.Component {
 
   static contextTypes = {
     modal: PropTypes.object
   }
 
-  static propTypes = {
-    id: PropTypes.number
-  }
+  static propTypes = {}
 
   static defaultProps = {}
 
@@ -22,17 +20,14 @@ class Edit extends React.Component {
   }
 
   _getForm() {
-    const { id } = this.props
     return {
-      title: 'Edit User',
-      method: 'PATCH',
-      endpoint: `/api/users/${id}/edit`,
-      action: `/api/users/${id}`,
+      title: 'New Role',
+      method: 'POST',
+      action: '/api/roles',
       submitText: 'Save',
       fields: [
-        { label: 'First Name', name: 'first_name', type: 'textfield', required: true },
-        { label: 'Last Name', name: 'last_name', type: 'textfield', required: true },
-        { label: 'Email', name: 'email', type: 'textfield', required: true }
+        { label: 'Title', name: 'title', type: 'textfield', required: true },
+        { label: 'Description', name: 'description', type: 'textarea', required: true }
       ],
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess
@@ -49,4 +44,4 @@ class Edit extends React.Component {
 
 }
 
-export default Edit
+export default New

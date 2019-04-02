@@ -1,10 +1,12 @@
 import { Page } from '../../components/page'
+import Edit from './edit'
+import New from './new'
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Roles',
   collection: {
     itemActions: [
-      { label: 'Edit' }
+      { label: 'Edit', modal: (record) => <Edit id={ record.id } /> }
     ],
     endpoint: '/api/roles',
     entity: 'role',
@@ -14,7 +16,8 @@ const mapPropsToPage = (props, context, resources, page) => ({
         { label: 'Title', key: 'title' }
       ]
     }
-  }
+  },
+  task: { label: 'New Role', modal: New }
 })
 
 export default Page(null, mapPropsToPage)

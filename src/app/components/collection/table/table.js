@@ -85,7 +85,7 @@ class Table extends React.Component {
           <table ref={ (node) => this.body = node }>
             <tbody>
               { records.map((record, index) => (
-                <tr className={ this._getRowClass(index) } key={`foo_${index}`} onClick={ this._handleClick.bind(this, record) }>
+                <tr className={ this._getRowClass(index) } key={record.id} onClick={ this._handleClick.bind(this, record) }>
                   { selectable &&
                     <td onClick={ this._handleToggle.bind(this, index) } className="collapsing table-cell">
                       { _.includes(selected, index) ?

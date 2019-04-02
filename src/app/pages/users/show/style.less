@@ -1,0 +1,24 @@
+.access {
+  width: 100%;
+  border: 1px solid fadeout(@black, 90);
+  border-radius: 0.5em;
+  .access-right:last-child {
+    border-bottom: none;
+  }
+}
+.access-right {
+  border-bottom: 1px solid fadeout(@black, 90);
+  display: flex;
+}
+.access-right-label {
+  padding: 0.8em;
+  flex: 1;
+}
+.access-right-icon {
+  padding: 0.8em;
+  display: flex;
+  .fa {
+    color: @green;
+    margin: auto;
+  }
+}
