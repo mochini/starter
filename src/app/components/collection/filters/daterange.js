@@ -72,7 +72,8 @@ class Daterange extends React.Component {
 
   _handleChange(selected) {
     const { onChange } = this.props
-    if(selected) return onChange({ $dr: selected })
+    const value = selected ? { $dr: selected } : null
+    return onChange(value)
   }
 
   _handleSet() {

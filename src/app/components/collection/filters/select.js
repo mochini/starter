@@ -47,11 +47,16 @@ class Select extends React.Component {
     }
   }
 
+  _getValue(selected) {
+    const { multiple } = this.props
+    if(selected.length > 0) return multiple ? { $in: selected } : { $eq: selected[0] }
+    return null
+  }
+
   _handleChange(selected) {
-    const { multiple, onChange } = this.props
-    if(multiple && selected.length > 0) return onChange({ $in: selected })
-    const $eq = selected.length > 0 ? selected[0]: null
-    if($eq) return onChange({ $eq })
+    const { onChange } = this.props
+    const value = this._getValue(selected)
+    return onChange(value)
   }
 
 }
