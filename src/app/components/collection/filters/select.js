@@ -49,9 +49,9 @@ class Select extends React.Component {
 
   _handleChange(selected) {
     const { multiple, onChange } = this.props
-    if(multiple) return onChange({ $in: selected })
+    if(multiple && selected.length > 0) return onChange({ $in: selected })
     const $eq = selected.length > 0 ? selected[0]: null
-    return onChange({ $eq })
+    if($eq) return onChange({ $eq })
   }
 
 }
