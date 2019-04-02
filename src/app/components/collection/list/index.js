@@ -49,7 +49,7 @@ class List extends React.Component {
           </div>
         </div>
         { records.map((record, index) => (
-          <div className="list-item" key={record.id}>
+          <div className="list-item" key={ record.id }>
             <div className={ this._getClass(index) } onClick={ this._handleClick.bind(this, record) }>
               { selectable &&
                 <div className="list-tile-icon" onClick={ this._handleToggle.bind(this, index) }>

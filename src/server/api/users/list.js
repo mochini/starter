@@ -4,6 +4,7 @@ import User from '../../models/user'
 const route = async (req, res) => {
 
   const users = await User.query(qb => {
+    qb.select(req.trx.raw('distinct on (users.id,users.first_name,users.last_name) users.*'))
     qb.leftJoin('roles_users','users.id','roles_users.user_id')
   }).filter({
     filter: req.query.$filter,

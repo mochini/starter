@@ -7,6 +7,7 @@ class Searchbox extends React.Component {
   static propTypes = {
     autoFocus: PropTypes.bool,
     active: PropTypes.bool,
+    defaultValue: PropTypes.string,
     prompt: PropTypes.string,
     q: PropTypes.string,
     onAbort: PropTypes.func,
@@ -55,7 +56,9 @@ class Searchbox extends React.Component {
   }
 
   componentDidMount() {
-    if(this.props.autoFocus) this.input.focus()
+    const { autoFocus, defaultValue, onType } = this.props
+    if(defaultValue) onType(defaultValue)
+    if(autoFocus) this.input.focus()
   }
 
   _getClass() {

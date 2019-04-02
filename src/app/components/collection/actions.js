@@ -13,11 +13,6 @@ export const filter = (filter) => ({
   filter
 })
 
-export const query = (q) => ({
-  type: 'QUERY',
-  q
-})
-
 export const select = (selected) => ({
   type: 'SELECT',
   selected

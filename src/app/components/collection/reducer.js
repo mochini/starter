@@ -1,6 +1,5 @@
 const INITIAL_STATE = {
-  filter: { },
-  q: '',
+  filter: {},
   sort: null,
   tool: null,
   layout: 'table',
@@ -29,12 +28,6 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       filter: action.filter
-    }
-
-  case 'QUERY':
-    return {
-      ...state,
-      q: action.q
     }
 
   case 'SELECT':

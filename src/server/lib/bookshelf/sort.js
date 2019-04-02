@@ -9,7 +9,7 @@ const sortPlugin = function(bookshelf) {
   }
 
   const applySort = (qb, sort) => {
-    const order = sort.map(item => {
+    const order = _.castArray(sort).map(item => {
       return _.isString(item) ? { column: item, order: 'asc' } : item
     }).filter(item => !_.isNil(item.column))
     if(order.length === 0) return

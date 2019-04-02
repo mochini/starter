@@ -28,7 +28,6 @@ class Collection extends React.Component {
     endpoint: PropTypes.string,
     entity: PropTypes.string,
     export: PropTypes.array,
-    filtering: PropTypes.bool,
     filters: PropTypes.array,
     filter: PropTypes.object,
     itemActions: PropTypes.array,
@@ -36,7 +35,6 @@ class Collection extends React.Component {
     layout: PropTypes.string,
     link: PropTypes.func,
     list: PropTypes.object,
-    q: PropTypes.string,
     selected: PropTypes.array,
     search: PropTypes.bool,
     sort: PropTypes.object,
@@ -47,7 +45,6 @@ class Collection extends React.Component {
     onChangeLayout: PropTypes.func,
     onChangeTool: PropTypes.func,
     onFilter: PropTypes.func,
-    onQuery: PropTypes.func,
     onSelect: PropTypes.func,
     onSort: PropTypes.func
   }
@@ -69,7 +66,8 @@ class Collection extends React.Component {
   _handleType = this._handleType.bind(this)
 
   render() {
-    const { allLayouts, batchActions, search, selected, tool } = this.props
+    const { allLayouts, batchActions, filter, search, selected, tool } = this.props
+    if(!filter.$and) return null
     return (
       <div className="collection">
         <div className="collection-header">
@@ -127,8 +125,8 @@ class Collection extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { filter } = this.props
-    if(!_.isEqual(filter, prevProps.filter)) {
+    const { filter, sort } = this.props
+    if(!_.isEqual(filter, prevProps.filter) || !_.isEqual(sort, prevProps.sort)) {
       this._handleChangeUrl()
     }
   }
@@ -184,27 +182,24 @@ class Collection extends React.Component {
 
   _getInfinite() {
     const { cacheKey } = this.state
-    const { batchActions, endpoint, filter, q } = this.props
-    const sort  = this.props.sort ? [this.props.sort] : null
+    const { batchActions, endpoint, filter } = this.props
     return {
       cacheKey,
       endpoint,
-      filter: {
-        $and: [
-          ...filter.$and || [],
-          ...q ? [{ q: { $eq: q  } }] : []
-        ]
-      },
+      filter,
       selectable: batchActions !== undefined,
-      sort,
+      sort: this.props.sort,
       onSelect: this._handleSelect,
       ...this._getLayout()
     }
   }
 
   _getSearchbox() {
+    const { filter } = this.props
+    const query = filter.$and ? filter.$and.find(item => Object.keys(item)[0] === 'q') : null
     return {
       prompt: 'Search Items',
+      defaultValue: query ? query.q.$eq : null,
       onChange: this._handleType
     }
   }
@@ -268,14 +263,16 @@ class Collection extends React.Component {
   }
 
   _getTools() {
-    const { tools, tool } = this.props
+    const { filters, table, tool } = this.props
+    const tools = []
+    if(filters) tools.push({ title: 'Filter Records', icon: 'filter', key: 'filter' })
+    if(table) tools.push({ title: 'Adjust Columns', icon: 'sliders', key: 'columns' })
+    if(this.props.export) tools.push({ title: 'Export Records', icon: 'download', key: 'export' })
     return {
       tool,
       tools: [
-        { title: 'Filter Records', icon: 'filter', key: 'filter' },
-        { title: 'Adjust Columns', icon: 'sliders', key: 'columns' },
-        { title: 'Export Records', icon: 'download', key: 'export' },
-        ...tools || {}
+        ...tools,
+        ...this.props.tools || []
       ],
       onChangeTool: this._handleChangeTool
     }
@@ -292,7 +289,8 @@ class Collection extends React.Component {
   _handleChangeUrl() {
     const { history } = this.context.router
     const $filter = this.props.filter
-    const query = qs.stringify({ $filter }, { encode: false, skipNulls: true })
+    const $sort = this.props.sort
+    const query = qs.stringify({ $filter, $sort }, { encode: false, skipNulls: true })
     history.replace(`${history.location.pathname}?${query}`)
   }
 
@@ -306,6 +304,8 @@ class Collection extends React.Component {
     const query = search.length > 0 ? qs.parse(search.slice(1), { decoder }) : {}
     const filter =  query.$filter || { $and: [] }
     this.props.onFilter(filter)
+    if(query.$sort) this.props.onSort(query.$sort.column, query.$sort.order)
+
   }
 
   _handleRefresh() {
@@ -319,7 +319,14 @@ class Collection extends React.Component {
   }
 
   _handleType(q) {
-    this.props.onQuery(q)
+    const { $and } = this.props.filter
+    const filter = {
+      $and: [
+        ...$and.filter(filter => Object.keys(filter)[0] !== 'q'),
+        q.length > 0 ? { q: { $eq: q } } : {}
+      ]
+    }
+    this.props.onFilter(filter)
   }
 
 }

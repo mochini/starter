@@ -38,8 +38,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     },
     table: {
       columns: [
-        { label: 'Name', key: 'full_name', sort: 'last_name' },
-        { label: 'Email', key: 'email' }
+        { label: 'Name', key: 'full_name', sort: 'last_name', format: UserToken }
       ]
     },
     filters: [
@@ -47,6 +46,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Created', key: 'created_at', type: 'daterange' }
     ],
     export: [
+      { label: 'ID', key: 'id' },
       { label: 'Name', key: 'full_name' },
       { label: 'Email', key: 'email' }
     ]
