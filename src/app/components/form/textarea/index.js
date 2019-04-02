@@ -9,7 +9,6 @@ class TextArea extends React.PureComponent {
     defaultValue: PropTypes.string,
     placeholder: PropTypes.string,
     rows: PropTypes.number,
-    tabIndex: PropTypes.number,
     onChange: PropTypes.func,
     onReady: PropTypes.func
   }
@@ -63,6 +62,7 @@ class TextArea extends React.PureComponent {
     return {
       placeholder,
       rows,
+      tabIndex: 0,
       value,
       onChange: this._handleChange.bind(this)
     }

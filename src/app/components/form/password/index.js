@@ -10,7 +10,6 @@ class Password extends React.PureComponent {
     disabled: PropTypes.bool,
     placeholder: PropTypes.string,
     schema: PropTypes.array,
-    tabIndex: PropTypes.number,
     onBlur: PropTypes.func,
     onBusy: PropTypes.func,
     onChange: PropTypes.func,
@@ -27,7 +26,6 @@ class Password extends React.PureComponent {
     disabled: false,
     placeholder: '',
     schema: [],
-    tabIndex: 0,
     onBlur: () => {},
     onBusy: () => {},
     onChange: () => {},
@@ -46,7 +44,7 @@ class Password extends React.PureComponent {
   render() {
     const { schema } = this.props
     return (
-      <div className="password">
+      <div className="password" tabIndex={ 0 }>
         <div className="password-input">
           <input { ...this._getInput() } />
         </div>

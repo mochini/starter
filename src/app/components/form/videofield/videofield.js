@@ -27,7 +27,7 @@ class VideoField extends React.PureComponent{
     const { src } = this.props
     if(!src) return <Button { ...this._getNewButton() } />
     return (
-      <div className="videofield">
+      <div className="videofield" tabIndex={ 0 }>
         <div className="videofield-player">
           <iframe { ...this._getIframe()} />
         </div>

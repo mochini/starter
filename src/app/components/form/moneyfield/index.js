@@ -9,7 +9,6 @@ class MoneyField extends React.PureComponent {
     disabled: PropTypes.bool,
     placeholder: PropTypes.string,
     defaultValue: PropTypes.string,
-    tabIndex: PropTypes.number,
     onBusy: PropTypes.func,
     onChange: PropTypes.func,
     onFocus: PropTypes.func,
@@ -20,9 +19,7 @@ class MoneyField extends React.PureComponent {
     onKeyDown: PropTypes.func
   }
 
-  static defaultProps = {
-    tabIndex: 0
-  }
+  static defaultProps = {}
 
   render() {
     return <TextField { ...this._getTextField() } />
@@ -31,7 +28,7 @@ class MoneyField extends React.PureComponent {
   _getTextField() {
     return {
       ...this.props,
-      sanitize: (value) => value.replace(/[\$,]/g,''),
+      sanitize: (value) => value.replace(/[$,]/g,''),
       validate: (value) => value.match(/^-?\d*\.?\d{0,2}$/) !== null
     }
   }

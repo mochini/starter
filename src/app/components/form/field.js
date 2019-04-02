@@ -1,4 +1,6 @@
+import CheckboxGroup from './checkboxgroup'
 import Numberfield from './numberfield'
+import RadioGroup from './radiogroup'
 import Videofield from './videofield'
 import Colorfield from './colorfield'
 import Phonefield from './phonefield'
@@ -7,7 +9,6 @@ import Moneyfield from './moneyfield'
 import Datefield from './datefield'
 import Textfield from './textfield'
 import PropTypes from 'prop-types'
-import Select from './selectfield'
 import Textarea from './textarea'
 import Dropdown from './dropdown'
 import React from 'react'
@@ -41,7 +42,8 @@ class Field extends React.PureComponent {
         { field.type === 'moneyfield' && <Moneyfield { ...this._getField(field) } /> }
         { field.type === 'videofield' && <Videofield { ...this._getField(field) } /> }
         { field.type === 'dropdown' && <Dropdown { ...this._getField(field) } /> }
-        { field.type === 'select' && <Select { ...this._getField(field) } /> }
+        { field.type === 'checkboxgroup' && <CheckboxGroup { ...this._getField(field) } /> }
+        { field.type === 'radiogroup' && <RadioGroup { ...this._getField(field) } /> }
         { errors[field.name] && <div className="error-message">{ errors[field.name] }</div> }
       </div>
     )

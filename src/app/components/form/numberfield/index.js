@@ -50,6 +50,7 @@ class NumberField extends React.PureComponent {
       className: 'ui input',
       type: 'text',
       placeholder: 'Number',
+      tabIndex: 0,
       value,
       ref: node => this.number = node,
       onChange: this._handleChange,

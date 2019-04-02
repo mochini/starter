@@ -4,8 +4,8 @@ import select from './select'
 import * as actions from './actions'
 
 export default Factory({
-  namespace: 'radio_group',
-  component: select(false),
+  namespace: 'select',
+  component: select,
   reducer,
   actions
 })

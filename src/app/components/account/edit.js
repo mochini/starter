@@ -37,7 +37,8 @@ class Edit extends React.PureComponent {
         { label: 'Email', name: 'email', type: 'emailfield' },
         { label: 'Money', name: 'money', type: 'moneyfield' },
         { label: 'Time', name: 'time', type: 'timefield' },
-        { label: 'Select', name: 'select', type: 'select' },
+        { label: 'Checkboxes', name: 'checkboxes', type: 'checkboxgroup', options: [{value:1,text:'One'},{value:2,text:'Two'},{value:3,text:'Three'}] },
+        { label: 'Radios', name: 'radios', type: 'radiogroup', options: [{value:1,text:'One'},{value:2,text:'Two'},{value:3,text:'Three'}] },
         { label: 'Video', name: 'video', type: 'videofield' },
         { label: 'Dropdown', name: 'dropdown', type: 'dropdown', options: [{value:1,text:'One'}] }
       ],

@@ -55,6 +55,7 @@ class TextField extends React.PureComponent {
     const { value } = this.state
     return {
       type: 'text',
+      tabIndex: 0,
       value,
       placeholder,
       onChange: this._handleChange.bind(this)

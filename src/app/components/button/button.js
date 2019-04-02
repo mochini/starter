@@ -70,6 +70,7 @@ class Button extends React.PureComponent {
       className: this._getClass(),
       disabled,
       target: link ? '_blank' : null,
+      tabIndex: 0,
       onClick: !link ? this._handleClick.bind(this) : null
     }
   }

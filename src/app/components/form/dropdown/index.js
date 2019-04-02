@@ -32,7 +32,7 @@ class Dropdown extends React.PureComponent {
   render() {
     const { options } = this.props
     return (
-      <div className="dropdown">
+      <div className="dropdown" tabIndex={ 0 }>
         <div className={ this._getDropdownClass() } onClick={ this._handleOpen }>
           <div className="text" onClick={ this._handleOpen }>{ this._getLabel() }</div>
           <i className="dropdown icon"></i>

@@ -48,6 +48,7 @@ class PhoneField extends React.PureComponent {
       className: 'ui input',
       type: 'tel',
       placeholder: 'Phone',
+      tabIndex: 0,
       value,
       ref: node => this.phone = node,
       onChange: this._handleChange
