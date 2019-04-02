@@ -5,7 +5,7 @@ import Field from './field'
 import React from 'react'
 import _ from 'lodash'
 
-class Form extends React.Component {
+class Form extends React.PureComponent {
 
   static childContextTypes = {
     form: PropTypes.object

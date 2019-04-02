@@ -5,7 +5,7 @@ import React from 'react'
 import Daterange from './daterange'
 import Select from './select'
 
-class Filter extends React.Component {
+class Filter extends React.PureComponent {
 
   static contextTypes = {}
 

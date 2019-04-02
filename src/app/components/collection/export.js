@@ -6,7 +6,7 @@ import Buttons from '../buttons'
 import React from 'react'
 import qs from 'qs'
 
-class Export extends React.Component {
+class Export extends React.PureComponent {
 
   static contextTypes = {}
 

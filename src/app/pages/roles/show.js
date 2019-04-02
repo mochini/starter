@@ -2,7 +2,7 @@ import { Page } from '../../components/page'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class Show extends React.Component {
+class Show extends React.PureComponent {
 
   static contextTypes = {}
 

@@ -2,7 +2,7 @@ import Sortable from '../sortable'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class Columns extends React.Component {
+class Columns extends React.PureComponent {
 
   static contextTypes = {}
 

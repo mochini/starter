@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import Buttons from '../buttons'
 import React from 'react'
 
-class Message extends React.Component {
+class Message extends React.PureComponent {
 
   static contextTypes = {
     modal: PropTypes.object

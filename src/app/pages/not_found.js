@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class NotFound extends React.Component {
+class NotFound extends React.PureComponent {
 
   static contextTypes = {}
 

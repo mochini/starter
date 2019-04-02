@@ -4,7 +4,7 @@ import Avatar from '../avatar'
 import React from 'react'
 import Edit from './edit'
 
-class Account extends React.Component {
+class Account extends React.PureComponent {
 
   static contextTypes = {
     drawer: PropTypes.object,

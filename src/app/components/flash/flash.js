@@ -2,7 +2,7 @@ import { CSSTransition } from 'react-transition-group'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class Flash extends React.Component{
+class Flash extends React.PureComponent{
 
   static childContextTypes = {
     flash: PropTypes.object

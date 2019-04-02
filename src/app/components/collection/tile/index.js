@@ -5,7 +5,7 @@ import Token from '../../token'
 import React from 'react'
 import _ from 'lodash'
 
-class List extends React.Component {
+class List extends React.PureComponent {
 
   static contextTypes = {
     router: PropTypes.object

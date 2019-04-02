@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import qs from 'qs'
 
-class Image extends React.Component {
+class Image extends React.PureComponent {
 
   static propTypes = {
     alt: PropTypes.string,

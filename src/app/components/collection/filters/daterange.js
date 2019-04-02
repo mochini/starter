@@ -3,7 +3,7 @@ import Search from '../../search'
 import React from 'react'
 import _ from 'lodash'
 
-class Daterange extends React.Component {
+class Daterange extends React.PureComponent {
 
   static contextTypes = {}
 

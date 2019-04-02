@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import moment from 'moment'
 import React from 'react'
 
-class Chooser extends React.Component {
+class Chooser extends React.PureComponent {
 
   static propTypes = {
     month: PropTypes.number,

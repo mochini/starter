@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class Panel extends React.Component {
+class Panel extends React.PureComponent {
 
   static contextTypes = {
     drawer: PropTypes.object,

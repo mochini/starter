@@ -3,7 +3,7 @@ import Button from '../../button'
 import React from 'react'
 import _ from 'lodash'
 
-class Items extends React.Component {
+class Items extends React.PureComponent {
 
   static contextTypes = {}
 

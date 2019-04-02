@@ -4,7 +4,7 @@ import Format from '../../format'
 import React from 'react'
 import _ from 'lodash'
 
-class Table extends React.Component {
+class Table extends React.PureComponent {
 
   static contextTypes = {
     router: PropTypes.object

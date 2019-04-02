@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class Tracker extends React.Component {
+class Tracker extends React.PureComponent {
 
   static childContextTypes = {
     tracker: PropTypes.object

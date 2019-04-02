@@ -3,7 +3,7 @@ import React from 'react'
 import Item from './item'
 import _ from 'lodash'
 
-class Sortable extends React.Component {
+class Sortable extends React.PureComponent {
 
   static propTypes = {
     defaultValue: PropTypes.any,

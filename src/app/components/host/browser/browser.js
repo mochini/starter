@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-class Browser extends React.Component {
+class Browser extends React.PureComponent {
 
   static childContextTypes = {
     host: PropTypes.object

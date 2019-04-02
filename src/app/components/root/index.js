@@ -10,7 +10,7 @@ import tokenMiddleware from './token'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class Root extends React.Component {
+class Root extends React.PureComponent {
 
   static propTypes = {
     children: PropTypes.any,

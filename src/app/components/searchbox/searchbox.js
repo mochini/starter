@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
 
-class Searchbox extends React.Component {
+class Searchbox extends React.PureComponent {
 
   static propTypes = {
     autoFocus: PropTypes.bool,

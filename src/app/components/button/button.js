@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-class Button extends React.Component {
+class Button extends React.PureComponent {
 
   static contextTypes = {
     confirm: PropTypes.object,

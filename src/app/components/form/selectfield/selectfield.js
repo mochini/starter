@@ -6,7 +6,7 @@ import _ from 'lodash'
 
 const Select = (multiple) => {
 
-  class Control extends React.Component {
+  class Control extends React.PureComponent {
 
     static propTypes = {
       defaultValue: PropTypes.any,

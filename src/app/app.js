@@ -19,7 +19,7 @@ import routes from './routes'
 import menu from './menu'
 import './components/i18n'
 
-class App extends React.Component {
+class App extends React.PureComponent {
 
   static propTypes = {
     reducers: PropTypes.array

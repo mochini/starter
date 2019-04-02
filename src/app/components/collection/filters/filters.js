@@ -5,7 +5,7 @@ import Filter from './filter'
 import React from 'react'
 import _ from 'lodash'
 
-class Filters extends React.Component {
+class Filters extends React.PureComponent {
 
   static contextTypes = {}
 

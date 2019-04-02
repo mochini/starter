@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
 
-class Tabs extends React.Component {
+class Tabs extends React.PureComponent {
 
   static propTypes = {
     chosen: PropTypes.number,

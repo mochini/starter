@@ -3,7 +3,7 @@ import { findDOMNode } from 'react-dom'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class Item extends React.Component {
+class Item extends React.PureComponent {
 
   static propTypes = {
     checked: PropTypes.bool,

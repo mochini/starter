@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
 
-class TextField extends React.Component {
+class TextField extends React.PureComponent {
 
   static propTypes = {
     defaultValue: PropTypes.string,

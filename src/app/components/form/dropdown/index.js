@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 
-class Dropdown extends React.Component {
+class Dropdown extends React.PureComponent {
 
   static propTypes = {
     defaultValue: PropTypes.any,

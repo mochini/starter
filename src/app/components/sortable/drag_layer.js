@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Item from './item'
 import React from 'react'
 
-class TableDragLayer extends React.Component {
+class TableDragLayer extends React.PureComponent {
 
   static propTypes = {
     item: PropTypes.object

@@ -7,7 +7,7 @@ import Token from '../token'
 import React from 'react'
 import _ from 'lodash'
 
-class Search extends React.Component {
+class Search extends React.PureComponent {
 
   static contextTypes = {}
 

@@ -12,7 +12,7 @@ import Textarea from './textarea'
 import Dropdown from './dropdown'
 import React from 'react'
 
-class Field extends React.Component {
+class Field extends React.PureComponent {
 
   static contextTypes = {}
 

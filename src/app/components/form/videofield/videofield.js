@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import Picker from './picker'
 import React from 'react'
 
-class VideoField extends React.Component{
+class VideoField extends React.PureComponent{
 
   static contextTypes = {
     form: PropTypes.object

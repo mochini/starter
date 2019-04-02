@@ -3,7 +3,7 @@ import Signin from './signin'
 import Reset from './reset'
 import React from 'react'
 
-class Main extends React.Component {
+class Main extends React.PureComponent {
 
   static contextTypes = {}
 

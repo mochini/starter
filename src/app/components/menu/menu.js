@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Panel from './panel'
 import React from 'react'
 
-class Menu extends React.Component {
+class Menu extends React.PureComponent {
 
   static contextTypes = {
     drawer: PropTypes.object,

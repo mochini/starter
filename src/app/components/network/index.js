@@ -2,7 +2,7 @@ import SocketClient from 'socket.io-client'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class Network extends React.Component {
+class Network extends React.PureComponent {
 
   static contextTypes = {}
 

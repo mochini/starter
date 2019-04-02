@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
 
-class Password extends React.Component {
+class Password extends React.PureComponent {
 
   static propTypes = {
     autoComplete: PropTypes.string,

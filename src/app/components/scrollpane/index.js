@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
 
-class Scrollpane extends React.Component {
+class Scrollpane extends React.PureComponent {
 
   static propTypes = {
     children: PropTypes.any,

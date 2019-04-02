@@ -2,7 +2,7 @@ import { AsYouType } from 'libphonenumber-js'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class PhoneField extends React.Component {
+class PhoneField extends React.PureComponent {
 
   static propTypes = {
     defaultCountry: PropTypes.string,

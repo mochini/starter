@@ -6,7 +6,7 @@ const SPECIAL_KEYS = ['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Backspace'
 
 const REGEX = /^-?[0-9]*\.?[0-9]*$/
 
-class NumberField extends React.Component {
+class NumberField extends React.PureComponent {
 
   static propTypes = {
     defaultValue: PropTypes.object,

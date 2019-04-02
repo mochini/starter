@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class Picker extends React.Component{
+class Picker extends React.PureComponent{
 
   static contextTypes = {
     form: PropTypes.object

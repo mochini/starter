@@ -3,7 +3,7 @@ import Browser from './browser'
 import Cordova from './cordova'
 import React from 'react'
 
-class Host extends React.Component {
+class Host extends React.PureComponent {
 
   static contextTypes = {
   }

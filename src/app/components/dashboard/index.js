@@ -5,7 +5,7 @@ import Menu from '../menu'
 import React from 'react'
 import _ from 'lodash'
 
-class Dashboard extends React.Component {
+class Dashboard extends React.PureComponent {
 
   static contextTypes = {
     drawer: PropTypes.object,

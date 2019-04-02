@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import Button from '../../button'
 import React from 'react'
 
-class Actions extends React.Component {
+class Actions extends React.PureComponent {
 
   static contextTypes = {}
 

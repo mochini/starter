@@ -3,7 +3,7 @@ import Signin from '../signin'
 import React from 'react'
 import _ from 'lodash'
 
-class Presence extends React.Component {
+class Presence extends React.PureComponent {
 
   static childContextTypes = {
     presence: PropTypes.object

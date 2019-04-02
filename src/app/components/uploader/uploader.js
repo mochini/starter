@@ -4,7 +4,7 @@ import Preview from './preview'
 import React from 'react'
 import _ from 'lodash'
 
-class Uploader extends React.Component {
+class Uploader extends React.PureComponent {
 
   static childContextTypes = {
     uploader: PropTypes.object

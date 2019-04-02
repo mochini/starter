@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class Stack extends React.Component {
+class Stack extends React.PureComponent {
 
   static childContextTypes = {
     stack: PropTypes.object

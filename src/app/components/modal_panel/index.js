@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
 
-class ModalPanel extends React.Component {
+class ModalPanel extends React.PureComponent {
 
   static propTypes = {
     children: PropTypes.any,

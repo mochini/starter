@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-class Cordova extends React.Component {
+class Cordova extends React.PureComponent {
 
   static childContextTypes = {
     host: PropTypes.object

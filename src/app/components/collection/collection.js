@@ -15,7 +15,7 @@ import React from 'react'
 import _ from 'lodash'
 import qs from 'qs'
 
-class Collection extends React.Component {
+class Collection extends React.PureComponent {
 
   static contextTypes = {
     router: PropTypes.object
@@ -68,7 +68,7 @@ class Collection extends React.Component {
 
   render() {
     const { panel } = this.state
-    const { allLayouts, batchActions, filter, search, selected, tool } = this.props
+    const { allLayouts, batchActions, filter, search, selected } = this.props
     if(!filter.$and) return null
     return (
       <div className="collection">
@@ -184,13 +184,13 @@ class Collection extends React.Component {
 
   _getInfinite() {
     const { cacheKey } = this.state
-    const { batchActions, endpoint, filter } = this.props
+    const { batchActions, endpoint, filter, sort } = this.props
     return {
       cacheKey,
       endpoint,
       filter,
       selectable: batchActions !== undefined,
-      sort: this.props.sort,
+      sort,
       onSelect: this._handleSelect,
       ...this._getLayout()
     }

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
 
-class TextArea extends React.Component {
+class TextArea extends React.PureComponent {
 
   static propTypes = {
     autoGrow: PropTypes.bool,

@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import TextField from '../textfield'
 
-class MoneyField extends React.Component {
+class MoneyField extends React.PureComponent {
 
   static propTypes = {
     maxLength: PropTypes.number,

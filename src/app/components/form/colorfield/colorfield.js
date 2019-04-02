@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class ColorField extends React.Component {
+class ColorField extends React.PureComponent {
 
   static propTypes = {
     defaultValue: PropTypes.string,

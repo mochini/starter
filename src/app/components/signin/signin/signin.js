@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class Signin extends React.Component {
+class Signin extends React.PureComponent {
 
   static contextTypes = {
     flash: PropTypes.object,

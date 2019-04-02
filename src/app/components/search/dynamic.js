@@ -3,7 +3,7 @@ import Options from './options'
 import React from 'react'
 import _ from 'lodash'
 
-class Dynamic extends React.Component {
+class Dynamic extends React.PureComponent {
 
   static contextTypes = {}
 

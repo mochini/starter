@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class Reset extends React.Component {
+class Reset extends React.PureComponent {
 
   static contextTypes = {
     flash: PropTypes.object

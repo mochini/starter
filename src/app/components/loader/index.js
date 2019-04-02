@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-class Loader extends React.Component {
+class Loader extends React.PureComponent {
 
   static propTypes = {
     label: PropTypes.string

@@ -4,7 +4,7 @@ import _ from 'lodash'
 import moment from 'moment'
 import numeral from 'numeral'
 
-class Format extends React.Component {
+class Format extends React.PureComponent {
 
   static propTypes = {
     format: PropTypes.any,

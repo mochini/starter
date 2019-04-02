@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import Search from '../../search'
 import React from 'react'
 
-class Select extends React.Component {
+class Select extends React.PureComponent {
 
   static contextTypes = {}
 

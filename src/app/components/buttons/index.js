@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Button from '../button'
 
-class Buttons extends React.Component {
+class Buttons extends React.PureComponent {
 
   static propTypes = {
     buttons: PropTypes.array

@@ -5,7 +5,7 @@ import Message from '../message'
 import Tabs from '../tabs'
 import React from 'react'
 
-class Page extends React.Component {
+class Page extends React.PureComponent {
 
   static contextTypes = {
     host: PropTypes.object,

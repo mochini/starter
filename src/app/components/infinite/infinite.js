@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
 
-class Infinite extends React.Component {
+class Infinite extends React.PureComponent {
 
   static propTypes = {
     all: PropTypes.number,
@@ -19,7 +19,7 @@ class Infinite extends React.Component {
     selectable: PropTypes.bool,
     selectAll: PropTypes.bool,
     selected: PropTypes.array,
-    sort: PropTypes.array,
+    sort: PropTypes.object,
     status: PropTypes.string,
     total: PropTypes.number,
     onFetch: PropTypes.func,
@@ -84,13 +84,6 @@ class Infinite extends React.Component {
     if(selected.length !== prevProps.selected.length) {
       this._handleSelect()
     }
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    const ignored = ['con','router']
-    return Object.keys(_.omit(this.props, ignored)).reduce((update, key) => {
-      return update || !_.isEqual(this.props[key], nextProps[key])
-    }, false)
   }
 
   _getDelayed() {

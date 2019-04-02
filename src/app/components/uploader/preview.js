@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class Preview extends React.Component {
+class Preview extends React.PureComponent {
 
   static propTypes = {
     image: PropTypes.object

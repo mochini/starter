@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class Tools extends React.Component {
+class Tools extends React.PureComponent {
 
   static contextTypes = {}
 

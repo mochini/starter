@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import Form from '../../components/form'
 import React from 'react'
 
-class Edit extends React.Component {
+class Edit extends React.PureComponent {
 
   static contextTypes = {
     modal: PropTypes.object

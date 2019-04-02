@@ -11,7 +11,7 @@ const Token = (record) => (
   </div>
 )
 
-class Home extends React.Component {
+class Home extends React.PureComponent {
 
   static contextTypes = {
     tasks: PropTypes.object

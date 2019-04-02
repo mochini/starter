@@ -8,7 +8,7 @@ import _ from 'lodash'
 
 const PageCreator = (mapResourcesToPage, mapPropsToPage) => {
 
-  class PageContainer extends React.Component {
+  class PageContainer extends React.PureComponent {
 
     static contextTypes = {
       portal: PropTypes.object,

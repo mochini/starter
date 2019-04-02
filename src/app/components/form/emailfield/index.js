@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class EmailField extends React.Component {
+class EmailField extends React.PureComponent {
 
   static propTypes = {
     defaultValue: PropTypes.object,

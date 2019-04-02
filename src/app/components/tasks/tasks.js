@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Button from '../button'
 import React from 'react'
 
-class Tasks extends React.Component {
+class Tasks extends React.PureComponent {
 
   static childContextTypes = {
     tasks: PropTypes.object

@@ -3,7 +3,7 @@ import Format from '../format'
 import React from 'react'
 import _ from 'lodash'
 
-class Options extends React.Component {
+class Options extends React.PureComponent {
 
   static contextTypes = {}
 

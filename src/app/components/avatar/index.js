@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Image from '../image'
 
-class Avatar extends React.Component {
+class Avatar extends React.PureComponent {
 
   static propTypes = {
     user: PropTypes.object,

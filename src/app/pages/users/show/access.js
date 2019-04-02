@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class Access extends React.Component {
+class Access extends React.PureComponent {
 
   static contextTypes = {}
 
