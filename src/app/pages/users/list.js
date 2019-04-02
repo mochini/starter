@@ -43,7 +43,8 @@ const mapPropsToPage = (props, context, resources, page) => ({
       ]
     },
     filters: [
-      { label: 'Roles', key: 'role_id', type: 'select', endpoint: '/api/roles', value: 'id', text: 'title', multiple: true }
+      { label: 'Roles', key: 'role_id', type: 'select', endpoint: '/api/roles', value: 'id', text: 'title', multiple: true },
+      { label: 'Created', key: 'created_at', type: 'daterange' }
     ],
     export: [
       { label: 'Name', key: 'full_name' },

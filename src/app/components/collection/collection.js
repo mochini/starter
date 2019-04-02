@@ -292,7 +292,7 @@ class Collection extends React.Component {
   _handleChangeUrl() {
     const { history } = this.context.router
     const $filter = this.props.filter
-    const query = qs.stringify({ $filter }, { encode: false })
+    const query = qs.stringify({ $filter }, { encode: false, skipNulls: true })
     history.replace(`${history.location.pathname}?${query}`)
   }
 
