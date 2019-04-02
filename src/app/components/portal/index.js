@@ -5,7 +5,9 @@ import React from 'react'
 
 class Portal extends React.Component {
 
-  static contextTypes = {}
+  static contextTypes = {
+    router: PropTypes.object
+  }
 
   static propTypes = {
     children: PropTypes.any,
@@ -24,6 +26,14 @@ class Portal extends React.Component {
         <RouterStack routes={ routes } />
       </div>
     )
+  }
+
+  componentDidMount() {
+    const { history } = this.context.router
+    const { pathname, search, hash } = history.location
+    const route = pathname + search + hash
+    history.replace('/')
+    if(route !== '/') history.push(route)
   }
 
 }
