@@ -108,26 +108,33 @@
   flex-direction: column;
 }
 .collection-panel-header {
-  border-bottom: 1px solid fadeout(@black, 90);
-  background-color: fadeout(@black, 95);
   display: flex;
   cursor: pointer;
+  flex: 0 0 3.5em;
 }
-.collection-panel-header-back {
-  padding: 0.8em 0 0.8em 0.8em;
-  color: fadeout(@black, 60);
-}
-.collection-panel-header-label {
-  padding: 0.8em;
-  flex: 1;
-}
+.collection-panel-header-back,
 .collection-panel-header-close {
-  padding: 0.8em 0.8em 0.8em 0;
-  color: fadeout(@black, 60);
   cursor: pointer;
+  display: flex;
+  .fa {
+    margin: auto;
+    font-size: 1.2em;
+  }
   &:hover {
     color: fadeout(@black, 40);
   }
+}
+.collection-panel-header-back {
+  padding: 0.8em 0 0.8em 0.8em;
+}
+.collection-panel-header-close {
+  padding: 0.8em 0.8em 0.8em 0;
+}
+
+.collection-panel-header-label {
+  padding: 0.8em;
+  flex: 1;
+  line-height: 1.9em;
 }
 .collection-panel-body {
   display: flex;
@@ -143,6 +150,10 @@
 @media (min-width: 769px) {
   .collection-sidebar {
     border-left: 1px solid fadeout(@black, 90);
+  }
+  .collection-panel-header {
+    background-color: fadeout(@black, 95);
+    border-bottom: 1px solid fadeout(@black, 90);
   }
 }
 @media (max-width: 768px) {
@@ -161,5 +172,9 @@
     right: 0;
     bottom: 0;
     left: 0;
+  }
+  .collection-panel-header {
+    background-color: @black;
+    color: @white;
   }
 }

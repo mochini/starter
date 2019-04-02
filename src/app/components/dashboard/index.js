@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import Avatar from '../avatar'
 import Menu from '../menu'
 import React from 'react'
+import _ from 'lodash'
 
 class Dashboard extends React.Component {
 

@@ -25,9 +25,7 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'CLEAR':
     return {
       ...state,
-      component: null,
-      location: null,
-      open: false
+      component: null
     }
 
   default:

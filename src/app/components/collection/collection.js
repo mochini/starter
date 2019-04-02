@@ -55,7 +55,8 @@ class Collection extends React.Component {
   }
 
   state = {
-    cacheKey: _.random(9999999999).toString(36)
+    cacheKey: _.random(9999999999).toString(36),
+    panel: false
   }
 
   _handleChangeLayout = this._handleChangeLayout.bind(this)
@@ -66,6 +67,7 @@ class Collection extends React.Component {
   _handleType = this._handleType.bind(this)
 
   render() {
+    const { panel } = this.state
     const { allLayouts, batchActions, filter, search, selected, tool } = this.props
     if(!filter.$and) return null
     return (
@@ -105,10 +107,10 @@ class Collection extends React.Component {
               </CSSTransition>
             }
           </div>
-          <CSSTransition in={ tool !== null } classNames="opacity" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
+          <CSSTransition in={ panel } classNames="opacity" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
             <div className="collection-overlay" onClick={ this._handleChangeTool.bind(this, null) } />
           </CSSTransition>
-          <CSSTransition in={ tool !== null } classNames="translatey" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
+          <CSSTransition in={ panel } classNames="translatey" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
             <div className="collection-sidebar">
               { this._getSidebarComponent() }
             </div>
@@ -283,7 +285,11 @@ class Collection extends React.Component {
   }
 
   _handleChangeTool(tool) {
-    this.props.onChangeTool(tool)
+    const { onChangeTool } = this.props
+    const panel = tool !== null && tool !== this.props.tool
+    this.setState({ panel })
+    const duration = panel ? 0 : 250
+    setTimeout(() => onChangeTool(tool), duration)
   }
 
   _handleChangeUrl() {
