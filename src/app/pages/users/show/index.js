@@ -1,5 +1,5 @@
 import { Page } from '../../../components/page'
-import Details from './details'
+import Info from './info'
 import Access from './access'
 import Edit from '../edit'
 import React from 'react'
@@ -13,8 +13,8 @@ const mapPropsToPage = (props, context, resources, page) => ({
   title: 'User',
   tabs: {
     items: [
-      { label: 'Details', panel: <Details user={ resources.user } /> },
-      { label: 'Access', panel: <Access rights={ resources.rights } /> }
+      { label: 'Details', component: <Info user={ resources.user } /> },
+      { label: 'Access', component: <Access rights={ resources.rights } /> }
     ]
   },
   tasks: {

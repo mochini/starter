@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types'
 import Form from '../../components/form'
+import PropTypes from 'prop-types'
 import React from 'react'
 
 class Edit extends React.PureComponent {

@@ -1,4 +1,4 @@
-import Token from '../../token'
+import Token from '../../../tokens/token'
 import Format from '../../format'
 import PropTypes from 'prop-types'
 import React from 'react'

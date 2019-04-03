@@ -1,4 +1,5 @@
 import { Page } from '../../components/page'
+import React from 'react'
 import Edit from './edit'
 import New from './new'
 

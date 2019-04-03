@@ -6,6 +6,7 @@ const route = async (req, res) => {
   const user = await User.query(qb => {
     qb.where('id', req.params.id )
   }).fetch({
+    withRelated: ['roles'],
     transacting: req.trx
   })
 

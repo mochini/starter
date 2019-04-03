@@ -1,7 +1,7 @@
+import Token from '../../../tokens/token'
 import Actions from '../actions/index'
 import PropTypes from 'prop-types'
 import Format from '../../format'
-import Token from '../../token'
 import React from 'react'
 import _ from 'lodash'
 

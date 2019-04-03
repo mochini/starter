@@ -1,3 +1,4 @@
+import RightToken from '../../tokens/right_token'
 import PropTypes from 'prop-types'
 import Form from '../../components/form'
 import React from 'react'
@@ -31,7 +32,8 @@ class Edit extends React.PureComponent {
       submitText: 'Save',
       fields: [
         { label: 'Title', name: 'title', type: 'textfield', required: true },
-        { label: 'Description', name: 'description', type: 'textarea', required: true }
+        { label: 'Description', name: 'description', type: 'textarea', required: true },
+        { label: 'Rights', name: 'rights_ids', type: 'lookup', multiple: true, endpoint: '/api/rights', value: 'id', text: 'code', format: RightToken }
       ],
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess

@@ -1,9 +1,9 @@
+import Token from '../../tokens/token'
 import Searchbox from '../searchbox'
 import Infinite from '../infinite'
 import PropTypes from 'prop-types'
 import Dynamic from './dynamic'
 import Options from './options'
-import Token from '../token'
 import React from 'react'
 import _ from 'lodash'
 

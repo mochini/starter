@@ -5,6 +5,7 @@ import error from './default/error'
 import session from './session'
 import assets from './assets'
 import signin from './signin'
+import rights from './rights'
 import roles from './roles'
 import users from './users'
 
@@ -19,6 +20,8 @@ router.use('/assets', assets)
 router.use('/session', session)
 
 router.use('/roles', roles)
+
+router.use('/rights', rights)
 
 router.use('/users', users)
 

@@ -1,21 +1,8 @@
+import UserToken from '../../tokens/user_token'
 import { Page } from '../../components/page'
 import React from 'react'
 import Edit from './edit'
 import New from './new'
-
-const UserToken = (record) => (
-  <div className="user-token">
-    <div className="user-token-image">
-      <div className="image">
-        <img src={ `http://i.pravatar.cc/300?u=${record.id}` } />
-      </div>
-    </div>
-    <div className="user-token-details">
-      <strong>{ record.full_name }</strong><br />
-      { record.email }
-    </div>
-  </div>
-)
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Users',
