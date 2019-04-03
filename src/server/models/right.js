@@ -3,7 +3,7 @@ import Role from './role'
 
 const Right = new Model({
 
-  tableName: 'roles',
+  tableName: 'rights',
 
   rules: {
     title: 'required'

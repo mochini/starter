@@ -1,3 +1,4 @@
+import { CSSTransition } from 'react-transition-group'
 import PropTypes from 'prop-types'
 import Button from '../../button'
 import React from 'react'
@@ -29,13 +30,19 @@ class Actions extends React.PureComponent {
         <div className="actions-icon" onClick={ this._handleClick }>
           <i className="fa fa-fw fa-ellipsis-v" ref={ node => this.icon = node } />
         </div>
-        { show &&
+        <CSSTransition in={ show } classNames="opacity" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
+          <div className="actions-overlay" onClick={ this._handleClose }/>
+        </CSSTransition>
+        <CSSTransition in={ show } classNames="translatey" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
           <div className={`actions-dropdown ${position}`}>
             { items.map((item, index) => (
               <Button key={`action_${index}`} { ...this._getButton(item) }/>
             ))}
+            <div className="actions-item" onClick={ this._handleClose }>
+              Cancel
+            </div>
           </div>
-        }
+        </CSSTransition>
       </div>
     )
   }

@@ -5,6 +5,8 @@ class JsonResponder extends Responder {
   type = 'application/json'
 
   _getData() {
+    console.log(this.data)
+
     return {
       data: this.data,
       pagination: this.pagination

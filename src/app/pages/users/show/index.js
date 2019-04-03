@@ -5,7 +5,8 @@ import Edit from '../edit'
 import React from 'react'
 
 const mapResourcesToPage = (props, context, page) => ({
-  user: `/api/users/${page.params.id}`
+  user: `/api/users/${page.params.id}`,
+  rights: `/api/users/${page.params.id}/rights`
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({
@@ -13,7 +14,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   tabs: {
     items: [
       { label: 'Details', panel: <Details user={ resources.user } /> },
-      { label: 'Access', panel: <Access user={ resources.user } /> }
+      { label: 'Access', panel: <Access rights={ resources.rights } /> }
     ]
   },
   tasks: {

@@ -13,7 +13,7 @@ class Responder {
     this.res = res
     this.req = res.req
     this.pagination = data.pagination
-    this.data = data.pagination ? data.map(serializer) : serializer(data)
+    this.data = !_.isNil(data.map) ? data.map(serializer) : serializer(data)
     this.filename = this._getFilename()
   }
 

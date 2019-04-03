@@ -6,13 +6,13 @@
 }
 .tasks-overlay {
   .opacity-transition(0, 0.5, .25s);
-  opacity: 0.5;
+  background-color: @black;
   position: absolute;
+  opacity: 0.5;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: @black;
 }
 .tasks-title {
   border-bottom: 1px solid fadeout(@black, 90);
@@ -42,7 +42,7 @@
   position: absolute;
   display: flex;
   flex-direction: column;
-  border-radius: 5px;
+  border-radius: 0.5em;
   background-color: @white;
   @media only screen and (max-width: 1024px) {
     .translatey-transition(100%, 0, .25s);
@@ -50,7 +50,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    margin: 10px;
+    margin: 0.8em;
   }
   @media only screen and (min-width: 1025px) {
     .opacity-transition(0, 1, .25s);
@@ -64,11 +64,11 @@
     &:hover {
       background-color: darken(@white, 5%)
     }
-    border-top: 1px solid #CCC;
+    border-top: 1px solid fadeout(@black, 90);
     display: block;
-    padding: 15px;
+    padding: 0.8em;
     text-align: center;
-    color: #1e70bf;
+    color: @blue;
     cursor: pointer;
     &:first-child {
       border-radius: 5px 5px 0 0;
