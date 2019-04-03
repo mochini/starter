@@ -16,6 +16,10 @@ const route = async (req, res) => {
     transacting: req.trx
   })
 
+  await req.user.load(['photo'], {
+    transacting: req.trx
+  })
+
   res.status(200).json({
     data: SessionSerializer(req.user, rights)
   })

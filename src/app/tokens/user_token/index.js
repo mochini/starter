@@ -1,16 +1,15 @@
+import Avatar from '../../components/avatar'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const UserToken = ({ id, full_name, email }) => (
+const UserToken = (user) => (
   <div className="user-token">
     <div className="user-token-image">
-      <div className="image">
-        <img src={ `http://i.pravatar.cc/300?u=${ id }` } />
-      </div>
+      <Avatar user={ user } size={ 36 } />
     </div>
     <div className="user-token-details">
-      <strong>{ full_name }</strong><br />
-      { email }
+      <strong>{ user.full_name }</strong><br />
+      { user.email }
     </div>
   </div>
 )
@@ -18,7 +17,8 @@ const UserToken = ({ id, full_name, email }) => (
 UserToken.propTypes = {
   email: PropTypes.string,
   full_name: PropTypes.string,
-  id: PropTypes.number
+  id: PropTypes.number,
+  photo: PropTypes.string
 }
 
 export default UserToken

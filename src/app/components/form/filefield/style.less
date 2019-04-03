@@ -1,0 +1,31 @@
+.filefield-preview {
+  position: relative;
+  width: 100%;
+  max-width: 360px;
+  padding: 0.8em;
+  border: 1px solid fadeout(@black, 90);
+  border-radius: 5px;
+  margin-bottom: 0.8em;
+}
+.filefield-preview-frame {
+  height: 0;
+  padding-bottom: 100%;
+  background-color: fadeout(@black, 30);
+  overflow: hidden;
+  .preview {
+    width: 100%;
+  }
+}
+.filefield-preview-remove {
+  position: absolute;
+  top: 1.6em;
+  right: 1.6em;
+  cursor: pointer;
+  .fa {
+    color: darken(@white, 10);
+    font-size: 1.2em;
+    &:hover {
+      color: @white;
+    }
+  }
+}

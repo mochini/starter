@@ -5,7 +5,9 @@ const session_serializer = (user, rights) => ({
   user: {
     id: user.get('id'),
     full_name: user.get('full_name'),
-    email: user.get('email')
+    initials: user.get('initials'),
+    email: user.get('email'),
+    photo: user.related('photo').get('path')
   },
   rights: rights.map(right => right.get('code'))
 })

@@ -23,6 +23,18 @@ const User = new Model({
       return `${this.get('full_name')} <${this.get('email')}>`
     },
 
+    first_initial: function() {
+      return this.get('first_name') ? this.get('first_name')[0].toLowerCase() : ''
+    },
+
+    initials: function() {
+      return this.get('first_initial') + this.get('last_initial')
+    },
+
+    last_initial: function() {
+      return this.get('last_name') ? this.get('last_name')[0].toLowerCase() : ''
+    },
+
     password: {
       get() {},
       set(value) {

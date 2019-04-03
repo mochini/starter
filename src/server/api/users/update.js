@@ -14,7 +14,7 @@ const route = async (req, res) => {
     message: 'Unable to find user'
   })
 
-  const data = _.pick(req.body, ['first_name','last_name','email'])
+  const data = _.pick(req.body, ['first_name','last_name','email','photo_id'])
 
   await user.save(data, {
     patch: true,

@@ -27,6 +27,7 @@ const paginationPlugin = function(bookshelf) {
     })
 
     const result = await this.query(query).fetchAll({
+      withRelated: options.withRelated,
       transacting: options.transacting
     })
 

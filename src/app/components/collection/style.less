@@ -25,7 +25,6 @@
 .collection-header-buttons {
   display: flex;
   justify-content: center;
-  border-bottom: 1px solid fadeout(@black, 90);
 }
 .collection-header-tools,
 .collection-header-layout {
@@ -152,6 +151,9 @@
   .collection-header {
     display: flex;
   }
+  .collection-header-buttons {
+    border-bottom: 1px solid fadeout(@black, 90);
+  }
   .collection-header-searchbox {
     flex: 1;
     border-right: 1px solid fadeout(@black, 90);
@@ -169,6 +171,7 @@
 }
 @media (max-width: 768px) {
   .collection-header-buttons {
+    background-color: fadeout(@black, 90);
     display: none;
     &.show {
       display: flex;

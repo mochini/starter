@@ -8,6 +8,7 @@ import Emailfield from './emailfield'
 import Moneyfield from './moneyfield'
 import Datefield from './datefield'
 import Textfield from './textfield'
+import Filefield from './filefield'
 import PropTypes from 'prop-types'
 import Textarea from './textarea'
 import Dropdown from './dropdown'
@@ -46,6 +47,7 @@ class Field extends React.PureComponent {
         { field.type === 'checkboxgroup' && <CheckboxGroup { ...this._getField(field) } /> }
         { field.type === 'radiogroup' && <RadioGroup { ...this._getField(field) } /> }
         { field.type === 'lookup' && <Lookup { ...this._getField(field) } /> }
+        { field.type === 'filefield' && <Filefield { ...this._getField(field) } /> }
         { errors[field.name] && <div className="error-message">{ errors[field.name] }</div> }
       </div>
     )

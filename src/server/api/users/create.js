@@ -4,7 +4,7 @@ import _ from 'lodash'
 
 const route = async (req, res) => {
 
-  const data = _.pick(req.body, ['first_name','last_name','email'])
+  const data = _.pick(req.body, ['first_name','last_name','email','photo_id'])
 
   const user = await User.forge(data).save(null, {
     transacting: req.trx

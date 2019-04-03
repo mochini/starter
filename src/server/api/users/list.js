@@ -13,6 +13,7 @@ const route = async (req, res) => {
     sort: req.query.$sort
   }).fetchPage({
     page: req.query.$page,
+    withRelated: ['photo'],
     transacting: req.trx
   })
 

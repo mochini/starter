@@ -1,6 +1,6 @@
 import Resumable from 'resumablejs'
 import PropTypes from 'prop-types'
-import Preview from './preview'
+import Preview from '../preview'
 import React from 'react'
 import _ from 'lodash'
 

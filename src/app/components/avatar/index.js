@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Image from '../image'
 
-class Avatar extends React.PureComponent {
+class Avatar extends React.Component {
 
   static propTypes = {
     user: PropTypes.object,
@@ -15,8 +15,12 @@ class Avatar extends React.PureComponent {
     const { user } = this.props
     return (
       <div className="avatar">
-        { user.photo && <Image { ...this._getImage() } /> }
-        { !user.photo && <i className="fa fa-fw fa-user-circle-o" /> }
+        { user.photo && <Image { ...this._getImage() } />}
+        { !user.photo &&
+          <div className="avatar-initials">
+            { user.initials }
+          </div>
+        }
       </div>
     )
   }

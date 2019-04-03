@@ -29,7 +29,8 @@ class New extends React.PureComponent {
         { label: 'First Name', name: 'first_name', type: 'textfield', required: true },
         { label: 'Last Name', name: 'last_name', type: 'textfield', required: true },
         { label: 'Email', name: 'email', type: 'textfield', required: true },
-        { label: 'Roles', name: 'role_ids', type: 'lookup', multiple: true, endpoint: '/api/roles', value: 'id', text: 'title' }
+        { label: 'Roles', name: 'role_ids', type: 'lookup', multiple: true, endpoint: '/api/roles', value: 'id', text: 'title' },
+        { label: 'Photo', name: 'photo_id', type: 'filefield' }
       ],
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess

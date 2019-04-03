@@ -13,6 +13,10 @@ const Asset = new Model({
       return this.get('file_size')+'-'+this.get('original_file_name').replace(/[^0-9a-zA-Z_-]/img, '')
     },
 
+    path: function() {
+      return (!this.isNew()) ? `/assets/${this.get('id')}/${this.get('file_name')}` : null
+    },
+
     url: function() {
       return `/assets/${this.get('id')}/${this.get('file_name')}`
     }
