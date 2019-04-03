@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 import Options from './options'
 import React from 'react'
-import _ from 'lodash'
 
 class Dynamic extends React.PureComponent {
 

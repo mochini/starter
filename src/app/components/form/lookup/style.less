@@ -1,0 +1,32 @@
+.lookup {
+  border: 1px solid fadeout(@black, 90);
+  background-color: @white;
+  border-radius: 5px;
+  display: flex;
+  &:focus {
+    outline: none !important;
+    border-color: #85B7D9;
+  }
+}
+.lookup-field {
+  padding: 0.8em 1em;
+  flex: 1;
+  line-height: 1em;
+  span {
+    color: lighten(@black, 80);
+  }
+}
+.lookup-remove {
+  flex: 0 0 2.5em;
+  display: flex;
+  .fa {
+    &:hover {
+      color: fadeout(@black, 70);
+    }
+    margin: auto;
+    font-size: 1.4em;
+    line-height: 1.1em;
+    color: fadeout(@black, 80);
+    cursor: pointer;
+  }
+}

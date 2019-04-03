@@ -4,25 +4,25 @@
   flex-direction: column;
   overflow: hidden;
 }
-.collection-header {
-  @media (min-width: 768px) {
-    display: flex;
-  }
-}
 .collection-header-searchbox {
-  @media (min-width: 768px) {
-    order: 1;
-    flex: 1;
-    border-right: 1px solid fadeout(@black, 90);
-  }
+  display: flex;
   padding-left: 0.6em;
   border-bottom: 1px solid fadeout(@black, 90);
-
+  .searchbox {
+    flex: 1;
+  }
+}
+.collection-header-more {
+  border-left: 1px solid fadeout(@black, 90);
+  padding: 0.8em;
+  flex: 0 0 3.5em;
+  display: flex;
+  .fa {
+    margin: auto;
+    color: fadeout(@black, 60);
+  }
 }
 .collection-header-buttons {
-  @media (min-width: 768px) {
-    order: 2;
-  }
   display: flex;
   justify-content: center;
   border-bottom: 1px solid fadeout(@black, 90);
@@ -147,7 +147,18 @@
   background-color: fadeout(@black, 10);
   padding: 0.8em 0.4em;
 }
+
 @media (min-width: 769px) {
+  .collection-header {
+    display: flex;
+  }
+  .collection-header-searchbox {
+    flex: 1;
+    border-right: 1px solid fadeout(@black, 90);
+  }
+  .collection-header-more {
+    display: none;
+  }
   .collection-sidebar {
     border-left: 1px solid fadeout(@black, 90);
   }
@@ -157,6 +168,12 @@
   }
 }
 @media (max-width: 768px) {
+  .collection-header-buttons {
+    display: none;
+    &.show {
+      display: flex;
+    }
+  }
   .collection-overlay {
     border-left: 1px solid fadeout(@black, 90);
     top: 0;

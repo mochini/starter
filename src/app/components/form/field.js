@@ -11,6 +11,7 @@ import Textfield from './textfield'
 import PropTypes from 'prop-types'
 import Textarea from './textarea'
 import Dropdown from './dropdown'
+import Lookup from './lookup'
 import React from 'react'
 
 class Field extends React.PureComponent {
@@ -44,6 +45,7 @@ class Field extends React.PureComponent {
         { field.type === 'dropdown' && <Dropdown { ...this._getField(field) } /> }
         { field.type === 'checkboxgroup' && <CheckboxGroup { ...this._getField(field) } /> }
         { field.type === 'radiogroup' && <RadioGroup { ...this._getField(field) } /> }
+        { field.type === 'lookup' && <Lookup { ...this._getField(field) } /> }
         { errors[field.name] && <div className="error-message">{ errors[field.name] }</div> }
       </div>
     )

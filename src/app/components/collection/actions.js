@@ -23,3 +23,7 @@ export const sort = (column, order) => ({
   column,
   order
 })
+
+export const toggleButtons = () => ({
+  type: 'TOGGLE_BUTTONS'
+})

@@ -24,6 +24,7 @@ class Collection extends React.PureComponent {
   static propTypes = {
     allLayouts: PropTypes.array,
     batchActions: PropTypes.array,
+    buttons: PropTypes.bool,
     data: PropTypes.array,
     endpoint: PropTypes.string,
     entity: PropTypes.string,
@@ -46,7 +47,8 @@ class Collection extends React.PureComponent {
     onChangeTool: PropTypes.func,
     onFilter: PropTypes.func,
     onSelect: PropTypes.func,
-    onSort: PropTypes.func
+    onSort: PropTypes.func,
+    onToggleButtons: PropTypes.func
   }
 
   static defaultProps = {
@@ -64,6 +66,7 @@ class Collection extends React.PureComponent {
   _handleFilter = this._handleFilter.bind(this)
   _handleRefresh = this._handleRefresh.bind(this)
   _handleSelect = this._handleSelect.bind(this)
+  _handleToggleButtons = this._handleToggleButtons.bind(this)
   _handleType = this._handleType.bind(this)
 
   render() {
@@ -73,7 +76,13 @@ class Collection extends React.PureComponent {
     return (
       <div className="collection">
         <div className="collection-header">
-          <div className="collection-header-buttons">
+          <div className="collection-header-searchbox">
+            { search && <Searchbox { ...this._getSearchbox() } /> }
+            <div className="collection-header-more" onClick={ this._handleToggleButtons}>
+              <i className="fa fa-chevron-down" />
+            </div>
+          </div>
+          <div className={ this._getButtonClass() }>
             { allLayouts.length > 1 && <Layouts { ...this._getLayouts() } /> }
             <Tools { ...this._getTools() } />
             <div className="collection-header-tools">
@@ -83,9 +92,6 @@ class Collection extends React.PureComponent {
                 </div>
               </div>
             </div>
-          </div>
-          <div className="collection-header-searchbox">
-            { search && <Searchbox { ...this._getSearchbox() } /> }
           </div>
         </div>
         <div className="collection-body">
@@ -142,6 +148,13 @@ class Collection extends React.PureComponent {
         handler: () => action.handler(selected)
       }))
     }
+  }
+
+  _getButtonClass() {
+    const { buttons } = this.props
+    const classes = ['collection-header-buttons']
+    if(buttons) classes.push('show')
+    return classes.join(' ')
   }
 
   _getColumns() {
@@ -322,6 +335,10 @@ class Collection extends React.PureComponent {
 
   _handleSelect(selected) {
     this.props.onSelect(selected)
+  }
+
+  _handleToggleButtons() {
+    this.props.onToggleButtons()
   }
 
   _handleType(q) {

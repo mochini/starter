@@ -1,4 +1,5 @@
 const INITIAL_STATE = {
+  buttons: false,
   filter: {},
   sort: null,
   tool: null,
@@ -43,6 +44,12 @@ const reducer = (state = INITIAL_STATE, action) => {
         column: action.column,
         order: action.order
       }
+    }
+
+  case 'TOGGLE_BUTTONS':
+    return {
+      ...state,
+      buttons: !state.buttons
     }
 
   default:

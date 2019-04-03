@@ -21,6 +21,20 @@ const route = async (req, res) => {
     transacting: req.trx
   })
 
+  if(req.body.role_ids) {
+
+    await req.trx('roles_users').transacting(req.trx).where({
+      user_id: user.get('id')
+    }).del()
+
+    const data = req.body.role_ids.map(role_id => ({
+      user_id: user.get('id'),
+      role_id
+    }))
+
+    await req.trx('roles_users').transacting(req.trx).insert(data)
+  }
+
   res.status(200).respond(user, UserSerializer)
 
 }
