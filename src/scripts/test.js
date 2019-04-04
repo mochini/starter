@@ -60,9 +60,9 @@ const test = async () => {
   }
 
   mocha.suite.beforeAll('migrate and seed', async () => {
-    await knex.migrate.rollback()
-    await knex.migrate.latest()
-    await knex.seed.run()
+    // await knex.migrate.rollback()
+    // await knex.migrate.latest()
+    // await knex.seed.run()
   })
 
   mocha.suite.beforeEach('begin transaction', async () => {
@@ -79,9 +79,9 @@ const test = async () => {
     global.knex.rollback().catch(() => {})
   })
 
-  mocha.suite.afterAll('rollback database', async () => {
-    await knex.migrate.rollback()
-  })
+  // mocha.suite.afterAll('rollback database', async () => {
+  //   await knex.migrate.rollback()
+  // })
 
   await new Promise((resolve, reject) => mocha.run(resolve))
 

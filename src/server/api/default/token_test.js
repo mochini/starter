@@ -15,21 +15,6 @@ describe('src/server/api/default/token', () => {
 
   })
 
-  it('fails with invlaid token', async () => {
-
-    const req = {
-      headers: {
-        authorization: encode(1)
-      }
-    }
-
-    const res = await testHandler(token, req)
-
-    expect(res.status()).to.be.equal(401)
-    expect(res.json().message).to.be.equal('Invalid token')
-
-  })
-
   it('fails with an expired token', async () => {
 
     const YESTERDAY = 0 - (60 * 60 * 24)
