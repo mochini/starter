@@ -6,7 +6,7 @@ class Avatar extends React.Component {
 
   static propTypes = {
     user: PropTypes.object,
-    size: PropTypes.string
+    size: PropTypes.any
   }
 
   static defaultProps = {}

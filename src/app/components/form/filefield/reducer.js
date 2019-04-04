@@ -11,10 +11,10 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'ADD':
     return {
       ...state,
-      status: 'uploading',
       uploads: [
         ...state.uploads,
         {
+          status: 'uploading',
           ...action.upload,
           progress: 0,
           asset: null
@@ -29,6 +29,22 @@ const reducer = (state = INITIAL_STATE, action) => {
       status: 'complete'
     }
 
+  case 'FETCH_SUCCESS':
+    return {
+      ...state,
+      status: 'loaded',
+      uploads: action.result.data.map(asset => ({
+        asset
+      }))
+    }
+
+  case 'REMOVE':
+    return {
+      uploads: [
+        ...state.uploads.filter((upload, index) => index !== action.index)
+      ]
+    }
+
   case 'RESET':
     return {
       ...INITIAL_STATE
@@ -41,6 +57,7 @@ const reducer = (state = INITIAL_STATE, action) => {
         if(index !== action.index) return upload
         return {
           ...upload,
+          status: 'uploaded',
           asset: action.asset
         }
       })

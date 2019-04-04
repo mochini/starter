@@ -6,6 +6,17 @@
   border: 1px solid fadeout(@black, 90);
   border-radius: 5px;
   margin-bottom: 0.8em;
+  .ui.progress {
+    margin: 0 !important;
+    background: #333;
+    position: absolute;
+    bottom: ~"calc(50% - 12px)";
+    left: 1.6em;
+    right: 1.6em;
+  }
+  .bar {
+    transition-duration: 300ms;
+  }
 }
 .filefield-preview-frame {
   height: 0;

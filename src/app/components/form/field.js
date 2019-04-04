@@ -23,7 +23,8 @@ class Field extends React.PureComponent {
     data: PropTypes.object,
     errors: PropTypes.object,
     field: PropTypes.object,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    onReady: PropTypes.func
   }
 
   static defaultProps = {}
@@ -59,12 +60,17 @@ class Field extends React.PureComponent {
       defaultValue: data[field.name],
       error: errors[field.name],
       ...field,
+      onReady: this._handleReady.bind(this, field.name),
       onChange: this._handleChange.bind(this, field.name)
     }
   }
 
   _handleChange(name, value) {
     this.props.onChange(name, value)
+  }
+
+  _handleReady(name) {
+    this.props.onReady(name)
   }
 
 }

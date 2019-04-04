@@ -26,6 +26,16 @@ export const save = (method, endpoint, body) => ({
   failure: 'SAVE_FAILURE'
 })
 
+export const setData = (data) => ({
+  type: 'SET_DATA',
+  data
+})
+
+export const setReady = (field) => ({
+  type: 'SET_READY',
+  field
+})
+
 export const updateData = (key, value) => ({
   type: 'UPDATE_DATA',
   key,

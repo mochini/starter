@@ -1,11 +1,17 @@
 import { Router } from 'express'
-import update from './update'
+import upload from './upload'
+import test from './test'
+import list from './list'
 import show from './show'
 
 const router = new Router({ mergeParams: true })
 
-router.get('/upload', show)
+router.get('/', list)
 
-router.post('/upload', update)
+router.get('/', show)
+
+router.get('/upload', test)
+
+router.post('/upload', upload)
 
 export default router

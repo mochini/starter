@@ -1,16 +1,19 @@
-import { checkUploadedFile } from '../../services/assets'
+import AssetSerializer from '../../serializers/asset_serializer'
+import Asset from '../../models/asset'
 
 const route = async (req, res) => {
 
-  const exists = await checkUploadedFile(req, req.trx)
-
-  if(!exists) return res.status(204).json({
-    message: 'not found'
+  const asset = await Asset.query(qb => {
+    qb.where('id', req.params.id )
+  }).fetch({
+    transacting: req.trx
   })
 
-  res.status(200).json({
-    message: 'found'
+  if(!asset) return res.status(404).json({
+    message: 'Unable to find asset'
   })
+
+  res.status(200).respond(asset, AssetSerializer)
 
 }
 

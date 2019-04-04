@@ -6,7 +6,7 @@ const asset_serializer = (asset) => ({
   content_type: asset.get('content_type'),
   file_size: asset.get('file_size'),
   chunks_total: asset.get('chunks_total'),
-  url: asset.get('url'),
+  path: asset.get('path'),
   status: asset.get('status'),
   created_at: asset.get('created_at'),
   updated_at: asset.get('updated_at')

@@ -19,6 +19,7 @@ class Form extends React.PureComponent {
     className: PropTypes.string,
     data: PropTypes.object,
     endpoint: PropTypes.string,
+    entity: PropTypes.object,
     errors: PropTypes.object,
     fields: PropTypes.array,
     instructions: PropTypes.any,
@@ -32,6 +33,8 @@ class Form extends React.PureComponent {
     onPop: PropTypes.func,
     onPush: PropTypes.func,
     onSave: PropTypes.func,
+    onSetData: PropTypes.func,
+    onSetReady: PropTypes.func,
     onSubmit: PropTypes.func,
     onSuccess: PropTypes.func,
     onUpdateData: PropTypes.func
@@ -52,12 +55,13 @@ class Form extends React.PureComponent {
   _handleChange = this._handleChange.bind(this)
   _handlePop = this._handlePop.bind(this)
   _handlePush =  this._handlePush.bind(this)
+  _handleSetReady = this._handleSetReady.bind(this)
   _handleSubmit = this._handleSubmit.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
     const { panel } = this.state
-    const { fields, instructions } = this.props
+    const { fields, instructions, status } = this.props
     return (
       <div className={ this._getContainerClass() }>
         <ModalPanel { ...this._getModalPanel() }>
@@ -67,7 +71,7 @@ class Form extends React.PureComponent {
             </div>
           }
           <div className={ this._getFormClass() } ref={ node => this.form = node }>
-            { fields.map((field, index) => (
+            { status === 'loaded' && fields.map((field, index) => (
               <Field key={`field_${index}`} { ...this._getField(field, index) } />
             )) }
           </div>
@@ -82,8 +86,9 @@ class Form extends React.PureComponent {
   }
 
   componentDidMount() {
-    const { endpoint, onFetch } = this.props
-    if(endpoint) onFetch(endpoint)
+    const { endpoint, onFetch, onSetData } = this.props
+    if(endpoint) return onFetch(endpoint)
+    onSetData({})
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -113,11 +118,9 @@ class Form extends React.PureComponent {
     return {
       data,
       errors,
-      field: {
-        ...field,
-        tabIndex: index + 11
-      },
-      onChange: this._handleChange
+      field,
+      onChange: this._handleChange,
+      onReady: this._handleSetReady
     }
   }
 
@@ -160,6 +163,10 @@ class Form extends React.PureComponent {
 
   _handlePush(component) {
     this.props.onPush(component)
+  }
+
+  _handleSetReady(key) {
+    this.props.onSetReady(key)
   }
 
   _handleSubmit() {

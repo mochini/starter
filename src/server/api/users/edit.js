@@ -12,10 +12,16 @@ const route = async (req, res) => {
     message: 'Unable to find user'
   })
 
+  await user.load(['roles'], {
+    transacting: req.trx
+  })
+
   res.status(200).respond(user, (user) => ({
     first_name: user.get('first_name'),
     last_name: user.get('last_name'),
-    email: user.get('email')
+    email: user.get('email'),
+    role_ids: user.related('roles').map(role => role.get('id')),
+    photo_id: user.get('photo_id')
   }))
 
 }
