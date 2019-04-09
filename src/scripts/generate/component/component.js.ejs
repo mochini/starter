@@ -9,6 +9,8 @@ class <%= className %> extends React.PureComponent {
 
   static defaultProps = {}
 
+  state = {}
+
   render() {
     return (
       <div className="<%= styleName %>">
@@ -18,7 +20,7 @@ class <%= className %> extends React.PureComponent {
 
   componentDidMount() {}
 
-  componentDidUpdate(prevProps) {}
+  componentDidUpdate(prevProps, prevState) {}
 
 
 }
