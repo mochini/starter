@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import upload from './upload'
-import test from './test'
+import check from './check'
 import list from './list'
 import show from './show'
 
@@ -10,7 +10,7 @@ router.get('/', list)
 
 router.get('/', show)
 
-router.get('/upload', test)
+router.get('/upload', check)
 
 router.post('/upload', upload)
 

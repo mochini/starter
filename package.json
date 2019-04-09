@@ -7,6 +7,7 @@
     "build": "NODE_ENV=production babel-node ./src/scripts/build.js",
     "dev": "babel-node ./src/scripts/dev.js",
     "deploy": "babel-node ./src/scripts/deploy.js",
+    "g": "babel-node ./src/scripts/generate/index.js",
     "knex": "babel-node ./src/scripts/knex.js",
     "test": "NODE_ENV=test babel-node ./src/scripts/test.js"
   },
