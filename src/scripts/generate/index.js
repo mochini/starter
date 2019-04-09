@@ -96,6 +96,15 @@ const rubberstamp = async (args) => {
   createFile(data.stylePath, 'rubberstamp/style.less', data)
 }
 
+const page = async (args) => {
+  const [ pathname ] = args
+  const root = path.join('src','app','pages')
+  const data = {
+    pagePath: path.join(root,`${pathname}.js`)
+  }
+  createFile(data.pagePath, 'page/page.js', data)
+}
+
 const generate = async () => {
   const argv = process.argv.slice(2)
   const template = argv[0]
@@ -104,6 +113,7 @@ const generate = async () => {
   if(template === 'model') return model(args)
   if(template === 'component') return component(args)
   if(template === 'rubberstamp') return rubberstamp(args)
+  if(template === 'page') return page(args)
 }
 
 generate().then(() => process.exit())
