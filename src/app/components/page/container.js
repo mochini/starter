@@ -11,6 +11,7 @@ const PageCreator = (mapResourcesToPage, mapPropsToPage) => {
   class PageContainer extends React.PureComponent {
 
     static contextTypes = {
+      network: PropTypes.object,
       portal: PropTypes.object,
       presence: PropTypes.object,
       router: PropTypes.object
@@ -54,7 +55,15 @@ const PageCreator = (mapResourcesToPage, mapPropsToPage) => {
     }
 
     componentDidMount() {
-      if(this.props.active) this._handleInit()
+      const { active, pathname } = this.props
+      const { network } = this.context
+      if(active) this._handleInit()
+      network.joinChannel(pathname)
+      network.subscribe({
+        channel: pathname,
+        action: 'refresh',
+        handler: this._handleRefreshResources
+      })
     }
 
     componentDidUpdate(prevProps) {
@@ -62,6 +71,17 @@ const PageCreator = (mapResourcesToPage, mapPropsToPage) => {
       if(active !== prevProps.active && active) {
         setTimeout(this._handleInit, 600)
       }
+    }
+
+    componentWillUnmount() {
+      const { network } = this.context
+      const { pathname } = this.props
+      network.leaveChannel(pathname)
+      network.unsubscribe({
+        channel: pathname,
+        action: 'refresh',
+        handler: this._handleRefreshResources
+      })
     }
 
     _getPanel() {

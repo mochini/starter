@@ -3,11 +3,13 @@ import React from 'react'
 
 class Details extends React.PureComponent {
 
-  static childContextTypes = {}
+  static contextTypes = {}
 
   static propTypes = {
     items: PropTypes.array
   }
+
+  static defaultProps = {}
 
   render() {
     const { items } = this.props

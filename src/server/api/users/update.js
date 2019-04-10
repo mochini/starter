@@ -1,4 +1,5 @@
 import UserSerializer from '../../serializers/user_serializer'
+import { refresh } from '../../utils/emitter'
 import User from '../../models/user'
 import _ from 'lodash'
 
@@ -31,6 +32,11 @@ const route = async (req, res) => {
       user_id: user.get('id'),
       role_id
     }))
+
+    await refresh([
+      `/sessions/${user.get('id')}`,
+      `/users/${user.get('id')}`
+    ])
 
     await req.trx('roles_users').transacting(req.trx).insert(data)
   }

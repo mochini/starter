@@ -21,7 +21,7 @@ export const save = (method, endpoint, body) => ({
   method,
   endpoint,
   body,
-  request: 'SAVE_SAVE',
+  request: 'SAVE_REQUEST',
   success: 'SAVE_SUCCESS',
   failure: 'SAVE_FAILURE'
 })

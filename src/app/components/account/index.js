@@ -1,4 +1,5 @@
 import { withTranslation } from 'react-i18next'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import Avatar from '../avatar'
 import React from 'react'
@@ -8,13 +9,13 @@ class Account extends React.PureComponent {
 
   static contextTypes = {
     drawer: PropTypes.object,
-    modal: PropTypes.object,
-    presence: PropTypes.object
+    modal: PropTypes.object
   }
 
   static propTypes = {
     routes: PropTypes.array,
-    t: PropTypes.func
+    t: PropTypes.func,
+    user: PropTypes.object
   }
 
   static defaultProps = {}
@@ -23,8 +24,7 @@ class Account extends React.PureComponent {
   _handleEdit = this._handleEdit.bind(this)
 
   render() {
-    const { user } = this.context.presence
-    const { t } = this.props
+    const { t, user } = this.props
     return (
       <div className="account">
         <div className="account-header">
@@ -57,4 +57,11 @@ class Account extends React.PureComponent {
 
 }
 
-export default withTranslation()(Account)
+const mapStateToProps = (state, props) => ({
+  user: state.presence ? state.presence.user : null
+})
+
+Account = connect(mapStateToProps)(Account)
+Account = withTranslation()(Account)
+
+export default Account

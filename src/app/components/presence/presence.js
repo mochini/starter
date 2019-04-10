@@ -39,7 +39,7 @@ class Presence extends React.PureComponent {
   render() {
     const { status, token } = this.props
     if(status === 'loaded' && token === null) return <Signin />
-    if(status !== 'saved') return null
+    if(!_.includes(['refreshing','saved'], status)) return null
     return this.props.children
   }
 
@@ -89,16 +89,28 @@ class Presence extends React.PureComponent {
   }
 
   _handleSignin() {
+    const { network, tracker } = this.context
     const { token, user, onSaveToken } = this.props
     onSaveToken(token)
-    this.context.network.joinChannel(`/users/${user.id}`)
-    this.context.tracker.identify(user)
+    network.joinChannel(`/sessions/${user.id}`)
+    network.subscribe({
+      channel: `/sessions/${user.id}`,
+      action: 'refresh',
+      handler: this._handleReload
+    })
+    tracker.identify(user)
   }
 
   _handleSignout() {
+    const { network, tracker } = this.context
     const { user } = this.props
-    this.context.network.leaveChannel(`/users/${user.id}`)
-    this.context.tracker.identify(null)
+    network.leaveChannel(`/sessions/${user.id}`)
+    network.unsubscribe({
+      channel: `/sessions/${user.id}`,
+      action: 'refresh',
+      handler: this._handleReload
+    })
+    tracker.identify(null)
     this.props.onSignout()
   }
 

@@ -1,4 +1,5 @@
 import UserSerializer from '../../serializers/user_serializer'
+import { refresh } from '../../utils/emitter'
 
 const route = async (req, res) => {
 
@@ -11,6 +12,11 @@ const route = async (req, res) => {
     patch: true,
     transacting: req.trx
   })
+
+  await refresh([
+    `/sessions/${req.user.get('id')}`,
+    `/users/${req.user.get('id')}`
+  ])
 
   res.status(200).respond(req.user, UserSerializer)
 

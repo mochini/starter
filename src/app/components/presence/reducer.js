@@ -30,7 +30,7 @@ export default (state = INITIAL_STATE, action) => {
   case 'LOAD_SESSION_REQUEST':
     return {
       ...state,
-      status: 'saving'
+      status: state.status === 'saved' ? 'refreshing' : 'saving'
     }
 
   case 'LOAD_SESSION_SUCCESS':

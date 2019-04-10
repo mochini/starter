@@ -1,5 +1,6 @@
 import { CSSTransition } from 'react-transition-group'
 import SocketClient from 'socket.io-client'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -12,14 +13,21 @@ class Network extends React.PureComponent {
   static contextTypes = {}
 
   static propTypes = {
+    channels: PropTypes.any,
     children: PropTypes.any,
+    listeners: PropTypes.any,
     online: PropTypes.bool,
     text: PropTypes.string,
+    token: PropTypes.string,
     status: PropTypes.string,
+    onClearAlert: PropTypes.func,
     onConnect: PropTypes.func,
     onDisconnect: PropTypes.func,
-    onClearAlert: PropTypes.func,
-    onSetAlert: PropTypes.func
+    onJoinChannel: PropTypes.func,
+    onLeaveChannel: PropTypes.func,
+    onSetAlert: PropTypes.func,
+    onSubscribe: PropTypes.func,
+    onUnsubscribe: PropTypes.func
   }
 
   static defaultProps = {}
@@ -29,9 +37,14 @@ class Network extends React.PureComponent {
   _handleConnect = this._handleConnect.bind(this)
   _handleDisconnect = this._handleDisconnect.bind(this)
   _handleJoinChannel = this._handleJoinChannel.bind(this)
+  _handleJoinedChannel = this._handleJoinedChannel.bind(this)
   _handleLeaveChannel = this._handleLeaveChannel.bind(this)
+  _handleLeftChannel = this._handleLeftChannel.bind(this)
+  _handleMessage = this._handleMessage.bind(this)
   _handleOfflineAlert = this._handleOfflineAlert.bind(this)
   _handleOnlineAlert = this._handleOnlineAlert.bind(this)
+  _handleSubscribe = this._handleSubscribe.bind(this)
+  _handleUnsubscribe = this._handleUnsubscribe.bind(this)
 
   render() {
     const { text } = this.props
@@ -52,6 +65,7 @@ class Network extends React.PureComponent {
     this.client = SocketClient(socketUrl)
     this.client.on('connect', this._handleConnect)
     this.client.on('disconnect', this._handleDisconnect)
+    this.client.on('message', this._handleMessage)
   }
 
   componentDidUpdate(prevProps) {
@@ -66,7 +80,9 @@ class Network extends React.PureComponent {
     return {
       network: {
         joinChannel: this._handleJoinChannel,
-        leaveChannel: this._handleLeaveChannel
+        leaveChannel: this._handleLeaveChannel,
+        subscribe: this._handleSubscribe,
+        unsubscribe: this._handleUnsubscribe
       }
     }
   }
@@ -86,12 +102,31 @@ class Network extends React.PureComponent {
     this.props.onDisconnect()
   }
 
-  _handleJoinChannel(channel) {
-    this.client.emit('join', channel)
+  _handleJoinChannel(channels) {
+    const { token } = this.props
+    this.client.emit('join', token, channels, this._handleJoinedChannel)
   }
 
-  _handleLeaveChannel(channel) {
-    this.client.emit('leave', channel)
+  _handleJoinedChannel(channel) {
+    this.props.onJoinChannel(channel)
+  }
+
+  _handleLeaveChannel(channels) {
+    const { token } = this.props
+    this.client.emit('leave', token, channels, this._handleLeftChannel)
+  }
+
+  _handleLeftChannel(channel) {
+    this.props.onLeaveChannel(channel)
+  }
+
+  _handleMessage({ channel, action, data }) {
+    const { listeners } = this.props
+    listeners.filter(listener => {
+      return listener.channel === channel && listener.action === action
+    }).map(listener => {
+      listener.handler(data)
+    })
   }
 
   _handleOfflineAlert() {
@@ -103,6 +138,18 @@ class Network extends React.PureComponent {
     setTimeout(this.props.onClearAlert, 2500)
   }
 
+  _handleSubscribe({ channel, action, handler }) {
+    this.props.onSubscribe(channel, action, handler)
+  }
+
+  _handleUnsubscribe({ channel, action, handler }) {
+    this.props.onUnsubscribe(channel, action, handler)
+  }
+
 }
 
-export default Network
+const mapStateToProps = (state, props) => ({
+  token: state.presence ? state.presence.token : null
+})
+
+export default connect(mapStateToProps)(Network)

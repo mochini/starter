@@ -10,6 +10,7 @@ class Page extends React.PureComponent {
   static contextTypes = {
     host: PropTypes.object,
     modal: PropTypes.object,
+    network: PropTypes.object,
     presence: PropTypes.object,
     router: PropTypes.object,
     tasks: PropTypes.object
