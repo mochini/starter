@@ -1,0 +1,20 @@
+.network {
+  position: relative;
+  flex: 1;
+  display: flex;
+  &.error .network-status {
+    background-color: @yellow;
+  }
+  &.success .network-status {
+    background-color: @green;
+  }
+}
+.network-status {
+  .translatey-transition(100%, 0, .25s);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  color: @white;
+  text-align: center;
+}

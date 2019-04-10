@@ -89,6 +89,15 @@ const reducer = (state = INITIAL_STATE, action) => {
       }
     }
 
+  case 'REMOVE_ALL':
+    return {
+      ...state,
+      assigned: {
+        ...state.assigned,
+        records: []
+      }
+    }
+
   case 'SAVE_REQUEST':
     return {
       ...state,

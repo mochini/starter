@@ -1,28 +1,13 @@
-import SocketClient from 'socket.io-client'
-import PropTypes from 'prop-types'
-import React from 'react'
+import { Singleton } from 'redux-rubberstamp'
+import reducer from './reducer'
+import Network from './network'
+import * as selectors from './selectors'
+import * as actions from './actions'
 
-class Network extends React.PureComponent {
-
-  static contextTypes = {}
-
-  static propTypes = {
-    children: PropTypes.any
-  }
-
-  static defaultProps = {}
-
-  client = null
-
-  render() {
-    return this.props.children
-  }
-
-  componentDidMount() {
-    const socketUrl = `${window.location.protocol}//${window.location.hostname}:3002`
-    this.client = SocketClient(socketUrl)
-  }
-
-}
-
-export default Network
+export default Singleton({
+  namespace: 'network',
+  component: Network,
+  reducer,
+  selectors,
+  actions
+})

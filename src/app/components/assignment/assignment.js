@@ -47,6 +47,7 @@ class Assignment extends React.PureComponent {
     onFetchUnassigned: PropTypes.func,
     onQuery: PropTypes.func,
     onRemove: PropTypes.func,
+    onRemoveAll: PropTypes.func,
     onSetAssigned: PropTypes.func,
     onSetTypes: PropTypes.func,
     onSave: PropTypes.func,
@@ -67,6 +68,7 @@ class Assignment extends React.PureComponent {
   _handleAdd = this._handleAdd.bind(this)
   _handleBeginAdd = this._handleBeginAdd.bind(this)
   _handleCancel = this._handleCancel.bind(this)
+  _handleRemoveAll = this._handleRemoveAll.bind(this)
   _handleSave = this._handleSave.bind(this)
 
   render() {
@@ -85,7 +87,12 @@ class Assignment extends React.PureComponent {
                   <Message { ...empty } />
                 }
                 { assigned.records.length > 0 &&
-                  <div className="assignment-list" ref={ node => this.list = node}>
+                  <div className="assignment-assigned-all" onClick={ this._handleRemoveAll }>
+                    Unassign all
+                  </div>
+                }
+                { assigned.records.length > 0 &&
+                  <div className="assignment-assigned-items" ref={ node => this.list = node}>
                     <TransitionGroup>
                       { assigned.records.map((assignment, index) => (
                         <CSSTransition classNames="expanded" timeout={ 1000 } exit={ false } key={`assigned_${assignment.id}`}>
@@ -199,6 +206,10 @@ class Assignment extends React.PureComponent {
 
   _handleRemove(index) {
     this.props.onRemove(index)
+  }
+
+  _handleRemoveAll() {
+    this.props.onRemoveAll()
   }
 
   _handleSave() {

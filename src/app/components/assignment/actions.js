@@ -55,6 +55,10 @@ export const remove = (index) => ({
   index
 })
 
+export const removeAll = () => ({
+  type: 'REMOVE_ALL'
+})
+
 export const setAssigned = (assigned) => ({
   type: 'SET',
   assigned

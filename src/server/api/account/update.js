@@ -1,11 +1,13 @@
 import UserSerializer from '../../serializers/user_serializer'
-import _ from 'lodash'
 
 const route = async (req, res) => {
 
-  const data = _.pick(req.body, ['first_name','last_name','email','photo_id'])
-
-  await req.user.save(data, {
+  await req.user.save({
+    first_name: req.body.first_name,
+    last_name: req.body.last_name,
+    email: req.body.email,
+    photo_id: req.body.photo_id
+  }, {
     patch: true,
     transacting: req.trx
   })

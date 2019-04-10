@@ -74,6 +74,22 @@
 }
 .assignment-list {
   flex: 1;
+  display: flex;
+}
+.assignment-assigned-all {
+  padding: 0.8em;
+  border-bottom: 1px solid fadeout(@black, 95);
+  text-align: right;
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.assignment-assigned-items {
+  flex: 1;
+  .scrollable();
+}
+.assignment-unassigned-items {
+  flex: 1;
   .scrollable();
 }
 .assignment-add {

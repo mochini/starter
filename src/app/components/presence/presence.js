@@ -10,6 +10,7 @@ class Presence extends React.PureComponent {
   }
 
   static contextTypes = {
+    network: PropTypes.object,
     router: PropTypes.object,
     tracker: PropTypes.object
   }
@@ -90,10 +91,13 @@ class Presence extends React.PureComponent {
   _handleSignin() {
     const { token, user, onSaveToken } = this.props
     onSaveToken(token)
+    this.context.network.joinChannel(`/users/${user.id}`)
     this.context.tracker.identify(user)
   }
 
   _handleSignout() {
+    const { user } = this.props
+    this.context.network.leaveChannel(`/users/${user.id}`)
     this.context.tracker.identify(null)
     this.props.onSignout()
   }

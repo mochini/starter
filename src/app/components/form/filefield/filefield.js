@@ -109,7 +109,7 @@ class Filefield extends React.PureComponent {
 
   _handleChange() {
     const { ids, multiple } = this.props
-    const value = multiple ? ids : ids[0]
+    const value = multiple ? ids : (ids[0] || null)
     this.props.onChange(value)
   }
 
