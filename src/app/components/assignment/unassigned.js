@@ -2,8 +2,9 @@ import PropTypes from 'prop-types'
 import Message from '../message'
 import Format from '../format'
 import React from 'react'
+import _ from 'lodash'
 
-class Unassigned extends React.Component {
+class Unassigned extends React.PureComponent {
 
   static propTypes = {
     format: PropTypes.any,
@@ -26,7 +27,7 @@ class Unassigned extends React.Component {
           <div className="assignment-unassigned-items">
             { unassigned.records.length > 0 && unassigned.records.map((assignee, index) => (
               <div className="assignment-unassigned-item" key={ `unassigned_${assignee.id}` } onClick={ this._handleChoose.bind(this, assignee) }>
-                <Format { ...assignee } format={ format } text={ text } value={ assignee } />
+                <Format { ...assignee } format={ format } value={ _.get(assignee, text) } />
               </div>
             )) }
           </div>

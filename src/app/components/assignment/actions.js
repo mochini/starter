@@ -16,6 +16,11 @@ export const fetchAssigned = (endpoint) => ({
   type: 'API_REQUEST',
   method: 'GET',
   endpoint,
+  query: {
+    $page: {
+      limit: 0
+    }
+  },
   request: 'FETCH_ASSIGNED_REQUEST',
   success: 'FETCH_ASSIGNED_SUCCESS',
   failure: 'FETCH_ASSIGNED_FAILURE'
@@ -53,15 +58,4 @@ export const remove = (index) => ({
 export const setAssigned = (assigned) => ({
   type: 'SET',
   assigned
-})
-
-export const setTypes = (types) => ({
-  type: 'SET_TYPES',
-  types
-})
-
-export const changeType = (name, index) => ({
-  type: 'CHANGE_TYPE',
-  name,
-  index
 })

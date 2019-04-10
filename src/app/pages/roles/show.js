@@ -1,3 +1,5 @@
+import Assignment from '../../components/assignment'
+import UserToken from '../../tokens/user_token'
 import { Page } from '../../components/page'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -31,7 +33,28 @@ const mapResourcesToPage = (props, context, page) => ({
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Role',
-  component: Show
+  component: Show,
+  tasks: {
+    items: [
+      { label: 'Assign Users', modal: <Assignment { ..._getAssignment() } />}
+    ]
+  }
 })
+
+const _getAssignment = () => {
+  return {
+    unassignedEndpoint: '/api/users',
+    unassignedFormat: UserToken,
+    assignedEndpoint: '/api/users',
+    assignedFormat: UserToken,
+    empty: {
+      icon: 'user',
+      title: 'No Users'
+    },
+    label: 'user',
+    text: 'full_name',
+    value: 'id'
+  }
+}
 
 export default Page(mapResourcesToPage, mapPropsToPage)

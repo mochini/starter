@@ -1,5 +1,3 @@
-import _ from 'lodash'
-
 export const INITIAL_STATE = {
   adding: false,
   assigned: {
@@ -8,10 +6,6 @@ export const INITIAL_STATE = {
   },
   q: '',
   unassigned: {
-    status: 'pending',
-    records: []
-  },
-  types: {
     status: 'pending',
     records: []
   }
@@ -119,32 +113,6 @@ const reducer = (state = INITIAL_STATE, action) => {
       assigned: {
         records: action.assigned,
         status: 'success'
-      }
-    }
-
-  case 'SET_TYPES':
-    return {
-      ...state,
-      types: {
-        records: action.types,
-        status: 'success'
-      }
-    }
-
-  case 'CHANGE_TYPE':
-    const assigned = state.assigned.records[action.index]
-    const type_index = _.findIndex(state.types.records, { value: assigned[action.name] })
-    const next_type_index = (type_index + 1) % state.types.records.length
-    return {
-      ...state,
-      assigned: {
-        ...state.assigned,
-        records: [
-          ...state.assigned.records.map((assigned, index) => ({
-            ...assigned,
-            [action.name]: (index === action.index) ? state.types.records[next_type_index].value: assigned[action.name]
-          }))
-        ]
       }
     }
 

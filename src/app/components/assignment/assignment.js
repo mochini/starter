@@ -8,8 +8,9 @@ import Message from '../message'
 import Format from '../format'
 import Loader from '../loader'
 import React from 'react'
+import _ from 'lodash'
 
-class Assignment extends React.Component {
+class Assignment extends React.PureComponent {
 
   static contextTypes = {
     modal: PropTypes.object
@@ -33,11 +34,6 @@ class Assignment extends React.Component {
     q: PropTypes.string,
     title: PropTypes.string,
     text: PropTypes.string,
-    types: PropTypes.object,
-    typesName: PropTypes.string,
-    typesEndpoint: PropTypes.string,
-    typesOptions: PropTypes.array,
-    typesFormat: PropTypes.any,
     unassigned: PropTypes.object,
     unassignedEndpoint: PropTypes.string,
     unassignedFormat: PropTypes.any,
@@ -59,9 +55,9 @@ class Assignment extends React.Component {
 
   static defaultProps = {
     assignedFormat: Token,
+    label: 'record',
     method: 'PATCH',
     text: 'title',
-    typesFormat: Token,
     unassignedFormat: Token,
     value: 'id'
   }
@@ -71,11 +67,10 @@ class Assignment extends React.Component {
   _handleAdd = this._handleAdd.bind(this)
   _handleBeginAdd = this._handleBeginAdd.bind(this)
   _handleCancel = this._handleCancel.bind(this)
-  _handleChangeType = this._handleChangeType.bind(this)
   _handleSave = this._handleSave.bind(this)
 
   render() {
-    const { assigned, assignedFormat, empty, footer, label, name, text, types, typesFormat, unassigned} = this.props
+    const { assigned, assignedFormat, empty, footer, label, text, unassigned } = this.props
     return (
       <ModalPanel { ...this._getModalPanel() } >
         <div className={ this._getClass() }>
@@ -86,21 +81,18 @@ class Assignment extends React.Component {
                 <div className="assignment-add" onClick={ this._handleBeginAdd }>
                   Assign a { label }...
                 </div>
-                { assigned.records.length === 0 && <Message { ...empty } /> }
+                { assigned.records.length === 0 &&
+                  <Message { ...empty } />
+                }
                 { assigned.records.length > 0 &&
                   <div className="assignment-list" ref={ node => this.list = node}>
                     <TransitionGroup>
                       { assigned.records.map((assignment, index) => (
-                        <CSSTransition classNames="expanded" timeout={ 1000 } exit={ false } key={`assigned_${assignment[name].id}`}>
+                        <CSSTransition classNames="expanded" timeout={ 1000 } exit={ false } key={`assigned_${assignment.id}`}>
                           <div className="assignment-item" >
                             <div className="assignment-item-token">
-                              <Format { ...assignment } format={ assignedFormat } text={ text } value={ assignment } />
+                              <Format { ...assignment } format={ assignedFormat } value={ _.get(assignment, text) }  />
                             </div>
-                            { types.records.length > 0 &&
-                              <div className="assignment-item-extra" onClick={ this._handleChangeType.bind(this, index) }>
-                                <Format { ...assignment } format={ typesFormat } text={ text } value={ assignment } />
-                              </div>
-                            }
                             <div className="assignment-item-icon" onClick={ this._handleRemove.bind(this, index) }>
                               <i className="fa fa-fw fa-times" />
                             </div>
@@ -135,8 +127,7 @@ class Assignment extends React.Component {
   }
 
   componentDidMount() {
-    const { assignedEndpoint, defaultValue, typesOptions, unassignedEndpoint, onFetchAssigned, onFetchUnassigned, onSetAssigned, onSetTypes } = this.props
-    if(typesOptions) onSetTypes(typesOptions)
+    const { assignedEndpoint, defaultValue, unassignedEndpoint, onFetchAssigned, onFetchUnassigned, onSetAssigned } = this.props
     onFetchUnassigned(unassignedEndpoint)
     if(defaultValue) onSetAssigned(defaultValue)
     if(!defaultValue) onFetchAssigned(assignedEndpoint)
@@ -195,14 +186,7 @@ class Assignment extends React.Component {
   }
 
   _handleAdd(item) {
-    const { name, types, typesName } = this.props
-    const assignment = types.records.length > 0 ? {
-      [name]: item,
-      [typesName]: types.records[0].value
-    } : {
-      user: item
-    }
-    this.props.onAdd(assignment)
+    this.props.onAdd(item)
   }
 
   _handleBeginAdd() {
@@ -211,11 +195,6 @@ class Assignment extends React.Component {
 
   _handleCancel() {
     this.context.modal.close()
-  }
-
-  _handleChangeType(index) {
-    const { typesName } = this.props
-    this.props.onChangeType(typesName, index)
   }
 
   _handleRemove(index) {

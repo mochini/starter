@@ -11,10 +11,6 @@ const assigned = (state, props) => ({
   records: state.assigned.records || []
 })
 
-const name = (state, props) => props.name
-
-const typesName = (state, props) => props.typesName
-
 const q = (state, props) => state.q.toLowerCase()
 
 const text = (state, props) => props.text
@@ -35,11 +31,10 @@ const filtered = createSelector(
 export const unassigned = createSelector(
   filtered,
   assigned,
-  name,
-  (filtered, assigned, name) => ({
+  (filtered, assigned) => ({
     status: filtered.status,
     records: filtered.records.filter(record => {
-      return _.findIndex(assigned.records, { [name]: { id: record.id } }) < 0
+      return _.findIndex(assigned.records, { id: record.id }) < 0
     })
   })
 )
@@ -51,13 +46,8 @@ export const ids = createSelector(
 
 export const values = createSelector(
   assigned,
-  name,
-  typesName,
-  (assigned, name, typesName) => assigned.records.reduce((values, assignee) => [
+  (assigned) => assigned.records.reduce((values, assignee) => [
     ...values,
-    {
-      [`${name}_id`]: assignee[name].id,
-      [typesName]: assignee[typesName]
-    }
+    assignee.id
   ], [])
 )
