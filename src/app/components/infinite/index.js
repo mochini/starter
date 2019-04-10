@@ -1,11 +1,11 @@
 import { Factory } from 'redux-rubberstamp'
 import reducer from './reducer'
-import infinite from './infinite'
+import Infinite from './infinite'
 import * as actions from './actions'
 
 export default Factory({
   namespace: 'infinite',
-  component: infinite,
+  component: Infinite,
   reducer,
   actions
 })

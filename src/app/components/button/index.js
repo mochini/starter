@@ -1,11 +1,11 @@
 import { Factory } from 'redux-rubberstamp'
 import reducer from './reducer'
-import button from './button'
+import Button from './button'
 import * as actions from './actions'
 
 export default Factory({
   namespace: 'button',
-  component: button,
+  component: Button,
   reducer,
   actions
 })

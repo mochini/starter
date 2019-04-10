@@ -1,11 +1,11 @@
 import { Factory } from 'redux-rubberstamp'
 import reducer from './reducer'
-import videofield from './videofield'
+import VideoField from './videofield'
 import * as actions from './actions'
 
 export default Factory({
   namespace: 'videofield',
-  component: videofield,
+  component: VideoField,
   reducer,
   actions
 })

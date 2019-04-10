@@ -3,7 +3,7 @@ import Chooser from './chooser'
 import moment from 'moment'
 import React from 'react'
 
-class Datefield extends React.PureComponent {
+class DateField extends React.PureComponent {
 
   static contextTypes = {
     form: PropTypes.object
@@ -111,4 +111,4 @@ class Datefield extends React.PureComponent {
 
 }
 
-export default Datefield
+export default DateField

@@ -1,12 +1,12 @@
 import { Factory } from 'redux-rubberstamp'
 import reducer from './reducer'
-import Collection from './collection'
-import * as selectors from './selectors'
+import Assignment from './assignment'
 import * as actions from './actions'
+import * as selectors from './selectors'
 
 export default Factory({
-  namespace: 'collection',
-  component: Collection,
+  namespace: 'assignment',
+  component: Assignment,
   reducer,
   actions,
   selectors

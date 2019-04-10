@@ -1,11 +1,11 @@
 import { Singleton } from 'redux-rubberstamp'
 import reducer from './reducer'
-import drawer from './drawer'
+import Drawer from './drawer'
 import * as actions from './actions'
 
 export default Singleton({
   namespace: 'drawer',
-  component: drawer,
+  component: Drawer,
   reducer,
   actions
 })

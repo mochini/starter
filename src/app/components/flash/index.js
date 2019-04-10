@@ -1,11 +1,11 @@
 import { Singleton } from 'redux-rubberstamp'
 import reducer from './reducer'
-import flash from './flash'
+import Flash from './flash'
 import * as actions from './actions'
 
 export default Singleton({
   namespace: 'flash',
-  component: flash,
+  component: Flash,
   reducer,
   actions
 })
