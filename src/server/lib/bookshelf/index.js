@@ -1,8 +1,9 @@
-import filter from './filter'
-import sort from './sort'
+import './validations/unique_validation'
 import pagination from './fetch_page'
 import Bookshelf from 'bookshelf'
+import filter from './filter'
 import knex from '../knex'
+import sort from './sort'
 
 const bookshelf = Bookshelf(knex)
 

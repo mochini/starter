@@ -1,4 +1,4 @@
-import knex from '../lib/knex'
+import knex from '../../knex'
 import Checkit from 'checkit'
 import _ from 'lodash'
 

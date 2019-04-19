@@ -1,5 +1,5 @@
-import * as jwt from '../utils/jwt'
-import User from '../models/user'
+import * as jwt from '../../utils/jwt'
+import User from '../../models/user'
 import _ from 'lodash'
 
 const authenticate = async (token) => {

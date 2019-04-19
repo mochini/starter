@@ -2,7 +2,7 @@ import Arena from 'bull-arena'
 import path from 'path'
 import fs from 'fs'
 
-const queueDir = path.join(__dirname, '..', 'queues')
+const queueDir = path.join(__dirname, '..', '..', 'queues')
 
 const arena = Arena({
   queues: fs.readdirSync(queueDir).map(filename => ({
