@@ -57,7 +57,11 @@ const clientWatch = () => {
       '/api/*': 'http://localhost:3001',
       '/imagecache/*': 'http://localhost:3001',
       '/jobs/*': 'http://localhost:3001',
-      '/locales/*': 'http://localhost:3001'
+      '/locales/*': 'http://localhost:3001',
+      '/socket': {
+        target: 'http://localhost:3001',
+        ws: true
+      }
     },
     historyApiFallback: {
       disableDotRule: true,

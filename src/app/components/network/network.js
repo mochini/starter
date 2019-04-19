@@ -64,8 +64,8 @@ class Network extends React.PureComponent {
   }
 
   componentDidMount() {
-    const socketUrl = `${window.location.protocol}//${window.location.hostname}:3002`
-    this.client = SocketClient(socketUrl)
+    const socketUrl = `${window.location.protocol}//${window.location.hostname}:3001`
+    this.client = SocketClient(socketUrl, { path: '/socket' })
     this.client.on('connect', this._handleConnect)
     this.client.on('disconnect', this._handleDisconnect)
     this.client.on('message', this._handleMessage)
