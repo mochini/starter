@@ -3,6 +3,7 @@ import SocketClient from 'socket.io-client'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import React from 'react'
+import _ from 'lodash'
 
 class Network extends React.PureComponent {
 
@@ -25,6 +26,7 @@ class Network extends React.PureComponent {
     onDisconnect: PropTypes.func,
     onJoinChannel: PropTypes.func,
     onLeaveChannel: PropTypes.func,
+    onRequest: PropTypes.func,
     onSetAlert: PropTypes.func,
     onSubscribe: PropTypes.func,
     onUnsubscribe: PropTypes.func
@@ -43,6 +45,7 @@ class Network extends React.PureComponent {
   _handleMessage = this._handleMessage.bind(this)
   _handleOfflineAlert = this._handleOfflineAlert.bind(this)
   _handleOnlineAlert = this._handleOnlineAlert.bind(this)
+  _handleRequest = this._handleRequest.bind(this)
   _handleSubscribe = this._handleSubscribe.bind(this)
   _handleUnsubscribe = this._handleUnsubscribe.bind(this)
 
@@ -81,6 +84,7 @@ class Network extends React.PureComponent {
       network: {
         joinChannel: this._handleJoinChannel,
         leaveChannel: this._handleLeaveChannel,
+        request: this._handleRequest,
         subscribe: this._handleSubscribe,
         unsubscribe: this._handleUnsubscribe
       }
@@ -95,7 +99,10 @@ class Network extends React.PureComponent {
   }
 
   _handleConnect() {
-    this.props.onConnect()
+    const { channels, online, onConnect } = this.props
+    onConnect()
+    if(online === null) return
+    setTimeout(() => this._handleJoinChannel(channels), 500)
   }
 
   _handleDisconnect() {
@@ -108,6 +115,8 @@ class Network extends React.PureComponent {
   }
 
   _handleJoinedChannel(channel) {
+    const { channels } = this.props
+    if(_.includes(channels, channel)) return
     this.props.onJoinChannel(channel)
   }
 
@@ -138,7 +147,14 @@ class Network extends React.PureComponent {
     setTimeout(this.props.onClearAlert, 2500)
   }
 
+  _handleRequest(request) {
+    const { onRequest } = this.props
+    onRequest(request)
+  }
+
   _handleSubscribe({ channel, action, handler }) {
+    const { listeners } = this.props
+    if(_.find(listeners, { channel, action, handler })) return
     this.props.onSubscribe(channel, action, handler)
   }
 
