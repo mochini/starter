@@ -1,4 +1,4 @@
-import Response from 'express/lib/response'
+import express from 'express'
 import JsonResponder from './json_responder'
 import XlsxResponder from './xlsx_responder'
 import XmlResponder from './xml_responder'
@@ -12,7 +12,7 @@ const getResponderClass = (req) => {
   return JsonResponder
 }
 
-Response.respond = function(data, serializer) {
+express.response.respond = function(data, serializer) {
   const responderClass = getResponderClass(this.req)
   const responder =  new responderClass(this, data, serializer)
   responder.render()

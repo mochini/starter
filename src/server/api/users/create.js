@@ -1,4 +1,5 @@
 import UserSerializer from '../../serializers/user_serializer'
+import { refresh } from '../../utils/emitter'
 import User from '../../models/user'
 import _ from 'lodash'
 
@@ -19,6 +20,8 @@ const route = async (req, res) => {
 
     await req.trx('roles_users').transacting(req.trx).insert(data)
   }
+
+  refresh('/users')
 
   res.status(200).respond(user, UserSerializer)
 

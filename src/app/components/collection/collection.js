@@ -25,6 +25,7 @@ class Collection extends React.PureComponent {
     allLayouts: PropTypes.array,
     batchActions: PropTypes.array,
     buttons: PropTypes.bool,
+    cacheKey: PropTypes.string,
     data: PropTypes.array,
     endpoint: PropTypes.string,
     entity: PropTypes.string,
@@ -133,7 +134,10 @@ class Collection extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    const { filter, sort } = this.props
+    const { cacheKey, filter, sort } = this.props
+    if(cacheKey !== prevProps.cacheKey) {
+      this.setState({ cacheKey })
+    }
     if(!_.isEqual(filter, prevProps.filter) || !_.isEqual(sort, prevProps.sort)) {
       this._handleChangeUrl()
     }

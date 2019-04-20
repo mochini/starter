@@ -19,6 +19,7 @@ class Page extends React.PureComponent {
   static propTypes = {
     active: PropTypes.bool,
     buttons: PropTypes.array,
+    cacheKey: PropTypes.any,
     children: PropTypes.any,
     collection: PropTypes.object,
     component: PropTypes.any,
@@ -85,8 +86,9 @@ class Page extends React.PureComponent {
   }
 
   _getCollection() {
-    const { collection } = this.props
+    const { cacheKey ,collection } = this.props
     return {
+      cacheKey,
       ...collection
     }
   }

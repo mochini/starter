@@ -15,7 +15,8 @@ const route = async (req, res) => {
 
   await refresh([
     `/sessions/${req.user.get('id')}`,
-    `/users/${req.user.get('id')}`
+    `/users/${req.user.get('id')}`,
+    '/users'
   ])
 
   res.status(200).respond(req.user, UserSerializer)

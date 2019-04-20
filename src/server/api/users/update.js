@@ -35,7 +35,8 @@ const route = async (req, res) => {
 
     await refresh([
       `/sessions/${user.get('id')}`,
-      `/users/${user.get('id')}`
+      `/users/${user.get('id')}`,
+      '/users'
     ])
 
     await req.trx('roles_users').transacting(req.trx).insert(data)
