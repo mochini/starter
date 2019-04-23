@@ -1,10 +1,13 @@
 import '../server/lib/environment'
-import config from '../app/config/webpack.development.config'
+import webConfig from '../app/config/webpack.development.config'
+import mobileConfig from '../cordova/config/webpack.config'
 import devServer from 'webpack-dev-server'
 import { spawn } from 'child_process'
-import Webpack from 'webpack'
+import chokidar from 'chokidar'
+import webpack from 'webpack'
 import chalk from 'chalk'
 import path from 'path'
+import _ from 'lodash'
 
 const log = (...options) => {
   const style = options[0] === 'error' ? chalk.red('e') : chalk.blue('i')
@@ -44,9 +47,38 @@ const serverWatch = async () => {
 
 }
 
+const mobileWatch = async () => {
+
+  const mobilePath = path.resolve('src','cordova','app')
+
+  const recompile = (event, path) => {
+
+    log('info', 'cordova', 'Compiling...')
+
+    webpack(mobileConfig).run((err, stats) => {
+
+      if(err) console.log(err)
+
+      log('info', 'cordova', 'Compiled successfully.')
+
+    })
+
+  }
+
+  chokidar.watch(mobilePath).on('all', (event, path) => {
+
+    if(!_.includes(['add','change'], event)) return
+
+    console.log(event, path)
+
+    recompile()
+  })
+
+}
+
 const clientWatch = () => {
 
-  const devserver = new devServer(Webpack(config()), {
+  const devserver = new devServer(webpack(webConfig), {
     contentBase: path.join('src', 'app', 'public'),
     compress: true,
     hot: true,
@@ -80,6 +112,8 @@ const clientWatch = () => {
 export const dev = async () => {
 
   await serverWatch()
+
+  await mobileWatch()
 
   await clientWatch()
 

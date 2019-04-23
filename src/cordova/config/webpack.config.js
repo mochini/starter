@@ -1,7 +1,5 @@
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
-import DynamicPlugin from './dynamic_plugin'
-import CopyPlugin from 'copy-webpack-plugin'
 import autoprefixer from 'autoprefixer'
 import webpack from 'webpack'
 import cssnano from 'cssnano'
@@ -9,8 +7,8 @@ import path from 'path'
 
 const config = {
   entry: [
-    path.resolve('tmp', 'index.js'),
-    path.resolve('tmp', 'index.less')
+    path.resolve('src','cordova','app','index.js'),
+    path.resolve('src','cordova','app','index.less')
   ],
   module: {
     rules: [
@@ -38,7 +36,7 @@ const config = {
             loader: 'babel-loader',
             options: {
               cacheDirectory: path.join('tmp', '.cache'),
-              presets: ['es2015', 'react', 'stage-0']
+              presets: ['es2015', 'stage-0']
             }
           }
         ]
@@ -46,31 +44,17 @@ const config = {
     ]
   },
   mode: 'production',
-  optimization: {
-    splitChunks: {
-      chunks: 'all',
-      name: 'vendors'
-    },
-    runtimeChunk: true
-  },
   output: {
-    path: path.resolve('dist','app','public'),
-    filename: path.join('js', 'bundle-[hash].min.js'),
-    publicPath: '/'
+    path: path.resolve('src','cordova','www'),
+    filename: path.join('js','index.js')
   },
   plugins: [
-    new DynamicPlugin(),
-    new CopyPlugin([{
-      from: path.resolve('src','app','public'),
-      to: path.resolve('dist','app','public')
-    }]),
     new MiniCssExtractPlugin({
-      path: path.resolve('dist','app','public'),
-      filename: path.join('css', 'bundle-[hash].min.css'),
-      publicPath: '/'
+      path: path.resolve('src','cordova','www'),
+      filename: path.join('css','index.css')
     }),
     new HtmlWebpackPlugin({
-      template: path.resolve('src', 'app','index.html')
+      template: path.resolve('src','cordova','app','index.html')
     }),
     new webpack.DefinePlugin({
       'process.env': {

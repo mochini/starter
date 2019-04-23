@@ -5,7 +5,7 @@ import webpack from 'webpack'
 import cssnano from 'cssnano'
 import path from 'path'
 
-const config = () => ({
+const config = {
   devtool: 'source-map',
   entry: [
     'webpack-dev-server/client?http://localhost:3000',
@@ -76,6 +76,6 @@ const config = () => ({
       }
     })
   ]
-})
+}
 
 export default config

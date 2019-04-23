@@ -55,7 +55,7 @@ const compilePath = async (base) => {
 
 const webpackClient = () => new Promise((resolve, reject) => {
 
-  webpack(config()).run((err, stats) => {
+  webpack(config).run((err, stats) => {
 
     if(err) reject(err)
 
