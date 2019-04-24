@@ -1,0 +1,12 @@
+<% for(var i = 0; i < components.length; i++) {-%>
+import <%= components[i].name %> from '<%= root %>/<%= components[i].path %>'
+<% } -%>
+import index from '<%= root %>/src/web'
+
+const reducers = [
+<% for(var i = 0; i < components.length; i++) {-%>
+  <%= components[i].name %>,
+<% } -%>
+]
+
+index(reducers)

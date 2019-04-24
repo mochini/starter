@@ -56,7 +56,7 @@ const model = async (args) => {
 
 const component = async (args) => {
   const [ pathname ] = args
-  const rootPath = path.join('src','app',pathname)
+  const rootPath = path.join('src','web',pathname)
   const componentName = _.snakeCase(pathname.split('/').slice(-1)[0])
   const className = _.upperFirst(_.camelCase(componentName))
   const styleName = _.kebabCase(componentName)
@@ -73,7 +73,7 @@ const component = async (args) => {
 
 const rubberstamp = async (args) => {
   const [ pathname ] = args
-  const rootPath = path.join('src','app',pathname)
+  const rootPath = path.join('src','web',pathname)
   const componentName = _.snakeCase(pathname.split('/').slice(-1)[0])
   const className = _.upperFirst(_.camelCase(componentName))
   const styleName = _.kebabCase(componentName)
@@ -98,7 +98,7 @@ const rubberstamp = async (args) => {
 
 const page = async (args) => {
   const [ pathname ] = args
-  const root = path.join('src','app','pages')
+  const root = path.join('src','web','pages')
   const data = {
     pagePath: path.join(root,`${pathname}.js`)
   }

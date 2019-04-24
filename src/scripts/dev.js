@@ -1,6 +1,7 @@
 import '../server/lib/environment'
-import webConfig from '../app/config/webpack.development.config'
-import mobileConfig from '../cordova/config/webpack.config'
+import webConfig from '../web/config/webpack.development.config'
+import desktopConfig from '../desktop/config/webpack.config'
+import mobileConfig from '../mobile/config/webpack.config'
 import devServer from 'webpack-dev-server'
 import { spawn } from 'child_process'
 import chokidar from 'chokidar'
@@ -30,7 +31,6 @@ const serverWatch = async () => {
     stdio: ['pipe', 'pipe', 'pipe', 'ipc']
   })
 
-
   proc.on('message', function (event) {
     if(event.type === 'start') {
       log('info', 'nodemon', 'Compiling...')
@@ -47,39 +47,33 @@ const serverWatch = async () => {
 
 }
 
-const mobileWatch = async () => {
-
-  const mobilePath = path.resolve('src','cordova','app')
-
-  const recompile = (event, path) => {
-
-    log('info', 'cordova', 'Compiling...')
-
-    webpack(mobileConfig).run((err, stats) => {
-
-      if(err) console.log(err)
-
-      log('info', 'cordova', 'Compiled successfully.')
-
-    })
-
-  }
-
-  chokidar.watch(mobilePath).on('all', (event, path) => {
-
+const desktopWatch = async () => {
+  chokidar.watch(path.resolve('src', 'desktop', 'app')).on('all', (event, path) => {
     if(!_.includes(['add','change'], event)) return
-
-    console.log(event, path)
-
-    recompile()
+    log('info', 'desktop', 'Compiling...')
+    webpack(desktopConfig).run((err, stats) => {
+      if(err) log('error', 'mobile', err)
+      console.log(stats)
+      log('info', 'desktop', 'Compiled successfully.')
+    })
   })
-
 }
 
-const clientWatch = () => {
+const mobileWatch = async () => {
+  chokidar.watch(path.resolve('src', 'mobile', 'app')).on('all', (event, path) => {
+    if(!_.includes(['add','change'], event)) return
+    log('info', 'mobile', 'Compiling...')
+    webpack(mobileConfig).run((err, stats) => {
+      if(err) log('error', 'mobile', err)
+      log('info', 'mobile', 'Compiled successfully.')
+    })
+  })
+}
+
+const webWatch = () => {
 
   const devserver = new devServer(webpack(webConfig), {
-    contentBase: path.join('src', 'app', 'public'),
+    contentBase: path.join('src', 'web', 'public'),
     compress: true,
     hot: true,
     stats: 'errors-only',
@@ -113,9 +107,11 @@ export const dev = async () => {
 
   await serverWatch()
 
+  await desktopWatch()
+
   await mobileWatch()
 
-  await clientWatch()
+  await webWatch()
 
 }
 

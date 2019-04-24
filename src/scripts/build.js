@@ -9,7 +9,7 @@ import fs from 'fs'
 
 dotenv.load({ path: path.join('.env') })
 
-const config = require(`../app/config/webpack.${process.env.NODE_ENV}.config`).default
+const config = require(`../web/config/webpack.${process.env.NODE_ENV}.config`).default
 
 const copy = (src, dest) => new Promise((resolve, reject) => ncp(src, dest, (err) => {
   if(err) reject(err)
