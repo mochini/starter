@@ -46,12 +46,12 @@ const config = {
   mode: 'production',
   output: {
     path: path.resolve('src','mobile','www'),
-    filename: path.join('js','index.js')
+    filename: path.join('index.js')
   },
   plugins: [
     new MiniCssExtractPlugin({
       path: path.resolve('src','mobile','www'),
-      filename: path.join('css','index.css')
+      filename: path.join('index.css')
     }),
     new HtmlWebpackPlugin({
       template: path.resolve('src','mobile','app','index.html')

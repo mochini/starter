@@ -69,9 +69,13 @@ const compileServer = async () => {
 
   console.log('Compiling server')
 
-  rimraf.sync(path.join('build'))
-
   await compilePath(path.join('src','server'))
+
+}
+
+const compileLocales = async () => {
+
+  console.log('Compiling locales')
 
   await copy(path.join('src','locales'), path.join('build','locales'))
 
@@ -88,6 +92,8 @@ const compileClient = async () => {
 const build = async () => {
 
   await compileServer()
+
+  await compileLocales()
 
   await compileClient()
 

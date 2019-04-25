@@ -10,23 +10,23 @@
       "dmg",
       "zip"
     ],
-    "icon": "../../build/assets/icons/icon.icns",
+    "icon": "../../build/assets/icon.icns",
     "category": "public.app-category.utilities"
   },
   "dmg": {
-    "icon": "../../build/assets/icons/icon.icns",
+    "icon": "../../build/assets/icon.icns",
     "backgroundColor": "#4D4D4D",
-    "title": "Maha"
+    "title": "Starter"
   },
   "win": {
     "target": [
       "nsis"
     ],
-    "icon": "../../build/assets/icons/icon.ico"
+    "icon": "../../build/assets/icon.ico"
   },
   "nsis": {
-    "installerIcon": "../../build/assets/icons/icon.ico",
-    "uninstallerIcon": "../../build/assets/icons/icon.ico",
+    "installerIcon": "../../build/assets/icon.ico",
+    "uninstallerIcon": "../../build/assets/icon.ico",
     "license": "LICENSE",
     "runAfterFinish": true
   }

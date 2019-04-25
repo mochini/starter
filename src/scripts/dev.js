@@ -53,7 +53,6 @@ const desktopWatch = async () => {
     log('info', 'desktop', 'Compiling...')
     webpack(desktopConfig).run((err, stats) => {
       if(err) log('error', 'mobile', err)
-      console.log(stats)
       log('info', 'desktop', 'Compiled successfully.')
     })
   })
@@ -104,15 +103,10 @@ const webWatch = () => {
 }
 
 export const dev = async () => {
-
   await serverWatch()
-
   await desktopWatch()
-
   await mobileWatch()
-
   await webWatch()
-
 }
 
 dev()
