@@ -1,5 +1,6 @@
 import { BrowserRouter as Router } from 'react-router-dom'
 import HTML5Backend from 'react-dnd-html5-backend'
+import initReactFastclick from 'react-fastclick'
 import Uploader from './components/uploader'
 import Presence from './components/presence'
 import { DragDropContext } from 'react-dnd'
@@ -18,6 +19,8 @@ import PropTypes from 'prop-types'
 import routes from './routes'
 import menu from './menu'
 import './components/i18n'
+
+initReactFastclick()
 
 class App extends React.PureComponent {
 

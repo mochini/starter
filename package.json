@@ -4,6 +4,7 @@
   "description": "Starter Project",
   "main": "index.js",
   "scripts": {
+    "assets": "babel-node ./src/scripts/assets.js",
     "build": "NODE_ENV=production babel-node ./src/scripts/build.js",
     "dev": "babel-node ./src/scripts/dev.js",
     "deploy": "babel-node ./src/scripts/deploy.js",
@@ -11,10 +12,7 @@
     "knex": "babel-node ./src/scripts/knex.js",
     "test": "NODE_ENV=test babel-node ./src/scripts/test.js",
     "desktop:dmgbackground": "tiffutil -cathidpicheck ./build/screens/dmg.png ./build/screens/dmg@2x.png -out ./build/screens/dmg.tiff",
-    "desktop:clean": "rm -rf dist",
-    "desktop:pack": "build --dir",
-    "desktop:dist": "build --mac --win --x64 --ia32",
-    "desktop:release": "build --mac --win --x64 --ia32",
+    "desktop:build": "build --mac --win --x64 --project=./src/desktop --config=./config/config.json",
     "desktop:start": "electron ./src/desktop/www",
     "mobile:ios:simulator": "cd ./src/mobile && cordova run ios --buildFlag='-UseModernBuildSystem=0' --target=iPhone-8",
     "mobile:ios:device": "cd ./src/mobile && cordova run ios --buildFlag='-UseModernBuildSystem=0'",
@@ -24,51 +22,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "build": {
-    "appId": "com.mahaplatform.app",
-    "productName": "Maha",
-    "artifactName": "maha-${os}-${version}.${ext}",
-    "mac": {
-      "target": [
-        "dmg",
-        "zip"
-      ],
-      "icon": "build/icons/icon.icns",
-      "category": "public.app-category.utilities"
-    },
-    "dmg": {
-      "icon": "build/icons/icon.icns",
-      "backgroundColor": "#4D4D4D",
-      "title": "Maha"
-    },
-    "win": {
-      "target": [
-        "nsis"
-      ],
-      "icon": "build/icons/icon.ico"
-    },
-    "nsis": {
-      "installerIcon": "build/icons/icon.ico",
-      "uninstallerIcon": "build/icons/icon.ico",
-      "license": "LICENSE",
-      "runAfterFinish": true
-    },
-    "protocols": {
-      "name": "maha",
-      "schemes": [
-        "maha"
-      ]
-    },
-    "publish": [
-      {
-        "provider": "s3",
-        "bucket": "cdn.mahaplatform.com",
-        "path": "/releases",
-        "acl": "public-read",
-        "publishAutoUpdate": true
-      }
-    ]
-  },
   "cordova": {
     "plugins": {
       "cordova-plugin-whitelist": {},
@@ -104,7 +57,7 @@
     "cordova-plugin-whitelist": "^1.3.3",
     "css-loader": "^2.1.0",
     "cssnano": "^4.1.10",
-    "electron": "^3.0.7",
+    "electron": "^4.1.5",
     "electron-builder": "^20.34.0",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.10.0",
@@ -161,11 +114,13 @@
     "on-finished": "^2.3.0",
     "pg": "^7.8.1",
     "pluralize": "^7.0.0",
+    "png2icons": "^1.0.1",
     "qs": "^6.6.0",
     "react": "^16.8.3",
     "react-dnd": "^7.4.1",
     "react-dnd-html5-backend": "^7.4.0",
     "react-dom": "^16.8.3",
+    "react-fastclick": "^3.0.2",
     "react-helmet": "^5.2.0",
     "react-hot-loader": "^4.7.2",
     "react-i18next": "^10.5.2",

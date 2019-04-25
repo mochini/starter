@@ -23,7 +23,7 @@ class App {
     const iframe = document.createElement('iframe')
     iframe.setAttribute('src', 'http://localhost:3000')
     iframe.setAttribute('border', 0)
-    const body = document.getElementById('body')
+    const body = document.getElementById('cordova')
     body.appendChild(iframe)
   }
 

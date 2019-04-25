@@ -4,7 +4,7 @@
 node_modules
 npm-debug.log
 .DS_Store
-dist
+build
 !knexfile.example.js
 knexfile.js
 REVISION

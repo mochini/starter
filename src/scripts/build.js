@@ -35,7 +35,7 @@ const transpile = (source) => {
 
 const compilePath = async (base) => {
 
-  const dest = base.replace('src/server', 'dist/server')
+  const dest = base.replace('src/server', 'build/server')
 
   mkdirp.sync(dest)
 
@@ -69,11 +69,11 @@ const compileServer = async () => {
 
   console.log('Compiling server')
 
-  rimraf.sync(path.join('dist'))
+  rimraf.sync(path.join('build'))
 
   await compilePath(path.join('src','server'))
 
-  await copy(path.join('src','locales'), path.join('dist','locales'))
+  await copy(path.join('src','locales'), path.join('build','locales'))
 
 }
 

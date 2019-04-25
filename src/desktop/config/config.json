@@ -1,0 +1,33 @@
+{
+  "appId": "starter.app",
+  "productName": "Starter",
+  "artifactName": "starter-${os}-${version}.${ext}",
+  "directories": {
+    "output": "../../build/desktop"
+  },
+  "mac": {
+    "target": [
+      "dmg",
+      "zip"
+    ],
+    "icon": "../../build/assets/icons/icon.icns",
+    "category": "public.app-category.utilities"
+  },
+  "dmg": {
+    "icon": "../../build/assets/icons/icon.icns",
+    "backgroundColor": "#4D4D4D",
+    "title": "Maha"
+  },
+  "win": {
+    "target": [
+      "nsis"
+    ],
+    "icon": "../../build/assets/icons/icon.ico"
+  },
+  "nsis": {
+    "installerIcon": "../../build/assets/icons/icon.ico",
+    "uninstallerIcon": "../../build/assets/icons/icon.ico",
+    "license": "LICENSE",
+    "runAfterFinish": true
+  }
+}
