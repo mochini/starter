@@ -1,9 +1,12 @@
 class Authentication {
 
-  constructor() {
+  app = null
+
+  constructor(app) {
+    this.app = app
   }
 
-  recieve(action, data, callback) {
+  recieve(action, data) {
   }
 
 }

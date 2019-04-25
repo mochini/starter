@@ -1,4 +1,4 @@
-class Browser {
+class Notifications {
 
   app = null
 
@@ -11,4 +11,4 @@ class Browser {
 
 }
 
-export default Browser
+export default Notifications

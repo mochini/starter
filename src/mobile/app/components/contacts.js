@@ -1,22 +1,30 @@
 class Contacts {
 
-  constructor() {
+  app = null
+
+  _handleGetPermission = this._handleGetPermission.bind(this)
+  _handleGetContacts = this._handleGetContacts.bind(this)
+
+  constructor(app) {
+    this.app = app
   }
 
-  recieve(action, data, callback) {
+  recieve(action, data) {
+    if(action === 'getPermission') this._handleGetPermission()
+    if(action === 'getContacts') this._handleGetContacts()
   }
 
   _handleGetPermission() {
-    this.store.getItem('contacts', (err, value) => {
+    this.app.store.getItem('contacts', (err, value) => {
       if(value !== true) {
-        return window.store.setItem('contacts', true, function (err, value) {
-          this._handleSend('getContactsPermission', 'unknown')
+        return this.app.store.setItem('contacts', true, (err, value) => {
+          this.app.send('contacts', 'getPermission', 'unknown')
         })
       }
       navigator.contacts.find(['*'], (contacts) => {
-        this._handleSend('getContactsPermission', 'granted')
+        this.app.send('contacts', 'getPermission', 'granted')
       }, (err) => {
-        this._handleSend('getContactsPermission', 'denied')
+        this.app.send('contacts','getPermission', 'denied')
       }, {
         desiredFields: [],
         filter: '',
@@ -24,6 +32,12 @@ class Contacts {
         multiple: true
       })
     })
+  }
+
+  _handleGetContacts() {
+    navigator.contacts.find(['*'], (contacts) => {
+      this.app.send('contacts', 'getContacts', contacts)
+    }, (err) => {})
   }
 
 }

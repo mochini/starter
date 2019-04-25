@@ -1,5 +1,6 @@
 import Authentication from './authentication'
 import Notifications from './notifications'
+import Geolocation from './geolocation'
 import Contacts from './contacts'
 import Insomnia from './insomnia'
 import Browser from './browser'
@@ -12,16 +13,26 @@ class App {
 
   _handleReady = this._handleReady.bind(this)
   _handleRecieve = this._handleRecieve.bind(this)
+  _handleSend = this._handleSend.bind(this)
 
   constructor() {
     document.addEventListener('deviceready', this._handleReady, false)
     document.addEventListener('message', this._handleRecieve, false)
-    this.services.authentication = new Authentication()
-    this.services.browser = new Browser()
-    this.services.camera = new Camera()
-    this.services.contacts = new Contacts()
-    this.services.nsomnia = new Insomnia()
-    this.services.notifications = new Notifications()
+    this.store = window.localforage.createInstance({
+      name: 'local',
+      storeName: 'starter'
+    })
+    const app = {
+      store: this.store,
+      send: this._handleSend
+    }
+    this.services.authentication = new Authentication(app)
+    this.services.browser = new Browser(app)
+    this.services.camera = new Camera(app)
+    this.services.contacts = new Contacts(app)
+    this.services.geolocation = new Geolocation(app)
+    this.services.nsomnia = new Insomnia(app)
+    this.services.notifications = new Notifications(app)
   }
 
   _handleReady() {
@@ -31,7 +42,6 @@ class App {
     this.iframe.setAttribute('border', 0)
     const body = document.getElementById('cordova')
     body.appendChild(this.iframe)
-    this._handleGetContactsPermission()
   }
 
   _handleRecieve(e) {
@@ -40,7 +50,7 @@ class App {
   }
 
   _handleSend(service, action, data) {
-    this.iframe.contentWindow.postMessage({ action, data }, '*')
+    this.iframe.contentWindow.postMessage({ service, action, data }, '*')
   }
 
 }
