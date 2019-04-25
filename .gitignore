@@ -10,8 +10,8 @@ knexfile.js
 REVISION
 /tmp/*
 !/tmp/.gitkeep
-src/cordova/platforms/*
-!src/cordova/platforms/.gitkeep
-src/cordova/plugins/*
-!src/cordova/plugins/.gitkeep
+src/mobile/platforms/*
+!src/mobile/platforms/.gitkeep
+src/mobile/plugins/*
+!src/mobile/plugins/.gitkeep
 repo
