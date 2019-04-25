@@ -48,22 +48,30 @@ const serverWatch = async () => {
 }
 
 const desktopWatch = async () => {
+  let compiling = false
   chokidar.watch(path.resolve('src', 'desktop', 'app')).on('all', (event, path) => {
+    if(compiling) return
     if(!_.includes(['add','change'], event)) return
+    compiling = true
     log('info', 'desktop', 'Compiling...')
     webpack(desktopConfig).run((err, stats) => {
-      if(err) log('error', 'mobile', err)
+      compiling = false
+      if(err) return log('error', 'mobile', err)
       log('info', 'desktop', 'Compiled successfully.')
     })
   })
 }
 
 const mobileWatch = async () => {
+  let compiling = false
   chokidar.watch(path.resolve('src', 'mobile', 'app')).on('all', (event, path) => {
+    if(compiling) return
     if(!_.includes(['add','change'], event)) return
+    compiling = true
     log('info', 'mobile', 'Compiling...')
     webpack(mobileConfig).run((err, stats) => {
-      if(err) log('error', 'mobile', err)
+      compiling = false
+      if(err) return log('error', 'mobile', err)
       log('info', 'mobile', 'Compiled successfully.')
     })
   })

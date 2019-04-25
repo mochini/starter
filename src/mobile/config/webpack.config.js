@@ -36,7 +36,7 @@ const config = {
             loader: 'babel-loader',
             options: {
               cacheDirectory: path.join('tmp', '.cache'),
-              presets: ['es2015', 'stage-0']
+              presets: ['es2015', 'react', 'stage-0']
             }
           }
         ]
@@ -46,12 +46,12 @@ const config = {
   mode: 'production',
   output: {
     path: path.resolve('src','mobile','www'),
-    filename: path.join('index.js')
+    filename: path.join('js','index.js')
   },
   plugins: [
     new MiniCssExtractPlugin({
       path: path.resolve('src','mobile','www'),
-      filename: path.join('index.css')
+      filename: path.join('css','index.css')
     }),
     new HtmlWebpackPlugin({
       template: path.resolve('src','mobile','app','index.html')
