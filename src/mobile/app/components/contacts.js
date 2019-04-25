@@ -3,6 +3,9 @@ class Contacts {
   constructor() {
   }
 
+  recieve(action, data, callback) {
+  }
+
   _handleGetPermission() {
     this.store.getItem('contacts', (err, value) => {
       if(value !== true) {

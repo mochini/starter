@@ -8,6 +8,9 @@ class Insomnia {
     document.addEventListener('resume', this._handleResume, false)
   }
 
+  recieve(action, data, callback) {
+  }
+
   _handlePause() {
   }
 

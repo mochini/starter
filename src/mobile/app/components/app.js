@@ -1,8 +1,13 @@
+import Authentication from './authentication'
+import Notifications from './notifications'
 import Contacts from './contacts'
 import Insomnia from './insomnia'
+import Browser from './browser'
+import Camera from './camera'
 
 class App {
 
+  services = {}
   iframe = null
 
   _handleReady = this._handleReady.bind(this)
@@ -11,8 +16,12 @@ class App {
   constructor() {
     document.addEventListener('deviceready', this._handleReady, false)
     document.addEventListener('message', this._handleRecieve, false)
-    this.contacts = new Contacts()
-    this.insomnia = new Insomnia()
+    this.services.authentication = new Authentication()
+    this.services.browser = new Browser()
+    this.services.camera = new Camera()
+    this.services.contacts = new Contacts()
+    this.services.nsomnia = new Insomnia()
+    this.services.notifications = new Notifications()
   }
 
   _handleReady() {
@@ -26,20 +35,14 @@ class App {
   }
 
   _handleRecieve(e) {
-    const message = e.data
-    if(message.action === 'getContactsPermission') return this._handleGetContactsPermission()
-    // if(message.action === 'allowSleep') return allowSleep()
-    // if(message.action === 'keepAwake') return keepAwake()
-    // if(message.action === 'openWindow') return openWindow(message.data)
-    // if(message.action === 'signin') return signin(message.data)
-    // if(message.action === 'getContacts') return getContacts()
+    const { service, action, data } = e.data
+    this.services[service].recieve(action, data, this._handleSend.bind(this, service))
   }
 
-
-  _handleSend(action, data) {
+  _handleSend(service, action, data) {
     this.iframe.contentWindow.postMessage({ action, data }, '*')
   }
-  
+
 }
 
 export default App
