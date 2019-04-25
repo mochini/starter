@@ -1,1 +1,22 @@
-{"devDependencies":{"cordova-plugin-whitelist":"1","cordova-plugin-statusbar":"^2.4.2","cordova-plugin-keyboard":"^1.2.0","cordova-plugin-insomnia":"https://github.com/EddyVerbruggen/Insomnia-PhoneGap-Plugin.git","cordova-plugin-screen-orientation":"^3.0.1"},"cordova":{"plugins":{"cordova-plugin-whitelist":{},"cordova-plugin-statusbar":{},"cordova-plugin-keyboard":{},"cordova-plugin-insomnia":{},"cordova-plugin-screen-orientation":{}}}}
+{
+  "devDependencies": {
+    "cordova-plugin-whitelist": "1",
+    "cordova-plugin-statusbar": "^2.4.2",
+    "cordova-plugin-keyboard": "^1.2.0",
+    "cordova-plugin-insomnia": "https://github.com/EddyVerbruggen/Insomnia-PhoneGap-Plugin.git",
+    "cordova-plugin-screen-orientation": "^3.0.1"
+  },
+  "cordova": {
+    "plugins": {
+      "cordova-plugin-whitelist": {},
+      "cordova-plugin-statusbar": {},
+      "cordova-plugin-keyboard": {},
+      "cordova-plugin-insomnia": {},
+      "cordova-plugin-screen-orientation": {},
+      "cordova-plugin-contacts": {}
+    }
+  },
+  "dependencies": {
+    "cordova-plugin-contacts": "^3.0.1"
+  }
+}
