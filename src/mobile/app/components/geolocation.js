@@ -1,12 +1,19 @@
-class Geolocation {
+import PropTypes from 'prop-types'
+import React from 'react'
 
-  app = null
+class Geolocation extends React.Component {
+
+  static contextTypes = {
+    app: PropTypes.object
+  }
+
+  static propTypes = {}
 
   _handleGetPermission = this._handleGetPermission.bind(this)
   _handleGetPosition = this._handleGetPosition.bind(this)
 
-  constructor(app) {
-    this.app = app
+  render() {
+    return null
   }
 
   recieve(action, data) {

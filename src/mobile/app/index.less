@@ -35,7 +35,7 @@
 }
 
 * {
-    -webkit-tap-highlight-color: fadeout(@black, 100);
+  -webkit-tap-highlight-color: fadeout(@black, 100);
 }
 body {
   -webkit-touch-callout: none;
@@ -47,12 +47,7 @@ body {
   padding: 0;
   margin: 0;
 }
-iframe {
-  background: @white;
-  border: none;
-  flex: 1;
-}
-.cordova {
+#main {
   position: absolute;
   top: 0;
   right: 0;
@@ -62,4 +57,5 @@ iframe {
   flex-direction: column;
 }
 
+@import './components/app/style.less';
 @import './components/message/style.less';

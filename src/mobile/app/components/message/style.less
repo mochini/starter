@@ -1,6 +1,15 @@
-.message {
-	background-color: fadeout(@black, 98);
+.message-container {
 	flex: 1;
+  display: flex;
+	position: relative;
+}
+.message {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-color: fadeout(@black, 98);
   display: flex;
 	&.green {
 		background-color: @red;

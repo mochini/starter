@@ -1,9 +1,16 @@
-class Authentication {
+import PropTypes from 'prop-types'
+import React from 'react'
 
-  app = null
+class Authentication extends React.Component {
 
-  constructor(app) {
-    this.app = app
+  static contextTypes = {
+    app: PropTypes.object
+  }
+
+  static propTypes = {}
+
+  render() {
+    return null
   }
 
   recieve(action, data) {

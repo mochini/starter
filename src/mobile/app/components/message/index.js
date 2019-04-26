@@ -1,89 +1,52 @@
 import PropTypes from 'prop-types'
+import Message from './message'
 import React from 'react'
 
-class Message extends React.Component {
+class Container extends React.Component {
 
-  static contextTypes = {
-    modal: PropTypes.object
+  static childContextTypes = {
+    message: PropTypes.object
   }
 
   static propTypes = {
-    animation: PropTypes.string,
-    buttons: PropTypes.array,
-    icon: PropTypes.string,
-    text: PropTypes.string,
-    title: PropTypes.string,
-    color: PropTypes.string
-  }
-
-  static defaultProps = {
-    animation: null,
-    color: null
+    children: PropTypes.any
   }
 
   state = {
-    animate: false
+    message: null
   }
 
+  _handleClear = this._handleClear.bind(this)
+  _handleSet = this._handleSet.bind(this)
+
   render() {
-    const { buttons, icon, text, title } = this.props
+    const { message } = this.state
     return (
-      <div className={ this._getClass() }>
-        <div className="message-panel">
-          { icon &&
-            <div className="message-panel-icon">
-              <h2>
-                <i className={ this._getIconClass() } />
-              </h2>
-            </div>
-          }
-          { title && <h3>{ title }</h3> }
-          { text && <p>{ text }</p> }
-          { buttons &&
-            <div className="buttons">
-              { buttons.map((button, index) => (
-                <div { ...this._getButton(button) } key={`button_${index}`}>
-                  { button.label }
-                </div>
-              )) }
-            </div>
-          }
-        </div>
+      <div className="message-container">
+        { message && <Message { ...message } /> }
+        { this.props.children }
       </div>
     )
   }
 
-  componentDidMount() {
-    if(!this.props.animation) return
-    setTimeout(() => {
-      this.setState({ animate: true })
-      setTimeout(() => {
-        this.setState({ animate: false })
-      }, 500)
-    }, 500)
-  }
-
-  _getClass() {
-    const { color } = this.props
-    const classes = ['message']
-    if(color) classes.push(color)
-    return classes.join(' ')
-  }
-
-  _getIconClass() {
-    const { animate } = this.state
-    const { animation, icon } = this.props
-    const classes = ['fa', `fa-${icon}`]
-    if(animate && animation) classes.push(`animated ${animation}`)
-    return classes.join(' ')
-  }
-
-  _getButton(button) {
+  getChildContext() {
     return {
-      className: 'ui fluid red basic button',
-      onClick: button.handler
+      message: {
+        clear: this._handleClear,
+        set: this._handleSet
+      }
     }
   }
+
+  _handleClear() {
+    const message = null
+    this.setState({ message })
+  }
+
+  _handleSet(message) {
+    this.setState({ message })
+  }
+
 }
 
-export default Message
+export default Container

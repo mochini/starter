@@ -1,9 +1,16 @@
-class Browser {
+import PropTypes from 'prop-types'
+import React from 'react'
 
-  app = null
+class Browser extends React.Component {
+  
+  static contextTypes = {
+    app: PropTypes.object
+  }
 
-  constructor(app) {
-    this.app = app
+  static propTypes = {}
+
+  render() {
+    return null
   }
 
   recieve(action, data) {
