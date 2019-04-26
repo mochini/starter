@@ -4,42 +4,61 @@ import React from 'react'
 class Geolocation extends React.Component {
 
   static contextTypes = {
-    app: PropTypes.object
+    app: PropTypes.object,
+    message: PropTypes.object
   }
 
   static propTypes = {}
 
-  _handleGetPermission = this._handleGetPermission.bind(this)
+  _handleDeny = this._handleDeny.bind(this)
   _handleGetPosition = this._handleGetPosition.bind(this)
+  _handleRecieve = this._handleRecieve.bind(this)
 
   render() {
     return null
   }
 
-  recieve(action, data) {
-    if(action === 'getPermission') this._handleGetPermission()
-    if(action === 'getPosition') this._handleGetPosition()
+  componentDidMount() {
+    document.addEventListener('message', this._handleRecieve, false)
   }
 
-  _handleGetPermission() {
-    this.app.store.getItem('geolocation', (err, value) => {
+  _getMessage() {
+    return {
+      color: 'green',
+      icon: 'map-marker',
+      title: 'Access Location',
+      text: 'If you grant us access, we can show you records close you.',
+      onAllow: this._handleGetPosition,
+      onDeny: this._handleDeny
+    }
+  }
+
+  _handleGetPosition() {
+    const { app, message } = this.context
+    const { store } = app
+    store.getItem('geolocation', (err, value) => {
       if(value !== true) {
-        return this.app.store.setItem('geolocation', true, (err, value) => {
-          this.app.send('geolocation', 'getPermission', 'unknown')
+        return store.setItem('geolocation', true, (err, value) => {
+          message.set(this._getMessage())
         })
       }
       navigator.geolocation.getCurrentPosition((position) => {
-        this.app.send('geolocation', 'getPermission', 'granted')
+        message.clear()
+        this.app.send('geolocation', 'get', position)
       }, (err) => {
-        this.app.send('geolocation','getPermission', 'denied')
+        message.clear()
+        console.log(err)
       })
     })
   }
 
-  _handleGetPosition() {
-    navigator.geolocation.getCurrentPosition((position) => {
-      this.app.send('geolocation', 'getPosition', position)
-    }, (err) => {})
+  _handleDeny() {
+    this.context.message.clear()
+  }
+
+  _handleRecieve(service, action, data) {
+    if(service !== 'geolocation') return
+    if(action === 'get') this._handleGetPosition()
   }
 
 }

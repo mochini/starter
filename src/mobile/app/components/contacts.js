@@ -10,22 +10,16 @@ class Contacts extends React.Component {
 
   static propTypes = {}
 
-  _handleAllow = this._handleAllow.bind(this)
   _handleDeny = this._handleDeny.bind(this)
-  _handleGetPermission = this._handleGetPermission.bind(this)
   _handleGetContacts = this._handleGetContacts.bind(this)
+  _handleRecieve = this._handleRecieve.bind(this)
 
   render() {
     return null
   }
 
   componentDidMount() {
-    this._handleGetPermission()
-  }
-
-  recieve(action, data) {
-    if(action === 'getPermission') this._handleGetPermission()
-    if(action === 'getContacts') this._handleGetContacts()
+    document.addEventListener('message', this._handleRecieve, false)
   }
 
   _getMessage() {
@@ -34,34 +28,32 @@ class Contacts extends React.Component {
       icon: 'id-card-o',
       title: 'Access Contact List',
       text: 'If you grant us access, we can invite people from your phone\'s contact list. If not, you can still invite them manually.',
-      onAllow: this._handleAllow,
+      onAllow: this._handleGetContacts,
       onDeny: this._handleDeny
     }
   }
 
-  _handleGetPermission() {
-    const { store } = this.context.app
+  _handleGetContacts() {
+    const { app, message } = this.context
+    const { store } = app
     store.getItem('contacts', (err, value) => {
-      if(value === true) return
-      return store.setItem('contacts', true, (err, value) => {
-        const message = this._getMessage()
-        this.context.message.set(message)
+      if(value !== true) {
+        return store.setItem('contacts', true, (err, value) => {
+          message.set(this._getMessage())
+        })
+      }
+      navigator.contacts.find(['*'], (contacts) => {
+        message.clear()
+        app.send('contacts', 'getContacts', contacts)
+      }, (err) => {
+        message.clear()
+        console.log(err)
+      }, {
+        desiredFields: [],
+        filter: '',
+        hasPhoneNumber: false,
+        multiple: true
       })
-    })
-  }
-
-  _handleAllow() {
-    navigator.contacts.find(['*'], (contacts) => {
-      this.context.message.clear()
-      this.context.app.send('contacts', 'getPermission', 'granted')
-    }, (err) => {
-      this.context.message.clear()
-      this.context.app.send('contacts','getPermission', 'denied')
-    }, {
-      desiredFields: [],
-      filter: '',
-      hasPhoneNumber: false,
-      multiple: true
     })
   }
 
@@ -69,10 +61,9 @@ class Contacts extends React.Component {
     this.context.message.clear()
   }
 
-  _handleGetContacts() {
-    navigator.contacts.find(['*'], (contacts) => {
-      this.app.send('contacts', 'getContacts', contacts)
-    }, (err) => {})
+  _handleRecieve(service, action, data) {
+    if(service !== 'contacts') return
+    if(action === 'get') this._handleGetContacts()
   }
 
 }
